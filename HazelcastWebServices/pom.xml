@@ -1,0 +1,123 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.hazelcast.ui</groupId>
+	<artifactId>HazelcastWebServices</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>Hazelcast Custom Web UI</name>
+
+	<properties>
+		<java-version>1.7</java-version>
+		<spring-version>4.1.5.RELEASE</spring-version>
+		<jackson-version>2.4.1</jackson-version>
+		<apache-http-client-version>4.5</apache-http-client-version>
+		<hazelcast-version>3.4.6</hazelcast-version>
+		<kryo-version>2.22</kryo-version>
+		<javax.servlet.version>2.5</javax.servlet.version>
+		<log4j-version>1.2.17</log4j-version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Spring MVC support -->
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+
+
+
+		<!-- Jackson JSON Processor -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${apache-http-client-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hazelcast</groupId>
+			<artifactId>hazelcast-client</artifactId>
+			<version>${hazelcast-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.esotericsoftware.kryo</groupId>
+			<artifactId>kryo</artifactId>
+			<version>${kryo-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j-version}</version>
+		</dependency>
+
+		<!-- http://mvnrepository.com/artifact/javax.servlet/servlet-api -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>${javax.servlet.version}</version>
+		</dependency>
+
+	</dependencies>
+	<build>
+		<pluginManagement>
+
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.3</version>
+					<configuration>
+						<source>${java-version}</source>
+						<target>${java-version}</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.4</version>
+					<!-- <configuration> <warSourceDirectory>src/main/webapp</warSourceDirectory> 
+						<warName>HazelcastWebUI</warName> <failOnMissingWebXml>false</failOnMissingWebXml> 
+						</configuration> -->
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+
+		<finalName>HazelcastWebServices</finalName>
+	</build>
+
+
+</project>
