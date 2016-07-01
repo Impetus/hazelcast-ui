@@ -1,1 +1,4 @@
-¬Þ•«-P€<v³zW²ÕŠÊÞ²Úâr×¶‰èuë¢·^½éh¦g§¶Xœz{N¬jše‰Æ­Š‰é®‹âuë-…æÚ²'j–›ŠX­Ê‡Çk7¥q«-PŒ"¶.µ©ò­ë-®'-Š‰è~{¦mêè~zz
+Hazelcast UI App
+=============
+
+Hazelcast UI provided in development version is restricted to two nodes. 
