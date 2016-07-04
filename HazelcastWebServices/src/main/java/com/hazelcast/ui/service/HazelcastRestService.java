@@ -20,7 +20,11 @@ import com.hazelcast.core.DistributedObject;
 import com.hazelcast.core.EntryView;
 import com.hazelcast.core.Member;
 import com.hazelcast.util.CacheInstance;
-
+/**
+ * 
+ * @author Sourav Gulati
+ * @Description Service class for webservices related to hazelcast library
+ */
 @Component
 public class HazelcastRestService {
 
@@ -37,6 +41,10 @@ public class HazelcastRestService {
 
 	}
 
+	/**
+	 * @Description This method is used to retrieve list of members of hazelcast cluster 
+	 * @return json list of hazelcast members
+	 */
 	public String getMembersInfo() {
 		List<String> members = new ArrayList<>();
 
@@ -52,6 +60,10 @@ public class HazelcastRestService {
 		}
 	}
 
+	/**
+	 * @Description This method is used to retrieve list of maps of hazelcast cluster 
+	 * @return json list of hazelcast maps
+	 */
 	public String getMapsName() {
 		List<String> maps = new ArrayList<>();
 		Collection<DistributedObject> distributedObjects = cacheInstance.getClient().getDistributedObjects();
@@ -67,18 +79,13 @@ public class HazelcastRestService {
 		}
 	}
 
-	public String getSize(String mapName) {
-		int size = cacheInstance.getClient().getMap(mapName).size();
-		Map<String, Integer> sizeMap = new HashMap<>();
-		sizeMap.put("Size",size);
-		try {
-			return (objectMapper.writeValueAsString(sizeMap));
-		} catch (JsonProcessingException e) {
-			return ("Exception occurred while fecthing entry" + e);
-		}
-		
-	}
-
+	/**
+	 * @Description This method is used to retrieve value corresponding to given in hazelcast map
+	 * @param map name
+	 * @param key
+	 * @param data type of key
+	 * @return json string of value retrieved from map
+	 */
 	public String getValueFromMap(String mapName, String key, String type) {
 		Calendar cal = Calendar.getInstance();
 		Object mapKey = null;
@@ -112,6 +119,13 @@ public class HazelcastRestService {
 		}
 	}
 
+	/**
+	 * @Description This method is used to retrieve object initialized corresponding to data type of key
+	 * @param data type of key
+	 * @param key
+	 * @return Object initialized corresponding to data type of key
+	 * @throws ParseException
+	 */
 	public Object getKey(String type, String key) throws ParseException {
 		Object outKey = null;
 		switch (type) {

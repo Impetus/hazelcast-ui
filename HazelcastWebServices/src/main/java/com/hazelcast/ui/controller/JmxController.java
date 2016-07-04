@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hazelcast.ui.service.JMXService;
-
+/**
+ * 
+ * @author Sourav Gulati
+ *@Description Controller class for webservices related to JMX library
+ */
 @Component
 @RestController
 public class JmxController {

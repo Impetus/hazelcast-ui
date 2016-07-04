@@ -22,6 +22,12 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * 
+ * @author Sourav Gulati
+ * @Description Service class for webservices related to JMX library
+ */
+
 @Component
 public class JMXService {
 	private ObjectMapper objectMapper;
@@ -32,6 +38,12 @@ public class JMXService {
 
 	}
 
+	/**
+	 * @Description This method is used get memory information of hazelcast node by calling jmx mbean(Memory)
+	 * @param jmx host
+	 * @param jmx port
+	 * @return json value of node memory stats
+	 */
 	public String getNodeMemoryInfo(String host, String port) {
 		Map<String, String> memoryMap = new HashMap<>();
 
@@ -65,6 +77,13 @@ public class JMXService {
 		}
 	}
 	
+	/**
+	 * @Description This method is used get memory information of hazelcast map by calling jmx mbean(Imap) 
+	 * @param jmx host
+	 * @param jmx port
+	 * @param map name
+	 * @return json value of map memory stats
+	 */
 	public String getMapMemoryStats(String host, String port,String mapName) {
 		Map<String, String> mapMemoryMap = new HashMap<>();
 		
@@ -91,6 +110,19 @@ public class JMXService {
 		
 	}
 
+	/**
+	 * @Description This method is used get information related to hazelcast map by calling jmx mbean(Imap) 
+	 * @param jmx connector instance
+	 * @param objectName
+	 * @param attribute
+	 * @return
+	 * @throws MBeanException
+	 * @throws AttributeNotFoundException
+	 * @throws InstanceNotFoundException
+	 * @throws ReflectionException
+	 * @throws IOException
+	 * @throws MalformedObjectNameException
+	 */
 	private String getMapAttributeValue(JMXConnector newJMXConnector,
 			String objectName,String attribute) throws MBeanException,
 			AttributeNotFoundException, InstanceNotFoundException,
@@ -99,11 +131,25 @@ public class JMXService {
 				new ObjectName(objectName), attribute);
 		return String.valueOf(value);
 	}
+	
+	/**
+	 *  @Description This method is used construct jmx object
+	 * @param map name
+	 * @return object name
+	 */
 	private static String createObjectName(String mapName)
 	{
 		return "com.hazelcast:instance=_hzInstance_1_dev,type=IMap,name="+mapName;
 	}
 
+	
+	/**
+	 * @Description This method is used create jmx connection url  
+	 * @param jmx host
+	 * @param jmx port
+	 * @return JMXServiceURL
+	 * @throws MalformedURLException
+	 */
 	private static JMXServiceURL createConnectionURL(String host, String port) throws MalformedURLException {
 		return new JMXServiceURL("service:jmx:rmi:///jndi/rmi://" + host + ":" + port + "/jmxrmi");
 

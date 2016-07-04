@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 
 /**
- * This class is used to add CORS filter
  * 
  * @author Sourav Gulati
+ * @Description This class is used to add CORS filter
  */
 @Component
 public class CORSFilter implements Filter {

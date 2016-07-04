@@ -8,7 +8,11 @@ import org.springframework.stereotype.Component;
 import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.client.config.ClientConfig;
 import com.hazelcast.core.HazelcastInstance;
-
+/**
+ * 
+ * @author Sourav Gulati
+ * @Description Class to instantiate hazelcast client
+ */
 @Component
 public class CacheInstance {
 
@@ -18,10 +22,17 @@ public class CacheInstance {
 	private HazelcastInstance client = null;
 	private String COMMA_SEPARATOR = ",";
 
+	/**
+	 * @Description This method is used return the instance of hazelcast client
+	 * @return HazelcastInstance
+	 */
 	public HazelcastInstance getClient() {
 		return client;
 	}
-
+    
+	/**
+	 * @Description This method is used instantiate hazelcast instance 
+	 */
 	@PostConstruct
 	private void initializeInstance() {
 		ClientConfig clientConfig = new ClientConfig();
