@@ -1,8 +1,8 @@
-hzApp.factory('fetchMapMemoryStats',  function($http,webServiceHost){
+hzApp.factory('fetchMapMemoryStats',  function($http,webServiceHost,jmxPort){
      return {
      nodeMemory: function(host,mapName) {
 
-                var url =  webServiceHost+'/mapmemory/'+host+'/1010/'+mapName;
+                var url =  webServiceHost+'/mapmemory/'+host+'/'+jmxPort+'/'+mapName;
                 return $http({
                     method: 'GET',
                     url : url

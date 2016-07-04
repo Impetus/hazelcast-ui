@@ -2,7 +2,7 @@ hzApp.factory('listMaps',  function($http,webServiceHost){
      return {
      maps: function() {
 
-                var url =  webServiceHost+'//mapsName/';
+                var url =  webServiceHost+'/mapsName/';
                 return $http({
                     method: 'GET',
                     url : url
