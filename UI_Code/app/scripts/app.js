@@ -1,6 +1,6 @@
 var hzApp = angular.module('hzApp', ['ngRoute']);
 hzApp.constant('webServiceHost','http://localhost:8080/HazelcastWebServices');
-hzApp.constant('jmxPort','1010');
+hzApp.constant('jmxPort','10000');
 hzApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.

@@ -27,6 +27,14 @@ Build UI APP
 1. cd $GIT_CLONE_DIR/UI_Code
 2. Update following properties in app/scripts/app.js
    i. webServiceHost : Point it to the tomcat address
-   ii. jmxPort : By default it is 1010, change it as per requirement
+   ii.jmxPort : By default it is 1010, change it as per requirement
 3. Build UI APP using command "grunt war"
 4. Copy dist/HazelcastUI.war in webapps dir of apache tomcat
+
+Examples
+--------
+
+Home Screen
+![home](/images/Home_Screen.png)
+***
+
