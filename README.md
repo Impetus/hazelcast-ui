@@ -11,6 +11,9 @@ Prerequisites
 3. All Hazelcast instances should be JMX enabled(By default port used for jmx is 1010, it can be changed as per requirement)
 4. grunt-cli 1.2.0 or later
 
+Tech stack
+-------------
+
 Deployment Steps
 ----------------
 
@@ -31,7 +34,7 @@ Build UI APP
 3. Build UI APP using command "grunt war"
 4. Copy dist/HazelcastUI.war in webapps dir of apache tomcat
 
-Examples
+Features
 --------
 
 Home Screen
@@ -62,3 +65,8 @@ Map Browser View
 ![mapbrowser](/images/Map_Browser.png)
 ***
 
+
+Improvements Needed
+---------------------
+1. Need to add proper loggers in webservices
+2. Need to add generic error messages in web services 
