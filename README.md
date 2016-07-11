@@ -13,6 +13,8 @@ Prerequisites
 
 Tech stack
 -------------
+![ts](/images/Tech_stack.png)
+***
 
 Deployment Steps
 ----------------
