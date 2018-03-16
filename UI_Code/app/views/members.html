@@ -1,0 +1,27 @@
+<div class="row top-buffer">
+    <div class="panel panel-default">
+        <div class="panel-heading"><b>Memory Utilization</b></div>
+        <div class="panel-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Node</th>
+                        <th>Used Heap</th>
+                        <th>Total Heap</th>
+                        <th>Maximum Heap</th>
+                        <th>Heap Usage Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in membersData">
+                        <td>{{ x.HOST_NAME }}</td>
+                        <td>{{ x.USED_MEMORY }}</td>
+                        <td>{{ x.COMMITTED_MEMORY}}</td>
+                        <td>{{ x.TOTAL_HEAP_MEMORY }}</td>
+                        <td>{{ ((x.USED_MEMORY/x.TOTAL_HEAP_MEMORY)*100).toFixed(2) }}%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
