@@ -79,6 +79,18 @@ public class HazelcastRestService {
 		}
 	}
 
+	public String getSize(String mapName) {
+		int size = cacheInstance.getClient().getMap(mapName).size();
+		Map<String, Integer> sizeMap = new HashMap<>();
+		sizeMap.put("Size",size);
+		try {
+			return (objectMapper.writeValueAsString(sizeMap));
+		} catch (JsonProcessingException e) {
+			return ("Exception occurred while fecthing entry" + e);
+		}
+		
+	}
+
 	/**
 	 * @Description This method is used to retrieve value corresponding to given in hazelcast map
 	 * @param map name

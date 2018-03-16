@@ -1,10 +1,3 @@
-hzApp.controller('mapsCtrl', function($scope, $http,listMaps) {
-  $scope.loadMaps = function () {
-        listMaps.maps().then(function (response) {
-            $scope.nodes = response.data;
-        });
-    }
-
-    setInterval($scope.loadMaps, 5000);
-
+hzApp.controller('mapsCtrl', function($scope, $http, listMaps) {
+	// nothing to add here - the maps data is being loaded by home controller
 });

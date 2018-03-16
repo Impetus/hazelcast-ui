@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.management.AttributeNotFoundException;
 import javax.management.InstanceNotFoundException;
 import javax.management.MBeanException;
+import javax.management.MBeanServerConnection;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 import javax.management.ReflectionException;
@@ -17,10 +18,12 @@ import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hazelcast.util.CacheInstance;
 
 /**
  * 
@@ -31,6 +34,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Component
 public class JMXService {
 	private ObjectMapper objectMapper;
+
+	@Autowired
+	private CacheInstance cacheInstance;
 
 	@PostConstruct
 	private void intialize() {
@@ -45,16 +51,31 @@ public class JMXService {
 	 * @return json value of node memory stats
 	 */
 	public String getNodeMemoryInfo(String host, String port) {
-		Map<String, String> memoryMap = new HashMap<>();
+		final Map<String, String> memoryMap = new HashMap<>();
+		MBeanServerConnection mBeanServerConnection = null;
 
 		try {
-			JMXConnector newJMXConnector;
+			JMXConnector jmxConnector = cacheInstance.getConnectionForHost(host);
 
-			newJMXConnector = JMXConnectorFactory.connect(createConnectionURL(host, port));
+			if (jmxConnector == null) {
+				jmxConnector = connect(host, port);
+				cacheInstance.setConnectionForHost(host, jmxConnector);
+			}
 
-			CompositeData cd = (CompositeData) newJMXConnector.getMBeanServerConnection().getAttribute(
-					new ObjectName("java.lang:type=Memory"), "HeapMemoryUsage");
-			memoryMap.put("HOST_NAME",host);
+			try {
+				mBeanServerConnection = jmxConnector.getMBeanServerConnection();
+			} catch (IOException ex) {
+				// this means that the underlying connection was not correct, do
+				// a reconnect
+				ex.printStackTrace();
+				jmxConnector = connect(host, port);
+				cacheInstance.setConnectionForHost(host, jmxConnector);
+				mBeanServerConnection = jmxConnector.getMBeanServerConnection();
+			}
+
+			CompositeData cd = (CompositeData) mBeanServerConnection
+					.getAttribute(new ObjectName("java.lang:type=Memory"), "HeapMemoryUsage");
+			memoryMap.put("HOST_NAME", host);
 			Long usedMem = (Long) cd.get("used");
 			usedMem = (usedMem / 1024 / 1024);
 			memoryMap.put("USED_MEMORY", String.valueOf(usedMem));
@@ -88,14 +109,35 @@ public class JMXService {
 		Map<String, String> mapMemoryMap = new HashMap<>();
 		
 		try {
-			JMXConnector newJMXConnector;
-			newJMXConnector = JMXConnectorFactory.connect(createConnectionURL(host, port));
-			String objectName=createObjectName(mapName);
+			JMXConnector jmxConnector = cacheInstance.getConnectionForHost(host);
+
+			if (jmxConnector == null) {
+				jmxConnector = connect(host, port);
+				cacheInstance.setConnectionForHost(host, jmxConnector);
+			}
+
+			MBeanServerConnection mBeanServerConnection = null;
+			try {
+				mBeanServerConnection = jmxConnector.getMBeanServerConnection();
+			} catch (IOException ex) {
+				// this means that the underlying connection was not correct, do
+				// a reconnect
+				ex.printStackTrace();
+				jmxConnector = connect(host, port);
+				cacheInstance.setConnectionForHost(host, jmxConnector);
+				mBeanServerConnection = jmxConnector.getMBeanServerConnection();
+			}
+
+			String objectName = createObjectName(mapName);
 			mapMemoryMap.put("HOST", host);
-			mapMemoryMap.put("ENTRIES",getMapAttributeValue(newJMXConnector, objectName, "localOwnedEntryCount"));
-			mapMemoryMap.put("BACKUPS",getMapAttributeValue(newJMXConnector, objectName, "localBackupEntryCount"));
-			mapMemoryMap.put("ENTRY_MEMORY",getMapAttributeValue(newJMXConnector, objectName, "localOwnedEntryMemoryCost"));
-			mapMemoryMap.put("BACKUP_MEMORY",getMapAttributeValue(newJMXConnector, objectName, "localBackupEntryMemoryCost"));
+			mapMemoryMap.put("ENTRIES",
+					getMapAttributeValue(mBeanServerConnection, objectName, "localOwnedEntryCount"));
+			mapMemoryMap.put("BACKUPS",
+					getMapAttributeValue(mBeanServerConnection, objectName, "localBackupEntryCount"));
+			mapMemoryMap.put("ENTRY_MEMORY",
+					getMapAttributeValue(mBeanServerConnection, objectName, "localOwnedEntryMemoryCost"));
+			mapMemoryMap.put("BACKUP_MEMORY",
+					getMapAttributeValue(mBeanServerConnection, objectName, "localBackupEntryMemoryCost"));
 		} catch (AttributeNotFoundException | InstanceNotFoundException | MalformedObjectNameException | MBeanException
 				| ReflectionException | IOException e) {
 			System.out.println("Issue while retriving memory info");
@@ -123,12 +165,10 @@ public class JMXService {
 	 * @throws IOException
 	 * @throws MalformedObjectNameException
 	 */
-	private String getMapAttributeValue(JMXConnector newJMXConnector,
-			String objectName,String attribute) throws MBeanException,
-			AttributeNotFoundException, InstanceNotFoundException,
+	private String getMapAttributeValue(MBeanServerConnection mBeanServerConnection, String objectName,
+			String attribute) throws MBeanException, AttributeNotFoundException, InstanceNotFoundException,
 			ReflectionException, IOException, MalformedObjectNameException {
-		Long value= (Long) newJMXConnector.getMBeanServerConnection().getAttribute(
-				new ObjectName(objectName), attribute);
+		Long value = (Long) mBeanServerConnection.getAttribute(new ObjectName(objectName), attribute);
 		return String.valueOf(value);
 	}
 	
@@ -140,6 +180,10 @@ public class JMXService {
 	private static String createObjectName(String mapName)
 	{
 		return "com.hazelcast:instance=_hzInstance_1_dev,type=IMap,name="+mapName;
+	}
+
+private static JMXConnector connect(String host, String port) throws IOException, MalformedURLException {
+		return JMXConnectorFactory.connect(createConnectionURL(host, port));
 	}
 
 	
