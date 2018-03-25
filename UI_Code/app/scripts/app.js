@@ -1,4 +1,5 @@
 var hzApp = angular.module('hzApp', ['ngRoute']);
+
 hzApp.constant('webServiceHost','http://localhost:8080/HazelcastWebServices');
 
 hzApp.config(['$routeProvider',
