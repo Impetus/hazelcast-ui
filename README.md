@@ -50,7 +50,7 @@ Start The Services
     iv. npm install -g grunt-cli
     v. nohup grunt --force serve &
     
-4. hazelcast UI can be accessed by url - http://<IP>:9000/#/hazelcast
+4. hazelcast UI can be accessed by url - http://<IP Address>:9000/#/hazelcast
 
 
 Features
