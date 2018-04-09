@@ -1,5 +1,6 @@
 package com.hazelcast.ui.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,14 +19,25 @@ import com.hazelcast.ui.service.HazelcastRestService;
 @RestController
 public class HazelcastRestController {
 
+	private static final Logger logger = Logger.getLogger(HazelcastRestController.class);
+	
 	@Autowired
 	private HazelcastRestService hazelcastRestService;
 
+	/**
+	 * welcome method which gets involed whenver base url is looked up
+	 * @return
+	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String welcome() {
+		logger.info("Hazelcast Web UI base method called");
 		return "Welcome to Hazelcast Web UI";
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/clusterinfo", method = RequestMethod.GET)
 	public String getClusterInfo() {
 		return hazelcastRestService.getMembersInfo();
