@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "Purpose: The script is created to start one instance of hazelcast"
+echo "How to run: sudo su; cd <location where script is copied>;nohup ./start-cache.sh & "
+java -Xmx25600m -XX:+UseConcMarkSweepGC -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=60 -XX:MaxHeapFreeRatio=25 -XX:MinHeapFreeRatio=15 -cp /usr/local/impetus_lib/hazelcast-1.0.0-jar-with-dependencies.jar -Dhazelcast.config=/usr/local/impetus_lib/resources/hazelcast.xml -Dhazelcast.logging.type=log4j -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=1010 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dhazelcast.jmx=true -Dlog4j.configuration=file:///usr/local/impetus_lib/resources/hazelcast-server-log4j.properties com.impetus.hazelcast.StartHazelCastInstance
