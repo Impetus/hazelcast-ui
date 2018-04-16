@@ -161,7 +161,7 @@ public class Reader {
 	}
 
 	/**
-	 * This method is used to initialize CDMA NAS IP Cache Map
+	 * This method is used to initialize test Map
 	 */
 	public IMap<String, String> initializeTestMap() {
 		try {
@@ -175,7 +175,7 @@ public class Reader {
 	}
 
 	/**
-	 * This method is used to get CDMA NAS IP Cache Map
+	 * This method is used to get test Map
 	 */
 	public IMap<String, String> getTestMap() {
 		return testMap;
