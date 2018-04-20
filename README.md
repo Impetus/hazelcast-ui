@@ -28,29 +28,42 @@ Tech stack
 
 Spawn Hazelcast cluster
 ------------------------
-1. Checkout the "hazelcast-cluster" code
-2. cd hazelcast-cluster/src/main/resources
-3. Add IPS of the nodes on which hazelcast instance need to be run in hazelcast-server.properties file.In case of multiple nodes the value will be "," separated. E.g: <Node-1 ip>:5701,<Node-2 IP>:5701.For testing purpose one can use localhost.
-3. Add IPS of the nodes on which hazelcast instance need to be run in file "hazelcast.xml".In cas eof multiple nodes keep adding "<member>" parameter with IPs.For testing purpose one can use localhost.
+1. Checkout "hazelcast-cluster" code.
+2. Go to resources folder : cd hazelcast-cluster/src/main/resources
+3. Add IPs of the nodes on which hazelcast instance need to be run. This will be added against key cache.server in hazelcast-server.properties file. In case of multiple nodes the value will be "," separated. E.g: <<Node-1 ip>>:5701,<<Node-2 IP>>:5701. For testing purpose one can use localhost.
+3. Add IPs of the nodes on which hazelcast instance need to be run in file "hazelcast.xml" as well.In cas eof multiple nodes add a new "<member>" tag per IP. For testing purpose one can use localhost.
 4. By default the logs of hazelcast will be created al location : /mnt/hazelcast_logs/. One can update it in file hazelcast-server-log4j.properties.
-5. cd hazelcast-cluster
-6. mvn clean install -DskipTests
-7. sudo mkdir -p /mnt/hazelcast_logs/ /usr/local/impetus_lib/ /usr/local/impetus_lib/resources /usr/local/impetus_lib/scripts
-8. sudo cp target/hazelcast-1.0.0-jar-with-dependencies.jar /usr/local/impetus_lib
-9. cd hazelcast-cluster/src/main/resources
-10. sudo cp * /usr/local/impetus_lib/resources
-11. cd hazelcast-cluster/src/main/bin
-12. sudo cp * /usr/local/impetus_lib/scripts
-13. sudo -bE /usr/local/impetus_lib/scripts/start-hazelcast.sh
+5. Got to base folder of hazelcast cluster : cd hazelcast-cluster
+6. Build the code using: mvn clean install -DskipTests
+7. Create directories needed by the cluster: sudo mkdir -p /mnt/hazelcast_logs/ /usr/local/impetus_lib/ /usr/local/impetus_lib/resources /usr/local/impetus_lib/scripts
+8. Copy the jar to relevent folder using commands :sudo cp target/hazelcast-1.0.0-jar-with-dependencies.jar /usr/local/impetus_lib
+9. Go to resources folder and copy resource files to relevant location: cd hazelcast-cluster/src/main/resources, sudo cp * /usr/local/impetus_lib/resources
+11.Go to bin folder and copy resource scripts to relevant location: cd hazelcast-cluster/src/main/bin, sudo cp * /usr/local/impetus_lib/scripts
+13.Spawn hazelcast instance: sudo -bE /usr/local/impetus_lib/scripts/start-hazelcast.sh
 
-Step 7-13 need to be executed on all the nodes(hazelcast cluster).
+NOTE:Step 7-13 need to be executed on each node of hazelcast cluster.
 
 Steps to Load data in Hazelcats cluster
 ----------------------------------------
 
-1. Add the map's information in "hazelcast.xml".We have added one test map conf in it "<map name="testMap">". One can add more.
+1. Add the map's information in "hazelcast.xml".We have added one test map conf in it "<map name="testMap">".
 2. Write loader class to load data in Hazelcats map. We have provided one Test class to add dummy 1k records in Hazelcast. Check HazelcastMapLoader.java to create your own loader.
-3. Run HazelcastMapLoader.java class to ingest records in "testMap".
+3. Run HazelcastMapLoader.java class to ingest records in "testMap". Add hazelcast-1.0.0-jar-with-dependencies.jar present in target folder to classpath and invoke it:
+   CLASSPATH=<path to jar>/hazelcast-1.0.0-jar-with-dependencies.jar
+   CLASSNAME=com.impetus.hazelcast.HazelcastMapLoader
+   java -classpath $CLASSPATH $CLASSNAME
+   This should load sample map in hazelcast cluster. You will see following logs:
+   Apr 20, 2018 3:04:29 PM com.hazelcast.core.LifecycleService
+	INFO: HazelcastClient[hz.client_0_dev][3.4.6] is STARTING
+	Apr 20, 2018 3:04:29 PM com.hazelcast.core.LifecycleService
+	INFO: HazelcastClient[hz.client_0_dev][3.4.6] is STARTED
+	Apr 20, 2018 3:04:29 PM com.hazelcast.core.LifecycleService
+	INFO: HazelcastClient[hz.client_0_dev][3.4.6] is CLIENT_CONNECTED
+	Apr 20, 2018 3:04:29 PM com.hazelcast.client.spi.impl.ClusterListenerThread
+	INFO: 
+	Members [1] {
+	Member [localhost]:5701
+	}
 4. Class HazelcastMapLoader.java is a class to push 1k records in "testMap".
 5. To see the data in map, Go to "Maps" and then to "testMap".Click on "Browse".
 6. Add the key in it and click on "Browse" button. In "testMap" the keys are : Key1,Key2...Key999.
