@@ -64,9 +64,9 @@ public class CacheInstance {
 	private Map<Class, StreamSerializer> getSerializerConfigs() {
 		Map<Class, StreamSerializer> configMap = new HashMap<Class, StreamSerializer>();
 
-		configMap.put(CurrentAlertThresholdInfo.class, new CurrentThresholdInfoSerializer());
+	/*	configMap.put(CurrentAlertThresholdInfo.class, new CurrentThresholdInfoSerializer());
 		configMap.put(DailyUsage.class, new DailyUsageMapSerializer());
-		configMap.put(DeviceDefaultCache.class, new DeviceDefaultCacheSerializer());
+		configMap.put(DeviceDefaultCache.class, new DeviceDefaultCacheSerializer());*/
 
 		return configMap;
 	}
