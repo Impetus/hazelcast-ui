@@ -16,6 +16,7 @@
 		<kryo-version>2.22</kryo-version>
 		<javax.servlet.version>2.5</javax.servlet.version>
 		<log4j-version>1.2.17</log4j-version>
+		<report.info.plugin.version>2.9</report.info.plugin.version>
 	</properties>
 
 	<dependencies>
@@ -118,6 +119,170 @@
 
 		<finalName>HazelcastWebServices</finalName>
 	</build>
+	
+		<!--  Reporting and Site Creation -->
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.9</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<failOnError>false</failOnError>
+					<links>
+						<link>https://docs.oracle.com/javase/8/docs/api/</link>
+						<link>https://docs.oracle.com/javaee/7/api/</link>
+						<link>http://java.sun.com/j2ee/1.4/docs/api/</link>
+						<link>http://java.sun.com/products/javamail/javadocs/</link>
+						<link>http://java.sun.com/javaee/javaserverfaces/1.2/docs/api/</link>
+						<link>http://java.sun.com/javaee/javaserverfaces/1.1_01/docs/api/</link>
+						<link>http://java.sun.com/products/javabeans/glasgow/javadocs/</link>
+						<link>http://logging.apache.org/log4j/docs/api/</link>
+						<link>http://cargo.codehaus.org/maven-site/cargo-extensions/cargo-ant/apidocs/</link>
+						<link>http://cargo.codehaus.org/maven-site/cargo-extensions/cargo-maven2-plugin/apidocs/</link>
+						<link>http://testng.org/javadocs/</link>
+						<link>http://www.junit.org/junit/javadoc/4.3/</link>
+						<link>http://xmlunit.sourceforge.net/api/</link>
+						<link>http://www.opensymphony.com/quartz/api/</link>
+						<link>http://xstream.codehaus.org/javadoc/</link>
+						<link>http://ws.apache.org/axis/java/apiDocs/</link>
+					</links>
+					<tags>
+						<tag>
+							<name>todo</name>
+							<placement>a</placement>
+							<head>Todo:</head>
+						</tag>
+						<tag>
+							<name>TODO</name>
+							<placement>a</placement>
+							<head>Todo:</head>
+						</tag>
+						<tag>
+							<name>fixme</name>
+							<placement>a</placement>
+							<head>Todo:</head>
+						</tag>
+						<tag>
+							<name>FIXME</name>
+							<placement>a</placement>
+							<head>Todo:</head>
+						</tag>
+						<tag>
+							<name>xxx</name>
+							<placement>a</placement>
+							<head>Todo:</head>
+						</tag>
+						<tag>
+							<name>XXX</name>
+							<placement>a</placement>
+							<head>Todo:</head>
+						</tag>
+					</tags>
+					<verbose>true</verbose>
+				</configuration>
+				<reportSets>
+					<reportSet>
+						<id>html</id>
+						<reports>
+							<report>javadoc</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<version>2.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.7</version>
+				<configuration>
+					<targetJdk>1.8</targetJdk>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>2.19.1</version>
+			</plugin>
+			<plugin>
+       			 <groupId>org.jacoco</groupId>
+       			 <artifactId>jacoco-maven-plugin</artifactId>
+       			 <version>0.6.5.201403032054</version>
+       		</plugin>
+       		
+       		<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>${report.info.plugin.version}</version>
+				<configuration>
+					<dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+	                <instrumentation>
+	                  <excludes>
+	                    <exclude>com/aeris/analytics/configuration/*</exclude>
+	                  </excludes>
+	                 </instrumentation>
+	            </configuration>
+			</plugin>
+<!--        		
+     <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <configuration>
+          <formats>
+            <format>html</format>
+          </formats>
+  		<reportSets>
+          <reportSet>
+            <reports>
+              <report>cobertura</report>
+            </reports>
+          </reportSet>
+        </reportSets>          
+        </configuration>
+      </plugin>       		
+ -->
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jdepend-maven-plugin</artifactId>
+				<version>2.0-beta-1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>taglist-maven-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<tags>
+						<tag>TODO</tag>
+						<tag>@TODO</tag>
+						<tag>FIXME</tag>
+						<tag>XXX</tag>
+					</tags>
+				</configuration>
+			</plugin>
+		      <plugin>
+		        <groupId>org.codehaus.mojo</groupId>
+		        <artifactId>findbugs-maven-plugin</artifactId>
+		        <version>3.0.4</version>
+		      </plugin>			
+		</plugins>
+	</reporting>
+	
 
 
 </project>
