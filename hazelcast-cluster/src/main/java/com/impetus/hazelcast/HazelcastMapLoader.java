@@ -2,24 +2,28 @@ package com.impetus.hazelcast;
 
 import java.util.Map;
 
+import org.slf4j.Logger;
+
+/**
+ * Entry point for loading sample hazelcast maps
+ * @author pushkin.gupta
+ *
+ */
 public class HazelcastMapLoader {
-	static private Reader cacheInst = null;
-	static private Map<String, String> testMap = null;
+	
+	private static Logger logger = LogUtils.getLogger(HazelcastMapLoader.class);
+	
 	public static void main(String[] args) {
-		System.out.println("Loading started");
+		logger.info("Going to load hazelcast maps");
 		
-		HazelcastMapLoader loader = new HazelcastMapLoader();
-		loader.cacheInst = new Reader();
+		Reader cacheInst = null;
+		Map<String, String> testMap = null;
+		
+		cacheInst = new Reader();
 		testMap = cacheInst.initializeTestMap();
-		
 		for(int i=0;i<1000;i++) {
-			
 			testMap.put("Key"+i,"Value"+i);
-
 		}
-		System.out.println("Loading End");
-
-	
-	
-}
+		logger.info("Loaded hazelcast maps");
+	}
 }

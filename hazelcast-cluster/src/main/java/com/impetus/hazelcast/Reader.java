@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.Properties;
-import java.util.Set;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
@@ -26,10 +25,7 @@ public class Reader {
 	
 	ObjectMapper mapper = null;
 	ObjectWriter objectWriter = null;
-
 	HazelcastInstance client = null;
-
-
 	IMap<String, String> testMap = null;
 	
 	/**
@@ -66,6 +62,11 @@ public class Reader {
 		client.getLifecycleService().shutdown();
 	}
 
+	/**
+	 * This method is used to load property file
+	 * @param confFile
+	 * @return
+	 */
 	private static Properties readPropertyFile(String confFile) {
 
 		logger.debug("readPropertyFile method :: Start ");
@@ -81,10 +82,10 @@ public class Reader {
 
 		try {
 			properties.load(inputStream);
-			logger.debug("Configuration file : " + confFile + " loaded successfully " + properties);
+			logger.debug("Configuration file : {} loaded successfully {}",confFile,properties);
 
 			if (properties.size() == 0) {
-				logger.error("Error reading configuration file. File " + confFile + " does not contain any property");
+				logger.error("Error reading configuration file. File {} does not contain any property",confFile);
 			}
 
 		} catch (IOException e) {
@@ -104,6 +105,10 @@ public class Reader {
 		return properties;
 	}
 
+	/**
+	 * Loads hazelcast server properties from config file
+	 * @return
+	 */
 	public static Properties getCachingConfig() {
 		Properties cachingProps = null;
 		try {
@@ -120,53 +125,60 @@ public class Reader {
 	 **/
 	@SuppressWarnings("rawtypes")
 	private void initializeReader(String cacheServer) {
+		
 		Properties cacheProps = null;
+		ClientConfig clientConfig = new ClientConfig();
+		String strClients = null;
+
 		try {
 			cacheProps = getCachingConfig();
-			// cacheProps =
-			// "/usr/local/impetus_lib/resources/hazelcast-server.properties";
 		} catch (Exception e) {
 			logger.error("Error reading resources", e);
 			throw new RuntimeException("Error reading resources ", e);
 		}
 
-		ClientConfig clientConfig = new ClientConfig();
+		if (cacheProps !=null ) {
+			logger.info("Loaded hazelcast properties from property file");
 
-		String strClients = null;
-		strClients = cacheProps.getProperty(cacheServer);
-
-		if (null == strClients) {
+			// Fetch list of hazel cast nodes configured using key cache.server in hazelcast-server.properties
+			strClients = cacheProps.getProperty(cacheServer);
+		
+			if (null == strClients) {
+				logger.error("Unable to fetch cache server addresses from config file ");
+				throw new RuntimeException("Could not connect to cache server server..No IPs configured");
+			}
+			
+			logger.info("Established connection with cache server {}", strClients);
+			
+			String[] addrSplits = strClients.split(COMMA_SEPARATOR);
+			for (String addr : addrSplits) {
+				clientConfig.getNetworkConfig().addAddress(addr);
+			}
+		
+			long t1 = System.currentTimeMillis();
+		
+			// Instantiating hazelcast client
+			client = HazelcastClient.newHazelcastClient(clientConfig);
+			logger.info("Serializers set");
+			if (null == client) {
+				logger.error("Could not instantiate client");
+				throw new RuntimeException("Could not instantiate client");
+			}
+			logger.info("Hazelcast client instantiated successfully. Time taken to initiate cache client is {} msec",(System.currentTimeMillis() - t1));
+		} else {
 			logger.error("Unable to fetch cache server addresses from config file ");
-			throw new RuntimeException("Could not connect to cache server server ip's null  ");
+			throw new RuntimeException("Could not connect to cache server server..Not able to load property file");
 		}
-
-		String[] addrSplits = strClients.split(COMMA_SEPARATOR);
-		for (String addr : addrSplits) {
-			clientConfig.getNetworkConfig().addAddress(addr);
-		}
-
-		long t1 = System.currentTimeMillis();
-
-		client = HazelcastClient.newHazelcastClient(clientConfig);
-
-		logger.info("Serializers set");
-
-		logger.info("Established connection with cache server " + strClients);
-
-		if (null == client) {
-			logger.error("Could not connect to cache server " + strClients);
-			throw new RuntimeException("Could not connect to cache server " + strClients);
-		}
-		logger.info("Time taken to initiate cache client " + (System.currentTimeMillis() - t1) + " msec");
 	}
 
 	/**
 	 * This method is used to initialize test Map
 	 */
 	public IMap<String, String> initializeTestMap() {
+		
 		try {
 			testMap = client.getMap("testMap");
-			logger.info("Loaded NasIpCacheMap");
+			logger.info("Loaded sample map. Size of map is {}",testMap.size());
 		} catch (Exception e) {
 			logger.error("Error while fetching testMap from cache server. ", e);
 			testMap = (IMap<String, String>) Collections.EMPTY_MAP;

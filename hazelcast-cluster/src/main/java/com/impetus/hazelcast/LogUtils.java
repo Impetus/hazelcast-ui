@@ -14,8 +14,13 @@ public class LogUtils {
 	 * @param clazz
 	 * @return
 	 */
+	
+	private LogUtils() {
+		
+	}
+	
 	public static Logger getLogger(Class<?> clazz) {
-		return (Logger) LoggerFactory.getLogger(clazz);
+		return LoggerFactory.getLogger(clazz);
 	}
 
 	public static String getCounterLog(long counter) {

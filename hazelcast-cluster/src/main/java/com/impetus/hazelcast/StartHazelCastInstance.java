@@ -18,7 +18,8 @@ public class StartHazelCastInstance {
 	private static final Logger logger = LogUtils
 			.getLogger(StartHazelCastInstance.class);
 
-	public static void main(String agrs[]) {
+	public static void main(String args[]) {
+		
 		try {
 			HazelcastInstance instance = Hazelcast.newHazelcastInstance();
 			Cluster cluster = instance.getCluster();
