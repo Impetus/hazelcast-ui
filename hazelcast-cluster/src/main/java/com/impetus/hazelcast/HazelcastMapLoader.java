@@ -16,6 +16,8 @@ import org.slf4j.Logger;
 
 /**
  * Entry point for loading sample hazelcast maps
+ * This class initiates Reader class which instantiates the client and returns an emptry HashMap.
+ * The class then loaders dummy key value pairs into the map
  * @author pushkin.gupta
  *
  */
@@ -28,6 +30,9 @@ public class HazelcastMapLoader {
 		HazelcastMapLoader.loadHazelCastMap();
 	}
 	
+	/**
+	 * Method to instantiate and load dummy map
+	 */
 	public static void loadHazelCastMap() {
 		logger.info("Going to load hazelcast maps");
 		
@@ -41,6 +46,10 @@ public class HazelcastMapLoader {
 		logger.info("Loaded hazelcast maps");
 	}
 	
+	/**
+	 * Method to return testmap
+	 * @return
+	 */
 	public static Map<String,String> getTestMap() {
 		return testMap;
 	}
