@@ -53,7 +53,8 @@ Steps to Load data in Hazelcats cluster
 	b. CLASSPATH=<path to jar>/hazelcast-1.0.0-jar-with-dependencies.jar
 	c. CLASSNAME=com.impetus.hazelcast.HazelcastMapLoader
 	d. java -classpath $CLASSPATH $CLASSNAME
-    e. This should load sample map in hazelcast cluster. You will see following logs:
+    e. This should load sample map in hazelcast cluster. You will see following logs as shown below:
+    
 	Apr 20, 2018 3:04:29 PM com.hazelcast.core.LifecycleService
 	INFO: HazelcastClient[hz.client_0_dev][3.4.6] is STARTING
 	Apr 20, 2018 3:04:29 PM com.hazelcast.core.LifecycleService
