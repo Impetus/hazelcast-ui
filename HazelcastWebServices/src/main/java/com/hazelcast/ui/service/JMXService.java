@@ -18,11 +18,13 @@ import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hazelcast.ui.controller.HazelcastRestController;
 import com.hazelcast.util.CacheInstance;
 
 /**
@@ -33,8 +35,10 @@ import com.hazelcast.util.CacheInstance;
 
 @Component
 public class JMXService {
+	
+	private static final Logger logger = Logger.getLogger(JMXService.class);
 	private ObjectMapper objectMapper;
-
+	
 	@Autowired
 	private CacheInstance cacheInstance;
 
@@ -51,6 +55,9 @@ public class JMXService {
 	 * @return json value of node memory stats
 	 */
 	public String getNodeMemoryInfo(String host, String port) {
+		
+		logger.debug("Going to fetch node memory info");
+		
 		final Map<String, String> memoryMap = new HashMap<>();
 		MBeanServerConnection mBeanServerConnection = null;
 
@@ -67,7 +74,7 @@ public class JMXService {
 			} catch (IOException ex) {
 				// this means that the underlying connection was not correct, do
 				// a reconnect
-				ex.printStackTrace();
+				logger.error("Exception occured. Cause is {} ",ex);
 				jmxConnector = connect(host, port);
 				cacheInstance.setConnectionForHost(host, jmxConnector);
 				mBeanServerConnection = jmxConnector.getMBeanServerConnection();
@@ -89,9 +96,12 @@ public class JMXService {
 			memoryMap.put("TOTAL_HEAP_MEMORY", String.valueOf(maxHeap));
 		} catch (AttributeNotFoundException | InstanceNotFoundException | MalformedObjectNameException | MBeanException
 				| ReflectionException | IOException e) {
-			System.out.println("Issue while retriving memory info");
+			logger.error("Issue while retriving memory info. Cause is {} ",e);
 		}
 		try {
+			
+			logger.debug("Fetched node memory info successfully");
+			
 			return objectMapper.writeValueAsString(memoryMap);
 		} catch (JsonProcessingException e) {
 			return "Exception while retriving memory info" + e;
@@ -106,6 +116,9 @@ public class JMXService {
 	 * @return json value of map memory stats
 	 */
 	public String getMapMemoryStats(String host, String port,String mapName) {
+		
+		logger.debug("Going to fetch Map memory info");
+		
 		Map<String, String> mapMemoryMap = new HashMap<>();
 		
 		try {
@@ -122,7 +135,7 @@ public class JMXService {
 			} catch (IOException ex) {
 				// this means that the underlying connection was not correct, do
 				// a reconnect
-				ex.printStackTrace();
+				logger.error("Issue while retriving memory info. Cause is {} ",ex);
 				jmxConnector = connect(host, port);
 				cacheInstance.setConnectionForHost(host, jmxConnector);
 				mBeanServerConnection = jmxConnector.getMBeanServerConnection();
@@ -140,11 +153,11 @@ public class JMXService {
 					getMapAttributeValue(mBeanServerConnection, objectName, "localBackupEntryMemoryCost"));
 		} catch (AttributeNotFoundException | InstanceNotFoundException | MalformedObjectNameException | MBeanException
 				| ReflectionException | IOException e) {
-			System.out.println("Issue while retriving memory info");
+			logger.error("Issue while retriving memory info. Cause is {}", e);
 		}
 		
-		
 		try {
+			logger.debug("Fetched map memory info successfully");
 			return objectMapper.writeValueAsString(mapMemoryMap);
 		} catch (JsonProcessingException e) {
 			return "Exception while retriving memory info" + e;
@@ -182,7 +195,7 @@ public class JMXService {
 		return "com.hazelcast:instance=_hzInstance_1_dev,type=IMap,name="+mapName;
 	}
 
-private static JMXConnector connect(String host, String port) throws IOException, MalformedURLException {
+	private static JMXConnector connect(String host, String port) throws IOException, MalformedURLException {
 		return JMXConnectorFactory.connect(createConnectionURL(host, port));
 	}
 

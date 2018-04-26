@@ -60,6 +60,11 @@ public class CacheInstance {
 		client = HazelcastClient.newHazelcastClient(clientConfig);
 	}
 
+	/**
+	 * This method is redundant
+	 * TODO - Remove this method
+	 * @return
+	 */
 	@SuppressWarnings("rawtypes")
 	private Map<Class, StreamSerializer> getSerializerConfigs() {
 		Map<Class, StreamSerializer> configMap = new HashMap<Class, StreamSerializer>();

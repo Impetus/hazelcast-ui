@@ -1,3 +1,13 @@
+/**
+ * Name           : HazelcastRestController.java
+ * Type           : JAVA
+ * Purpose        : Entry method for Hazelcast webservices
+ * Description    : 
+ * Mod Log
+ * Date		    By		         	Jira			Description
+ * ----------- 	----------------- 	---------- 		---------------	
+**/
+
 package com.hazelcast.ui.controller;
 
 import org.apache.log4j.Logger;
@@ -35,7 +45,7 @@ public class HazelcastRestController {
 	}
 
 	/**
-	 * 
+	 * This method returns members in the cluster
 	 * @return
 	 */
 	@RequestMapping(value = "/clusterinfo", method = RequestMethod.GET)
@@ -43,16 +53,32 @@ public class HazelcastRestController {
 		return hazelcastRestService.getMembersInfo();
 	}
 
+	/**
+	 * This method returns list of maps present in the cluster
+	 * @return
+	 */
 	@RequestMapping(value = "/mapsName", method = RequestMethod.GET)
 	public String getMapsName() {
 		return hazelcastRestService.getMapsName();
 	}
 
+	/**
+	 * This method returns size of map
+	 * @param mapName
+	 * @return
+	 */
 	@RequestMapping(value = "/getSize/{mapName}", method = RequestMethod.GET)
 	public String getSize(@PathVariable("mapName") String mapName) {
 		return hazelcastRestService.getSize(mapName);
 	}
 
+	/**
+	 * This method returns value corresponding to input key
+	 * @param mapName
+	 * @param key
+	 * @param type
+	 * @return
+	 */
 	@RequestMapping(value = "/getValue/{mapName}/{key}/{type}", method = RequestMethod.GET)
 	public String getValue(@PathVariable("mapName") String mapName, @PathVariable("key") String key, @PathVariable("type") String type) {
 		return hazelcastRestService.getValueFromMap(mapName, key, type);

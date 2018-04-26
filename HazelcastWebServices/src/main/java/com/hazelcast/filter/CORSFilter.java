@@ -1,3 +1,12 @@
+/**
+ * Name           : CORSFilter.java
+ * Type           : JAVA
+ * Purpose        : 
+ * Description    : 
+ * Mod Log
+ * Date		    By		         	Jira			Description
+ * ----------- 	----------------- 	---------- 		---------------	
+**/
 package com.hazelcast.filter;
 
 import java.io.IOException;

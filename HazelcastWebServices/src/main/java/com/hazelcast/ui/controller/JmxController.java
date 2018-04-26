@@ -17,6 +17,9 @@ import com.hazelcast.ui.service.JMXService;
 @RestController
 public class JmxController {
 
+	/**
+	 * This method fetches information of members of the hazelcast cluster
+	 */
 	@Autowired
 	private JMXService jmxService;
 	
@@ -26,6 +29,9 @@ public class JmxController {
 		return jmxService.getNodeMemoryInfo(host, port);
 	}
 	
+	/**
+	 * This method fetches information of maps loaded in hazelcast cluster
+	 */
 	@RequestMapping(value="/mapmemory/{host}/{port}/{mapName}",method=RequestMethod.GET)
 	public String getMapMemoryStats(@PathVariable("host") String host, @PathVariable("port") String port,@PathVariable("mapName")String mapName)
 	{

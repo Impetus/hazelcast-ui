@@ -1,3 +1,12 @@
+/**
+ * Name           : HazelcastRestService.java
+ * Type           : JAVA
+ * Purpose        : This class is the service layer containing implementation of methods exposed by the webservice
+ * Description    : 
+ * Mod Log
+ * Date		    By		         	Jira			Description
+ * ----------- 	----------------- 	---------- 		---------------	
+**/
 package com.hazelcast.ui.service;
 
 import java.text.SimpleDateFormat;
@@ -79,6 +88,11 @@ public class HazelcastRestService {
 		}
 	}
 
+	/**
+	 * This method returns size of map
+	 * @param mapName
+	 * @return
+	 */
 	public String getSize(String mapName) {
 		int size = cacheInstance.getClient().getMap(mapName).size();
 		Map<String, Integer> sizeMap = new HashMap<>();
