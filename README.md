@@ -48,12 +48,13 @@ Steps to Load data in Hazelcats cluster
 
 1. Add the map's information in "hazelcast.xml".We have added one test map conf in it "<map name="testMap">".
 2. Write loader class to load data in Hazelcats map. We have provided one Test class to add dummy 1k records in Hazelcast. Check HazelcastMapLoader.java to create your own loader.
-3. Run HazelcastMapLoader.java class to ingest records in "testMap". Add hazelcast-1.0.0-jar-with-dependencies.jar present in target folder to classpath and invoke it:
-   CLASSPATH=<path to jar>/hazelcast-1.0.0-jar-with-dependencies.jar
-   CLASSNAME=com.impetus.hazelcast.HazelcastMapLoader
-   java -classpath $CLASSPATH $CLASSNAME
-   This should load sample map in hazelcast cluster. You will see following logs:
-   Apr 20, 2018 3:04:29 PM com.hazelcast.core.LifecycleService
+3. Run HazelcastMapLoader.java class to ingest records in "testMap". To do this:
+	a. Add hazelcast-1.0.0-jar-with-dependencies.jar present in target folder to classpath and invoke it:
+	b. CLASSPATH=<path to jar>/hazelcast-1.0.0-jar-with-dependencies.jar
+	c. CLASSNAME=com.impetus.hazelcast.HazelcastMapLoader
+	d. java -classpath $CLASSPATH $CLASSNAME
+    e. This should load sample map in hazelcast cluster. You will see following logs:
+	Apr 20, 2018 3:04:29 PM com.hazelcast.core.LifecycleService
 	INFO: HazelcastClient[hz.client_0_dev][3.4.6] is STARTING
 	Apr 20, 2018 3:04:29 PM com.hazelcast.core.LifecycleService
 	INFO: HazelcastClient[hz.client_0_dev][3.4.6] is STARTED
@@ -64,10 +65,7 @@ Steps to Load data in Hazelcats cluster
 	Members [1] {
 	Member [localhost]:5701
 	}
-4. Class HazelcastMapLoader.java is a class to push 1k records in "testMap".
-5. To see the data in map, Go to "Maps" and then to "testMap".Click on "Browse".
-6. Add the key in it and click on "Browse" button. In "testMap" the keys are : Key1,Key2...Key999.
-7. To clear the Map record from UI, click on "Clear" tab. It will not remove the data from Hazelcast, but will only clear the screen.
+
 
 Deployment Steps(Hazelcast UI Application)
 ----------------
@@ -101,7 +99,7 @@ Start The Services
     iii. npm install karma-jasmine karma-chrome-launcher jasmine-core --save-dev
     iv. npm install -g grunt-cli
     v. nohup grunt --force serve &
-    
+    vi. If you get an error "Cannot find module : sigmund" then run npm install sigmund followed by Step 5 again
 4. hazelcast UI can be accessed by url - http://<IP Address>:9000/#/hazelcast
 
 
@@ -116,6 +114,9 @@ Home Screen
 
 List of Members
 
+a. To see the data in map, Go to "Maps" and then to "testMap".Click on "Browse".
+b. Add the key in it and click on "Browse" button. In "testMap" the keys are : Key1,Key2...Key999.
+c. To clear the Map record from UI, click on "Clear" tab. It will not remove the data from Hazelcast, but will only clear the screen.
 
 ![members](/images/List_Members.png)
 ***
