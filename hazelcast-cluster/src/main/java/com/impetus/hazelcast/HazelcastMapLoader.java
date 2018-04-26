@@ -1,3 +1,13 @@
+/**
+ * Name           : HazelcastMapLoader.java
+ * Type           : JAVA
+ * Purpose        : Entry point to load sample map into hazelcast
+ * Description    : 
+ * Mod Log
+ * Date		    By		         	Jira			Description
+ * ----------- 	----------------- 	---------- 		---------------	
+**/
+
 package com.impetus.hazelcast;
 
 import java.util.Map;
@@ -12,12 +22,16 @@ import org.slf4j.Logger;
 public class HazelcastMapLoader {
 	
 	private static Logger logger = LogUtils.getLogger(HazelcastMapLoader.class);
+	private static Map<String, String> testMap;
 	
 	public static void main(String[] args) {
+		HazelcastMapLoader.loadHazelCastMap();
+	}
+	
+	public static void loadHazelCastMap() {
 		logger.info("Going to load hazelcast maps");
 		
 		Reader cacheInst = null;
-		Map<String, String> testMap = null;
 		
 		cacheInst = new Reader();
 		testMap = cacheInst.initializeTestMap();
@@ -26,4 +40,9 @@ public class HazelcastMapLoader {
 		}
 		logger.info("Loaded hazelcast maps");
 	}
+	
+	public static Map<String,String> getTestMap() {
+		return testMap;
+	}
+	
 }

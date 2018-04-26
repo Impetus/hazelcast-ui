@@ -1,3 +1,12 @@
+/**
+ * Name           : Reader.java
+ * Type           : JAVA
+ * Purpose        : This class loads hazelcast property file
+ * Description    : 
+ * Mod Log
+ * Date		    By		         	Jira			Description
+ * ----------- 	----------------- 	---------- 		---------------	
+**/
 package com.impetus.hazelcast;
 
 import java.io.File;
@@ -20,7 +29,6 @@ import com.hazelcast.core.IMap;
 @SuppressWarnings("unchecked")
 public class Reader {
 	private static final String COMMA_SEPARATOR = ",";
-
 	private static final Logger logger = LogUtils.getLogger(Reader.class);
 	
 	ObjectMapper mapper = null;
@@ -72,22 +80,18 @@ public class Reader {
 		logger.debug("readPropertyFile method :: Start ");
 
 		Properties properties = new Properties();
-
 		InputStream inputStream = null;
+
 		try {
 			inputStream = new FileInputStream(new File(confFile));
-		} catch (FileNotFoundException e) {
-			logger.error("Error reading configuration file. File " + confFile + " does not exist", e);
-		}
-
-		try {
 			properties.load(inputStream);
-			logger.debug("Configuration file : {} loaded successfully {}",confFile,properties);
 
 			if (properties.size() == 0) {
 				logger.error("Error reading configuration file. File {} does not contain any property",confFile);
 			}
-
+			
+		} catch (FileNotFoundException e) {
+			logger.error("Error reading configuration file. File " + confFile + " does not exist", e);
 		} catch (IOException e) {
 			logger.error("Error reading configuration file : " + confFile, e);
 		} finally {
@@ -121,7 +125,7 @@ public class Reader {
 	}
 
 	/**
-	 * This method is used to initialize reader instance
+	 * This method is used to initialize reader instance which inturn initializes hazelcast client
 	 **/
 	@SuppressWarnings("rawtypes")
 	private void initializeReader(String cacheServer) {

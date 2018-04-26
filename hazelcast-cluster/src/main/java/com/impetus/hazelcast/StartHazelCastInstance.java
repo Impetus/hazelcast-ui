@@ -12,6 +12,7 @@ import com.impetus.hazelcast.LogUtils;
 
 /**
  * Component to start HazelCast server Instance
+ * TODO - Is this redundant?
  */
 public class StartHazelCastInstance {
 
