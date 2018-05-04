@@ -53,7 +53,7 @@ Steps to Load data in Hazelcats cluster
 1. Add the map's information in "hazelcast.xml".We have added one test map conf in it `map name="testMap"`.
 2. Write loader class to load data in Hazelcats map. We have provided one Test class to add dummy 1k records in Hazelcast. Check HazelcastMapLoader.java to create your own loader.
 3. Run HazelcastMapLoader.java class to ingest records in "testMap". To do this:
-   - Add hazelcast-1.0.0-jar-with-dependencies.jar present in target folder to classpath: CLASSPATH=<path to jar>/hazelcast-1.0.0-jar-with-dependencies.jar
+   - Add hazelcast-1.0.0-jar-with-dependencies.jar present in target folder to classpath: CLASSPATH=`<path to jar>`/hazelcast-1.0.0-jar-with-dependencies.jar
    - Add main class: CLASSNAME=com.impetus.hazelcast.HazelcastMapLoader
    - Call main class: java -classpath $CLASSPATH $CLASSNAME
    - This should load sample map in hazelcast cluster. 
@@ -75,6 +75,7 @@ Deployment Steps(Hazelcast UI Application)
 ----------------
 
 Build WebServices
+----------------------------------------
 
 1. Checkout the code
 2. cd $GIT_CLONE_DIR/HazelcastWebServices
@@ -84,6 +85,7 @@ Build WebServices
 5. Copy target/HazelcastWebServices.war in webapps dir of apache tomcat
 
 Build UI APP
+----------------------------------------
 
 1. cd $GIT_CLONE_DIR/UI_Code
 2. Remove the dir "node_modules" if it is present else ignore.
@@ -91,20 +93,21 @@ Build UI APP
    i. Change localhost to <IP of the node> in app.js (UI_Code/app/script/)
 4. Create a file setenv.sh in "Tomcat Home"/bin folder (if not already present).
 5. Add below line to setenv.sh (it sets the environment where the code is being deployed)
-JAVA_OPTS="$JAVA_OPTS -Dfile.encoding=UTF8 -Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false -DDEPLOY_ENV=<env>". Here <env> could be local/prod/preprod as per the prefix of filename "HazelcastWebServices/src/main/resources/local-app-config.properties". 
+   - JAVA_OPTS="$JAVA_OPTS -Dfile.encoding=UTF8 -Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false -DDEPLOY_ENV=`env`". Here `env` could be local/prod/preprod as per the prefix of filename "HazelcastWebServices/src/main/resources/local-app-config.properties". 
 
 Start The Services
+----------------------------------------
 
-1. Start the Hazelcast cluster whose IPs were added in "HazelcastWebServices/src/main/resources/<env>-app-config.properties". Make sure that hazelcast cluster is up and running.
+1. Start the Hazelcast cluster whose IPs were added in "HazelcastWebServices/src/main/resources/`env`-app-config.properties". Make sure that hazelcast cluster is up and running.
 2. Start tomcat.
 3. To start UI app, follow below steps steps by logging into "root" user and from dir "$GIT_CLONE_DIR/UI_Code"
-    i. npm install
-    ii. npm install karma --save-dev
-    iii. npm install karma-jasmine karma-chrome-launcher jasmine-core --save-dev
-    iv. npm install -g grunt-cli
-    v. nohup grunt --force serve &
-    vi. If you get an error "Cannot find module : sigmund" then run npm install sigmund followed by Step 5 again
-4. hazelcast UI can be accessed by url - http://<IP Address>:9000/#/hazelcast
+   - npm install
+   - npm install karma --save-dev
+   - npm install karma-jasmine karma-chrome-launcher jasmine-core --save-dev
+   - npm install -g grunt-cli
+   - nohup grunt --force serve &
+   - If you get an error "Cannot find module : sigmund" then run npm install sigmund followed by Step 5 again
+4. Hazelcast UI can be accessed by url - http:`IP Address`:9000/#/hazelcast
 
 
 Features
