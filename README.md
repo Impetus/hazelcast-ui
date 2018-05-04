@@ -40,10 +40,10 @@ Spawn Hazelcast cluster
 9. Go to resources folder and copy resource files to relevant location: 
    - cd hazelcast-cluster/src/main/resources
    - sudo cp * /usr/local/impetus_lib/resources
-11.Go to bin folder and copy resource scripts to relevant location: 
+11. Go to bin folder and copy resource scripts to relevant location: 
    - cd hazelcast-cluster/src/main/bin 
    - sudo cp * /usr/local/impetus_lib/scripts
-13.Spawn hazelcast instance: sudo -bE /usr/local/impetus_lib/scripts/start-hazelcast.sh
+12. Spawn hazelcast instance: sudo -bE /usr/local/impetus_lib/scripts/start-hazelcast.sh
 
 NOTE:Step 7-13 need to be executed on each node of hazelcast cluster.
 
