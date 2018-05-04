@@ -147,5 +147,4 @@ Map Browser View
 
 Improvements Needed
 ---------------------
-1. Need to add proper loggers in webservices
-2. Need to add generic error messages in web services 
+[ ] Need to modify name of hazelcast webservices jar
