@@ -121,9 +121,9 @@ Home Screen
 
 List of Members
 
-a. To see the data in map, Go to "Maps" and then to "testMap".Click on "Browse".
-b. Add the key in it and click on "Browse" button. In "testMap" the keys are : Key1,Key2...Key999.
-c. To clear the Map record from UI, click on "Clear" tab. It will not remove the data from Hazelcast, but will only clear the screen.
+1. To see the data in map, Go to "Maps" and then to "testMap".Click on "Browse".
+2. Add the key in it and click on "Browse" button. In "testMap" the keys are : Key1,Key2...Key999.
+3. To clear the Map record from UI, click on "Clear" tab. It will not remove the data from Hazelcast, but will only clear the screen.
 
 ![members](/images/List_Members.png)
 ***
