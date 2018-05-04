@@ -38,11 +38,11 @@ Spawn Hazelcast cluster
 7. Create directories needed by the cluster: sudo mkdir -p /mnt/hazelcast_logs/ /usr/local/impetus_lib/ /usr/local/impetus_lib/resources /usr/local/impetus_lib/scripts
 8. Copy the jar to relevent folder using commands :sudo cp target/hazelcast-1.0.0-jar-with-dependencies.jar /usr/local/impetus_lib
 9. Go to resources folder and copy resource files to relevant location: 
-- cd hazelcast-cluster/src/main/resources
-- sudo cp * /usr/local/impetus_lib/resources
+   - cd hazelcast-cluster/src/main/resources
+   - sudo cp * /usr/local/impetus_lib/resources
 11.Go to bin folder and copy resource scripts to relevant location: 
-- cd hazelcast-cluster/src/main/bin 
-- sudo cp * /usr/local/impetus_lib/scripts
+   - cd hazelcast-cluster/src/main/bin 
+   - sudo cp * /usr/local/impetus_lib/scripts
 13.Spawn hazelcast instance: sudo -bE /usr/local/impetus_lib/scripts/start-hazelcast.sh
 
 NOTE:Step 7-13 need to be executed on each node of hazelcast cluster.
