@@ -30,15 +30,19 @@ Spawn Hazelcast cluster
 ------------------------
 1. Checkout "hazelcast-cluster" code.
 2. Go to resources folder : cd hazelcast-cluster/src/main/resources
-3. Add IPs of the nodes on which hazelcast instance need to be run. This will be added against key cache.server in hazelcast-server.properties file. In case of multiple nodes the value will be "," separated. E.g: <<Node-1 ip>>:5701,<<Node-2 IP>>:5701. For testing purpose one can use localhost.
-3. Add IPs of the nodes on which hazelcast instance need to be run in file "hazelcast.xml" as well.In cas eof multiple nodes add a new "<member>" tag per IP. For testing purpose one can use localhost.
+3. Add IPs of the nodes on which hazelcast instance need to be run. This will be added against key cache.server in hazelcast-server.properties file. In case of multiple nodes the value will be "," separated. E.g: `Node-1 ip`:5701,`Node-2 IP`:5701. For testing purpose one can use localhost.
+3. Add IPs of the nodes on which hazelcast instance need to be run in file "hazelcast.xml" as well.In case of multiple nodes add a new `member` tag per IP. For testing purpose one can use localhost.
 4. By default the logs of hazelcast will be created al location : /mnt/hazelcast_logs/. One can update it in file hazelcast-server-log4j.properties.
 5. Got to base folder of hazelcast cluster : cd hazelcast-cluster
 6. Build the code using: mvn clean install -DskipTests
 7. Create directories needed by the cluster: sudo mkdir -p /mnt/hazelcast_logs/ /usr/local/impetus_lib/ /usr/local/impetus_lib/resources /usr/local/impetus_lib/scripts
 8. Copy the jar to relevent folder using commands :sudo cp target/hazelcast-1.0.0-jar-with-dependencies.jar /usr/local/impetus_lib
-9. Go to resources folder and copy resource files to relevant location: cd hazelcast-cluster/src/main/resources, sudo cp * /usr/local/impetus_lib/resources
-11.Go to bin folder and copy resource scripts to relevant location: cd hazelcast-cluster/src/main/bin, sudo cp * /usr/local/impetus_lib/scripts
+9. Go to resources folder and copy resource files to relevant location: 
+- cd hazelcast-cluster/src/main/resources
+- sudo cp * /usr/local/impetus_lib/resources
+11.Go to bin folder and copy resource scripts to relevant location: 
+- cd hazelcast-cluster/src/main/bin 
+- sudo cp * /usr/local/impetus_lib/scripts
 13.Spawn hazelcast instance: sudo -bE /usr/local/impetus_lib/scripts/start-hazelcast.sh
 
 NOTE:Step 7-13 need to be executed on each node of hazelcast cluster.
