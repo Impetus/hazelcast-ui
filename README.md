@@ -147,4 +147,4 @@ Map Browser View
 
 Improvements Needed
 ---------------------
-[ ] Need to modify name of hazelcast webservices jar
+- [ ] Need to modify name of hazelcast webservices jar
