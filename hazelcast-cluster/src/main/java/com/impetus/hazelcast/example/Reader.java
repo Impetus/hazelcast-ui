@@ -7,7 +7,7 @@
  * Date		    By		         	Jira			Description
  * ----------- 	----------------- 	---------- 		---------------	
 **/
-package com.impetus.hazelcast;
+package com.impetus.hazelcast.example;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,7 +24,9 @@ import org.slf4j.Logger;
 import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.client.config.ClientConfig;
 import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.IList;
 import com.hazelcast.core.IMap;
+import com.impetus.hazelcast.LogUtils;
 
 @SuppressWarnings("unchecked")
 public class Reader {
@@ -35,6 +37,7 @@ public class Reader {
 	ObjectWriter objectWriter = null;
 	HazelcastInstance client = null;
 	IMap<String, String> testMap = null;
+	IList<String> testList = null;
 	
 	/**
 	 * Constructor method
@@ -190,11 +193,35 @@ public class Reader {
 		return testMap;
 	}
 
+	
+	/**
+	 * This method is used to initialize test List
+	 */
+	public IList<String> initializeTestList() {
+		
+		try {
+			testList = client.getList("testList");
+			
+			logger.info("Loaded sample list. Size of list is {}",testList.size());
+		} catch (Exception e) {
+			logger.error("Error while fetching testList from cache server. ", e);
+			testList = (IList<String>) Collections.EMPTY_LIST;
+		}
+		return testList;
+	}
+	
 	/**
 	 * This method is used to get test Map
 	 */
 	public IMap<String, String> getTestMap() {
 		return testMap;
+	}
+	
+	/**
+	 * This method is used to get test list
+	 */
+	public IList<String> getTestList() {
+		return testList;
 	}
 
 }

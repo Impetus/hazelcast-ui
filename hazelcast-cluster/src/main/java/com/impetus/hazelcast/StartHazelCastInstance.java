@@ -11,8 +11,7 @@ import com.hazelcast.core.MembershipListener;
 import com.impetus.hazelcast.LogUtils;
 
 /**
- * Component to start HazelCast server Instance
- * TODO - Is this redundant?
+ * Component to start HazelCast server Instance of 3.4.6 version
  */
 public class StartHazelCastInstance {
 
@@ -37,7 +36,6 @@ public class StartHazelCastInstance {
 				@Override
 				public void memberAttributeChanged(
 						MemberAttributeEvent memberAttributeEvent) {
-					// TODO Auto-generated method stub
 
 				}
 			});

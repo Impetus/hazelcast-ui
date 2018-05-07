@@ -8,11 +8,13 @@
  * ----------- 	----------------- 	---------- 		---------------	
 **/
 
-package com.impetus.hazelcast;
+package com.impetus.hazelcast.example;
 
 import java.util.Map;
 
 import org.slf4j.Logger;
+
+import com.impetus.hazelcast.LogUtils;
 
 /**
  * Entry point for loading sample hazelcast maps
@@ -25,6 +27,7 @@ public class HazelcastMapLoader {
 	
 	private static Logger logger = LogUtils.getLogger(HazelcastMapLoader.class);
 	private static Map<String, String> testMap;
+	
 	
 	public static void main(String[] args) {
 		HazelcastMapLoader.loadHazelCastMap();
@@ -44,6 +47,7 @@ public class HazelcastMapLoader {
 			testMap.put("Key"+i,"Value"+i);
 		}
 		logger.info("Loaded hazelcast maps");
+		
 	}
 	
 	/**
