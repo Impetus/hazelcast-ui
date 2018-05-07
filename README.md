@@ -58,8 +58,8 @@ Steps to Load data in Hazelcats cluster
 1. Add the map's information in "hazelcast.xml".We have added one test map conf in it `map name="testMap"`.
 2. Write loader class to load data in Hazelcats map. We have provided one Test class to add dummy 1k records in Hazelcast. Check HazelcastMapLoader.java to create your own loader.
 3. Run HazelcastMapLoader.java class to ingest records in "testMap". To do this:
-   - Add hazelcast-1.0.0-jar-with-dependencies.jar present in target folder to classpath: CLASSPATH=`<path to jar>`/hazelcast-1.0.0-jar-with-dependencies.jar
-   - Add main class: CLASSNAME=com.impetus.hazelcast.HazelcastMapLoader
+   - Add hazelcast-cluster-startup-1.0.0.jar present in target folder to classpath: CLASSPATH=`<path to jar>`/hazelcast-cluster-startup-1.0.0.jar
+   - Add main class: CLASSNAME=com.impetus.hazelcast.example.HazelcastMapLoader
    - Call main class: java -classpath $CLASSPATH $CLASSNAME
    - This should load sample map in hazelcast cluster. 
    - You will see following logs as shown below:
