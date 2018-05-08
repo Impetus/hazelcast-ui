@@ -94,7 +94,10 @@
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
+				<finalName>hazelcast-cluster-startup-${project.version}</finalName>
+        				<appendAssemblyId>false</appendAssemblyId>
 				</configuration>
+
 				<executions>
 					<execution>
 						<id>make-assembly</id>
