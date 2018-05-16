@@ -36,7 +36,7 @@ public class HazelcastMapLoader {
 	/**
 	 * Method to instantiate and load dummy map
 	 */
-	public static void loadHazelCastMap() {
+	public static int loadHazelCastMap() {
 		logger.info("Going to load hazelcast maps");
 		
 		Reader cacheInst = null;
@@ -47,6 +47,7 @@ public class HazelcastMapLoader {
 			testMap.put("Key"+i,"Value"+i);
 		}
 		logger.info("Loaded hazelcast maps");
+		return testMap.size();
 		
 	}
 	

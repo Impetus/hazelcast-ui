@@ -36,7 +36,7 @@ import com.hazelcast.util.CacheInstance;
  */
 @Component
 public class HazelcastRestService {
-
+	
 	@Autowired
 	private CacheInstance cacheInstance;
 
@@ -56,10 +56,8 @@ public class HazelcastRestService {
 	 */
 	public String getMembersInfo() {
 		List<String> members = new ArrayList<>();
-
 		for (Member m : cacheInstance.getClient().getCluster().getMembers()) {
 			members.add(m.getSocketAddress().getHostString() + ":" + m.getSocketAddress().getPort());
-
 		}
 
 		try {

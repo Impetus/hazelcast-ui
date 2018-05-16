@@ -31,19 +31,22 @@ public class HazelCastMapReader {
 	
 	
 	public static void main(String[] args) {
-		new HazelCastMapReader().readMap();
+		Map<String, String> map;
+		map=new HazelCastMapReader().readMap();
+		logger.info("The map value is"+map.get("Key1"));
 	}
 	
-	public void readMap(){
+	public Map<String, String> readMap(){
 		try {
 			cacheInst = new Reader();
 			testMap=cacheInst.initializeTestMap();
-			logger.info("The map value is"+testMap.get("Key1"));
+			
 			}
 			
 		catch (Exception e) {
 			logger.error("Error"+e);
 		}
+		return testMap;
 		
 	}
 }

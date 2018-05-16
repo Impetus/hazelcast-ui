@@ -17,8 +17,17 @@ public class StartHazelCastInstance {
 
 	private static final Logger logger = LogUtils
 			.getLogger(StartHazelCastInstance.class);
+	private static boolean isHazelcastStarted=false;
 
 	public static void main(String args[]) {
+		new StartHazelCastInstance().startHazelCastInstance();
+		if(isHazelcastStarted)
+		logger.info("Hazelcast instance started successfully");
+		
+	}
+	
+	public boolean startHazelCastInstance(){
+
 		
 		try {
 			HazelcastInstance instance = Hazelcast.newHazelcastInstance();
@@ -39,12 +48,16 @@ public class StartHazelCastInstance {
 
 				}
 			});
+			isHazelcastStarted=true;
 
 		} catch (Exception e) {
 			logger.error(
 					"Error encountered while initiating hazelcast instance ", e);
+			isHazelcastStarted=false;
 		}
 
+	return isHazelcastStarted;
+		
 	}
 
 }

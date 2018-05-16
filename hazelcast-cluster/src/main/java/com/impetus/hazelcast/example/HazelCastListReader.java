@@ -35,21 +35,25 @@ public class HazelCastListReader {
 	
 	
 	public static void main(String[] args) {
-		new HazelCastListReader().readList();
-	}
-	
-	public void readList(){
-		try {
-			cacheInst = new Reader();
-			testList = cacheInst.initializeTestList();
-			Iterator<String> iterator = testList.iterator();
-			while (iterator.hasNext()) {
-				logger.info("Values of list are::"+ iterator.next());
-			}
-			
-		} catch (Exception e) {
-			logger.error("Error"+e);
+		List<String> list;
+		list=new HazelCastListReader().readList();
+		try{
+		Iterator<String> iterator = list.iterator();
+		while (iterator.hasNext()) {
+			logger.info("Values of list are::"+ iterator.next());
 		}
 		
+	} catch (Exception e) {
+		logger.error("Error"+e);
 	}
+	}
+	
+	public List<String> readList(){
+		
+			cacheInst = new Reader();
+			testList = cacheInst.initializeTestList();
+			return testList;
+			
+		
+	}	
 }

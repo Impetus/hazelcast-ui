@@ -31,13 +31,13 @@ public class HazelCastListLoader {
 	private static Logger logger = LogUtils.getLogger(HazelCastListLoader.class);
 	
 	public static void main(String[] args) {
-		HazelCastListLoader.loadHazelCastList();
+		new HazelCastListLoader().loadHazelCastList();
 	}
 	
 	/**
 	 * Method to instantiate and load dummy list
 	 */
-	public static void loadHazelCastList() {
+	public int loadHazelCastList() {
 		logger.info("Going to load hazelcast list");
 		List<String> testList;
 		Reader cacheInst = new Reader();
@@ -45,7 +45,8 @@ public class HazelCastListLoader {
 		for(int i=0;i<1000;i++) {
 			testList.add("List"+i);
 		}
-		logger.info("Loaded hazelcast list");	
+		logger.info("Loaded hazelcast list");
+		return testList.size();
 	}
 	
 
