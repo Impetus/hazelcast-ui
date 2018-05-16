@@ -12,6 +12,7 @@ import com.impetus.hazelcast.LogUtils;
 
 /**
  * Component to start HazelCast server Instance of 3.4.6 version
+ * @author sameena.parveen
  */
 public class StartHazelCastInstance {
 
@@ -25,7 +26,10 @@ public class StartHazelCastInstance {
 		logger.info("Hazelcast instance started successfully");
 		
 	}
-	
+	/**
+	 * Method to start Hazelcast instance and return true if it is started successfully 
+	 * else false
+	 */
 	public boolean startHazelCastInstance(){
 
 		

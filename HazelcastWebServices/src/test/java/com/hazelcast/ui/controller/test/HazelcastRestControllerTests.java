@@ -19,6 +19,12 @@ import com.hazelcast.ui.controller.HazelcastRestController;
 import com.hazelcast.ui.service.HazelcastRestService;
 import com.hazelcast.util.CacheInstance;
 
+
+/**Class to unit test the methods of HazelcastRestController
+ * 
+ * @author sameena.parveen
+ *
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class HazelcastRestControllerTests {
 	Config cfg = new Config();
@@ -32,7 +38,9 @@ public class HazelcastRestControllerTests {
     @Mock
     private CacheInstance cacheInstance;
     
-    
+    /**
+	 * @throws java.lang.Exception
+	 */
     
     
     @Before

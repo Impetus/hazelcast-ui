@@ -24,6 +24,11 @@ import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.ui.service.HazelcastRestService;
 import com.hazelcast.util.CacheInstance;
 
+/**Class to unit test the methods of HazelCastRestService
+ * 
+ * @author sameena.parveen
+ *
+ */
 
 @RunWith(MockitoJUnitRunner.class)
 public class HazelCastRestServiceTests {
@@ -38,6 +43,10 @@ public class HazelCastRestServiceTests {
     @Mock
     private SimpleDateFormat sdf;
     static Map<Integer, String> mapCustomers=null;
+    
+    /**
+	 * @throws java.lang.Exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 		
@@ -68,6 +77,9 @@ public class HazelCastRestServiceTests {
 		;
 	}*/
 	
+	/**
+	 * @throws com.fasterxml.jackson.core.JsonProcessingException
+	 */
 	@Test
 	public void testGetMapsName() throws JsonProcessingException {
 		List<String> maps = new ArrayList<>();
@@ -77,6 +89,9 @@ public class HazelCastRestServiceTests {
 		assertEquals("customers",hazelcatRestService.getMapsName());
 	}
 	
+	/**
+	 * @throws com.fasterxml.jackson.core.JsonProcessingException
+	 */
 	@Test
 	public void testGetSize() throws JsonProcessingException {
 		Map<String, Integer> sizeMap = new HashMap<>();
@@ -98,6 +113,9 @@ public class HazelCastRestServiceTests {
 		hazelcatRestService.getValueFromMap("customers","1","Integer");
 	}*/
 	
+	/**
+	 * @throws java.lang.Exception
+	 */
 	@After
 	public void cleanup() throws Exception {
 	  Hazelcast.shutdownAll();

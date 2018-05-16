@@ -15,6 +15,11 @@ import com.impetus.hazelcast.example.HazelCastListLoader;
 import com.impetus.hazelcast.example.HazelCastListReader;
 import com.impetus.hazelcast.example.HazelcastMapLoader;
 
+/**Class to unit test the methods of HazelCastListReader
+ * 
+ * @author sameena.parveen
+ *
+ */
 public class HazelCastListReaderTests {
 	Config cfg = new Config();
     static HazelcastInstance instance=null;

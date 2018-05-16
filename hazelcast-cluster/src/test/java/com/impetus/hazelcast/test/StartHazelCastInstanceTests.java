@@ -9,8 +9,17 @@ import org.junit.Test;
 import com.hazelcast.core.Hazelcast;
 import com.impetus.hazelcast.StartHazelCastInstance;
 
+/**Class to unit test the methods of StartHazelCastInstance
+ * 
+ * @author sameena.parveen
+ *
+ */
 public class StartHazelCastInstanceTests {
 	private StartHazelCastInstance startHazelCast;
+	
+	/**
+	 * @throws java.lang.Exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 		

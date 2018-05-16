@@ -48,6 +48,9 @@ public class HazelCastListReader {
 	}
 	}
 	
+	/**
+	 * Method to instantiate and read dummy list
+	 */
 	public List<String> readList(){
 		
 			cacheInst = new Reader();

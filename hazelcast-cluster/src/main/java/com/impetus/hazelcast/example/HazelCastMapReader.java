@@ -36,6 +36,9 @@ public class HazelCastMapReader {
 		logger.info("The map value is"+map.get("Key1"));
 	}
 	
+	/**
+	 * Method to instantiate and read dummy map
+	 */
 	public Map<String, String> readMap(){
 		try {
 			cacheInst = new Reader();
