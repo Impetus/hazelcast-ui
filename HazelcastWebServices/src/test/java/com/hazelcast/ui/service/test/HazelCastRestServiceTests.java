@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -39,9 +40,11 @@ public class HazelCastRestServiceTests {
     private CacheInstance cacheInstance;
     @Mock
     private ObjectMapper objectMapper;
-    
     @Mock
     private SimpleDateFormat sdf;
+    
+    //@Mock
+   // private SimpleDateFormat sdf;
     static Map<Integer, String> mapCustomers=null;
     
     /**
@@ -56,6 +59,7 @@ public class HazelCastRestServiceTests {
     mapCustomers.put(1, "Joe");
     mapCustomers.put(2, "Ali");
     mapCustomers.put(3, "Avi");
+    MockitoAnnotations.initMocks(this);
 	}
 	
 	@Test
@@ -73,10 +77,10 @@ public class HazelCastRestServiceTests {
 		members.add("localhost" + ":" + "5701");
 		Mockito.when(cacheInstance.getClient()).thenReturn(instance);
 		Mockito.when(objectMapper.writeValueAsString(members)).thenReturn("localhost:5701");
-		assertEquals("localhost:5701",hazelcatRestService.getMembersInfo());
-		;
-	}*/
-	
+		assertEquals("10.30.240.126:5701",hazelcatRestService.getMembersInfo());
+		
+	}
+	*/
 	/**
 	 * @throws com.fasterxml.jackson.core.JsonProcessingException
 	 */
@@ -102,14 +106,27 @@ public class HazelCastRestServiceTests {
 	}
 	/*@Test
 	public void testGetValueFromMap() {
-		Calendar cal = Calendar.getInstance();
-		sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-		//Map<String, Integer> sizeMap = new HashMap<>();
-		//sizeMap.put("Size",3);
+		//Calendar cal = Calendar.getInstance();
+		//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		Mockito.when(cacheInstance.getClient()).thenReturn(instance);
-		//Mockito.when(objectMapper.writeValueAsString(sizeMap)).thenReturn("3");
-		//assertEquals("3",hazelcatRestService.getValueFromMap("customers","1","Integer"));
-		Mockito.when(sdf.format(cal.getTime())).thenReturn("2018-05-15 16:22:56.889");
+		SimpleDateFormat mock = org.mockito.Mockito.mock(SimpleDateFormat.class);
+		Calendar cal = org.mockito.Mockito.mock(Calendar.class);
+		Mockito.when(cal.getTime()).thenReturn(cal.getTime());
+		Mockito.when(mock.format(cal)).thenReturn("2018-05-15 16:22:56.889");
+		//when(mock.read("1")).thenReturn(pcUser);
+		//Mockito.when(sdf.format(cal.getTime())).thenReturn("2018-05-15 16:22:56.889");
+		hazelcatRestService.getValueFromMap("customers","1","Integer");
+	}
+	*/
+	
+	/*@Test
+	public void testGetValueFromMap() {
+		Mockito.when(cacheInstance.getClient()).thenReturn(instance);
+		//SimpleDateFormat mock = org.mockito.Mockito.mock(SimpleDateFormat.class);
+		Calendar cal = org.mockito.Mockito.mock(Calendar.class);
+		//Calendar cal = Calendar.getInstance();
+		//Mockito.when(cal.getTime()).thenReturn();
+		Mockito.when(sdf.format(any(cal))).thenReturn("2018-05-15 16:22:56.889");
 		hazelcatRestService.getValueFromMap("customers","1","Integer");
 	}*/
 	

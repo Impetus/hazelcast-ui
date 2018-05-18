@@ -30,7 +30,7 @@ public class StartHazelCastInstance {
 	 * Method to start Hazelcast instance and return true if it is started successfully 
 	 * else false
 	 */
-	public boolean startHazelCastInstance(){
+	public static boolean startHazelCastInstance(){
 
 		
 		try {

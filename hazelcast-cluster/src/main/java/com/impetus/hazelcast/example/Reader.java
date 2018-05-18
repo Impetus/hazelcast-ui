@@ -78,7 +78,7 @@ public class Reader {
 	 * @param confFile
 	 * @return
 	 */
-	private static Properties readPropertyFile(String confFile) {
+	public static Properties readPropertyFile(String confFile) {
 
 		logger.debug("readPropertyFile method :: Start ");
 
@@ -131,11 +131,12 @@ public class Reader {
 	 * This method is used to initialize reader instance which inturn initializes hazelcast client
 	 **/
 	@SuppressWarnings("rawtypes")
-	private void initializeReader(String cacheServer) {
+	public boolean initializeReader(String cacheServer) {
 		
 		Properties cacheProps = null;
 		ClientConfig clientConfig = new ClientConfig();
 		String strClients = null;
+		boolean isStarted=false;
 
 		try {
 			cacheProps = getCachingConfig();
@@ -171,11 +172,13 @@ public class Reader {
 				logger.error("Could not instantiate client");
 				throw new RuntimeException("Could not instantiate client");
 			}
+			isStarted=true;
 			logger.info("Hazelcast client instantiated successfully. Time taken to initiate cache client is {} msec",(System.currentTimeMillis() - t1));
 		} else {
 			logger.error("Unable to fetch cache server addresses from config file ");
 			throw new RuntimeException("Could not connect to cache server server..Not able to load property file");
 		}
+		return isStarted;
 	}
 
 	/**
