@@ -10,14 +10,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hazelcast.config.Config;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.ui.controller.HazelcastRestController;
 import com.hazelcast.ui.service.HazelcastRestService;
-import com.hazelcast.util.CacheInstance;
 
 
 /**Class to unit test the methods of HazelcastRestController
@@ -32,17 +33,15 @@ public class HazelcastRestControllerTests {
     static Map<Integer, String> mapCustomers=null;
     
     @InjectMocks
-    private HazelcastRestController myLauncher = new HazelcastRestController();
+    private HazelcastRestController hazecastRestController = new HazelcastRestController();
     @Mock
     private HazelcastRestService hazelcastRestService;
-    @Mock
+    /*@Mock
     private CacheInstance cacheInstance;
-    
+    */
     /**
 	 * @throws java.lang.Exception
 	 */
-    
-    
     @Before
 	public  void setUp() throws Exception {
     	
@@ -57,17 +56,32 @@ public class HazelcastRestControllerTests {
 	public void testWelcome() {
         HazelcastRestController hazelcastRestController=new HazelcastRestController();
         assertEquals("Welcome to Hazelcast Web UI", hazelcastRestController.welcome());
-        
-        
 }
+    
+    
+    @Test
+	public void testGetMembersInfo() throws JsonProcessingException {
+		Mockito.when(hazelcastRestService.getMembersInfo()).thenReturn("localhost:5701");
+    	assertEquals("localhost:5701",hazecastRestController.getClusterInfo());
+		
+	}
+    
+    @Test
+	public void testGetMapsName() {
+    	Mockito.when(hazelcastRestService.getMapsName()).thenReturn("customers");
+        assertEquals("customers", hazelcastRestService.getMapsName());
+}
+    
+    @Test
+	public void testGetSize() {
+    	Mockito.when(hazelcastRestService.getSize("customers")).thenReturn("3");
+        assertEquals("3", hazelcastRestService.getSize("customers"));
+}
+    
     /*@Test
-	public void testGetClusterInfo() {
-        HazelcastRestController s=new HazelcastRestController();
-        System.out.println("The maps are:::"+s.getMapsName());
-        
-        //assertEquals("Welcome to Hazelcast Web UI", s.welcome());
-        
-        
+	public void testGetValue() {
+    	Mockito.when(hazelcastRestService.getValueFromMap("customers", "1", "String")).thenReturn("3");
+        assertEquals("3", hazelcastRestService.getSize("customers"));
 }*/
 
 @After

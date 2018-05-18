@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hazelcast.core.DistributedObject;
 import com.hazelcast.core.EntryView;
 import com.hazelcast.core.Member;
+import com.hazelcast.ui.controller.HazelcastRestController;
 import com.hazelcast.util.CacheInstance;
 /**
  * 
@@ -142,7 +143,7 @@ public class HazelcastRestService {
 			return ("Exception occurred while fecthing entry" + e);
 		}
 	}
-
+	
 	/**
 	 * @Description This method is used to retrieve object initialized corresponding to data type of key
 	 * @param data type of key

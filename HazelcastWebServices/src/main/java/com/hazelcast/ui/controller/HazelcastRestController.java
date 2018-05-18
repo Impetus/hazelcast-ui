@@ -83,4 +83,5 @@ public class HazelcastRestController {
 	public String getValue(@PathVariable("mapName") String mapName, @PathVariable("key") String key, @PathVariable("type") String type) {
 		return hazelcastRestService.getValueFromMap(mapName, key, type);
 	}
+	
 }
