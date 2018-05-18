@@ -50,30 +50,7 @@ public class CacheInstance {
 			clientConfig.getNetworkConfig().addAddress(addr);
 		}
 
-		// Add all the serializers
-		Map<Class, StreamSerializer> configMap = getSerializerConfigs();
-		for (Map.Entry<Class, StreamSerializer> entry : configMap.entrySet()) {
-			SerializerConfig serializer = new SerializerConfig().setTypeClass(entry.getKey())
-					.setImplementation(entry.getValue());
-			clientConfig.getSerializationConfig().addSerializerConfig(serializer);
-		}
 		client = HazelcastClient.newHazelcastClient(clientConfig);
-	}
-
-	/**
-	 * This method is redundant
-	 * TODO - Remove this method
-	 * @return
-	 */
-	@SuppressWarnings("rawtypes")
-	private Map<Class, StreamSerializer> getSerializerConfigs() {
-		Map<Class, StreamSerializer> configMap = new HashMap<Class, StreamSerializer>();
-
-	/*	configMap.put(CurrentAlertThresholdInfo.class, new CurrentThresholdInfoSerializer());
-		configMap.put(DailyUsage.class, new DailyUsageMapSerializer());
-		configMap.put(DeviceDefaultCache.class, new DeviceDefaultCacheSerializer());*/
-
-		return configMap;
 	}
 
 	public JMXConnector getConnectionForHost(final String ipAddress) {
