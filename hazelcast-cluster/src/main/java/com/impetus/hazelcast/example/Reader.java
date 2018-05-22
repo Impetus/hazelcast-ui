@@ -87,21 +87,19 @@ public class Reader {
     logger.debug("readPropertyFile method :: Start ");
 
     Properties properties = new Properties();
-    //InputStream inputStream = null;
 
     try {
-      //inputStream = new FileInputStream(new File(confFile));
       properties.load(inputStream);
 
       if (properties.size() == 0) {
         logger.error("Error reading configuration file. "
-            + "File {} does not contain any property",inputStream);
+            + "File {} does not contain any property",HAZELCAST_SERVER_PROP);
       }
       
     } catch (FileNotFoundException e) {
-      logger.error("Error reading configuration file. File " + inputStream + " does not exist", e);
+      logger.error("Error reading configuration file. File " + HAZELCAST_SERVER_PROP + " does not exist", e);
     } catch (IOException e) {
-      logger.error("Error reading configuration file : " + inputStream, e);
+      logger.error("Error reading configuration file : " + HAZELCAST_SERVER_PROP, e);
     } finally {
       if (null != inputStream) {
         try {
@@ -123,11 +121,11 @@ public class Reader {
    */
   public Properties getCachingConfig() {
     Properties cachingProps = null;
-    InputStream in = this.getClass().getClassLoader()
-            .getResourceAsStream("hazelcast-server.properties");
+    InputStream hazelcastServerProp = this.getClass().getClassLoader()
+            .getResourceAsStream(HAZELCAST_SERVER_PROP);
     try {
       cachingProps = readPropertyFile(
-    		  in);
+    		  hazelcastServerProp);
     } catch (Exception e) {
       logger.error("Error while reading configuration file", e);
     }
