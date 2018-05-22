@@ -78,6 +78,7 @@
 		</dependency>
 	</dependencies>
 	<build>
+	<finalName>hazelcast-cluster-startup-${project.version}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -89,24 +90,38 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-				<finalName>hazelcast-cluster-startup-${project.version}</finalName>
-        				<appendAssemblyId>false</appendAssemblyId>
-				</configuration>
-
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3.1</version>
 				<executions>
 					<execution>
-						<id>make-assembly</id>
+						<id>make-a-jar</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.5.1</version>
+				<executions>
+					<execution>
+						<id>jar-with-dependencies</id>
 						<phase>package</phase>
 						<goals>
 							<goal>single</goal>
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<!-- Configures the used assembly descriptor -->
+					<descriptors>
+						<descriptor>src/main/assembly/assembly.xml</descriptor>
+					</descriptors>
+				</configuration>
 			</plugin>
 			<plugin>
         		<groupId>org.apache.maven.plugins</groupId>

@@ -76,11 +76,13 @@ public class HazelCastRestServiceTests {
 		List<String> members = new ArrayList<>();
 		members.add("localhost" + ":" + "5701");
 		Mockito.when(cacheInstance.getClient()).thenReturn(instance);
-		Mockito.when(objectMapper.writeValueAsString(members)).thenReturn("localhost:5701");
-		assertEquals("10.30.240.126:5701",hazelcatRestService.getMembersInfo());
+		//Mockito.when(objectMapper.writeValueAsString(members)).thenReturn("localhost:5701");
+		Mockito.when(objectMapper.writeValueAsString("localhost:5701")).thenReturn(members.toString());
+		//objectMapper.writeValueAsString(members)
+		assertEquals("localhost:5701",hazelcatRestService.getMembersInfo());
 		
-	}
-	*/
+	}*/
+	
 	/**
 	 * @throws com.fasterxml.jackson.core.JsonProcessingException
 	 */

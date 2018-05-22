@@ -33,6 +33,9 @@ import org.slf4j.Logger;
 public class Reader {
   private static final String COMMA_SEPARATOR = ",";
   private static final Logger logger = LogUtils.getLogger(Reader.class);
+  ////Property file should be added in class path in case the user is running the code from eclipse.
+  private static final String HAZELCAST_SERVER_PROP = "hazelcast-server.properties";
+  private static final String CACHE_SERVER ="cache.server";
   
   ObjectMapper mapper = null;
   ObjectWriter objectWriter = null;
@@ -46,7 +49,7 @@ public class Reader {
   public Reader() {
     mapper = new ObjectMapper();
     objectWriter = mapper.writer();
-    initializeReader("cache.server");
+    initializeReader(CACHE_SERVER);
   }
 
   /**
@@ -122,7 +125,7 @@ public class Reader {
     Properties cachingProps = null;
     try {
       cachingProps = readPropertyFile(
-        "/usr/local/impetus_lib/resources/hazelcast-server.properties");
+        HAZELCAST_SERVER_PROP);
     } catch (Exception e) {
       logger.error("Error while reading configuration file", e);
     }
