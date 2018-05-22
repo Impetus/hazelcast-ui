@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import com.hazelcast.config.Config;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
-import com.impetus.hazelcast.example.HazelCastListLoader;
 import com.impetus.hazelcast.example.HazelcastMapLoader;
 
 import java.util.Map;
@@ -14,17 +13,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-/**Class to unit test the methods of HazelCastListLoader.
+/**Class to unit test the methods of HazelcastMapLoader.
  * 
  * @author sameena.parveen
  *
  */
-public class HazelCastListLoaderTests {
+public class HazelcastMapLoaderTest {
   Config cfg = new Config();
   static HazelcastInstance instance = null;
   static Map<Integer, String> mapCustomers = null;
-  static HazelCastListLoader hazelcastListLoader;
-    
+  
   /**
    * Set up method.
    * @throws java.lang.Exception exception
@@ -35,17 +33,19 @@ public class HazelCastListLoaderTests {
     Config cfg = new Config();
     instance = Hazelcast.newHazelcastInstance(cfg);
     HazelcastMapLoader.loadHazelCastMap();
-    hazelcastListLoader = new HazelCastListLoader();
   }
 
+  /**
+   * test method to verify hazelcast map loading.
+   */
   @Test
   public void testLoadHazelCastList() {
-    
-    assertEquals(1000, hazelcastListLoader.loadHazelCastList());
+    assertEquals(1000, HazelcastMapLoader.loadHazelCastMap());
   }
   
   /**
-   * Cleanup method.
+   * Clean up method.
+   * @throws Exception exception
    */
   @After
   public void cleanup() throws Exception {

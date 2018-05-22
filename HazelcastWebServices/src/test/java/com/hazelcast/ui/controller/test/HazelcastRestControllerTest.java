@@ -30,7 +30,7 @@ import com.hazelcast.ui.service.HazelcastRestService;
  *
  */
 @RunWith(MockitoJUnitRunner.class)
-public class HazelcastRestControllerTests {
+public class HazelcastRestControllerTest {
   Config cfg = new Config();
   static HazelcastInstance instance = null;
   static Map<String, String> mapCustomers = null;
@@ -39,10 +39,6 @@ public class HazelcastRestControllerTests {
   private HazelcastRestController hazecastRestController = new HazelcastRestController();
   @Mock
   private HazelcastRestService hazelcastRestService;
-  
-  /*@Mock
-  private CacheInstance cacheInstance;
-  */
   
   private ObjectMapper objectMapper;
   /**

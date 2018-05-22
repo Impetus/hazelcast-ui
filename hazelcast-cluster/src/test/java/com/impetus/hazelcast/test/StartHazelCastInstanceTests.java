@@ -17,16 +17,12 @@ import org.junit.Test;
  */
 public class StartHazelCastInstanceTests {
   
-  private StartHazelCastInstance startHazelCast;
-  
   /**
    * Set up method.
    * @throws java.lang.Exception exception
    */
   @Before
   public void setUp() throws Exception {
-    
-    startHazelCast = new StartHazelCastInstance();
   }
 
   /**
@@ -34,7 +30,7 @@ public class StartHazelCastInstanceTests {
    */
   @Test
   public void testStartHazelCastInstance() {
-    assertEquals(true, startHazelCast.startHazelCastInstance());
+    assertEquals(true, StartHazelCastInstance.startHazelCastInstance());
   }
   
   /**

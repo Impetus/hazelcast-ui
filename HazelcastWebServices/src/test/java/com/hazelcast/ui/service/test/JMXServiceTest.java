@@ -2,6 +2,7 @@ package com.hazelcast.ui.service.test;
 
 import java.util.Map;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +17,7 @@ import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.ui.service.JMXService;
 import com.hazelcast.util.CacheInstance;
 @RunWith(MockitoJUnitRunner.class)
-public class JMXServiceTests {
+public class JMXServiceTest {
 	@InjectMocks
 	private JMXService  jMXService=new JMXService();
 	@Mock
@@ -37,8 +38,14 @@ public class JMXServiceTests {
 	
 	@Test
 	public void TestGetNodeMemoryInfo(){
-		System.out.println("Heyyyy");
-		System.out.println("Hii"+jMXService.getNodeMemoryInfo("192.168.0.11", "5702"));
+		//System.out.println("Hii"+jMXService.getNodeMemoryInfo("192.168.0.11", "5702"));
 		
+	}
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@After
+	public void cleanup() throws Exception {
+	  Hazelcast.shutdownAll();
 	}
 }

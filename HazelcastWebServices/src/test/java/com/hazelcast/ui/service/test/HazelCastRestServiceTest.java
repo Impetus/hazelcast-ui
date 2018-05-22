@@ -32,7 +32,7 @@ import com.hazelcast.util.CacheInstance;
  */
 
 @RunWith(MockitoJUnitRunner.class)
-public class HazelCastRestServiceTests {
+public class HazelCastRestServiceTest {
     private HazelcastInstance instance=null;
     @InjectMocks
     private HazelcastRestService hazelcatRestService = new HazelcastRestService();

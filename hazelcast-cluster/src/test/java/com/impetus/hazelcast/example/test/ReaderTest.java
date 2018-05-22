@@ -2,6 +2,8 @@ package com.impetus.hazelcast.example.test;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.After;
+
 import com.hazelcast.config.Config;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
@@ -15,7 +17,7 @@ import org.junit.Test;
  * @author pushkin.gupta
  *
  */
-public class ReaderTests {
+public class ReaderTest {
   public Reader reader;
   static HazelcastInstance instance = null;
 
@@ -36,7 +38,7 @@ public class ReaderTests {
   @Test
   public void testReadPropertyFile() {
     assertEquals("{cache.server=localhost:5701}",
-        Reader.getCachingConfig().toString());
+    		reader.getCachingConfig().toString());
   }
   
   /**
@@ -45,7 +47,7 @@ public class ReaderTests {
   @Test
   public void testGetCachingConfig() {
     assertEquals("{cache.server=localhost:5701}", 
-         Reader.getCachingConfig().toString());
+    		reader.getCachingConfig().toString());
   }
   
   /**
@@ -72,5 +74,12 @@ public class ReaderTests {
     assertEquals("testList",reader.initializeTestList().getName());
   }
   
+  /**
+   * Cleanup method.
+   */
+  @After
+  public void cleanup() throws Exception {
+    Hazelcast.shutdownAll();
+  }
   
 }

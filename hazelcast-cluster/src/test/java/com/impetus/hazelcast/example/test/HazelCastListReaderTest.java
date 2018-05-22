@@ -21,7 +21,7 @@ import org.junit.Test;
  * @author sameena.parveen
  *
  */
-public class HazelCastListReaderTests {
+public class HazelCastListReaderTest {
   Config cfg = new Config();
   static HazelcastInstance instance = null;
   static Map<Integer, String> mapCustomers = null;
