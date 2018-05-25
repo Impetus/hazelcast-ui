@@ -16,6 +16,7 @@ import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IList;
 import com.hazelcast.core.IMap;
 import com.impetus.hazelcast.LogUtils;
+import com.impetus.hazelcast.exception.HazelcastStartUpException;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -148,7 +149,7 @@ public class Reader {
       cacheProps = getCachingConfig();
     } catch (Exception e) {
       logger.error("Error reading resources", e);
-      throw new RuntimeException("Error reading resources ", e);
+      throw new HazelcastStartUpException("Error reading resources "+e.getMessage());
     }
 
     if (cacheProps != null) {
@@ -160,7 +161,7 @@ public class Reader {
     
       if (null == strClients) {
         logger.error("Unable to fetch cache server addresses from config file ");
-        throw new RuntimeException("Could not connect to cache server server..No IPs configured");
+        throw new HazelcastStartUpException("Could not connect to cache server server..No IPs configured");
       }
       
       logger.info("Established connection with cache server {}", strClients);
@@ -175,7 +176,7 @@ public class Reader {
       logger.info("Serializers set");
       if (null == client) {
         logger.error("Could not instantiate client");
-        throw new RuntimeException("Could not instantiate client");
+        throw new HazelcastStartUpException("Could not instantiate client");
       }
       isStarted = true;
       long t1 = System.currentTimeMillis();
@@ -184,7 +185,7 @@ public class Reader {
           (System.currentTimeMillis() - t1));
     } else {
       logger.error("Unable to fetch cache server addresses from config file ");
-      throw new RuntimeException("Could not connect to cache server server"
+      throw new HazelcastStartUpException("Could not connect to cache server server"
           + "..Not able to load property file");
     }
     return isStarted;
