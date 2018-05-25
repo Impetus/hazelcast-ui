@@ -1,17 +1,15 @@
-Table of Contents
-=================
-[ About Hazelcast UI APP ] (http://git-impetus.impetus.co.in/bigdata/HazelcastUIApp#about-hazelcast-ui-app)
-
-
 About Hazelcast UI APP
 =============
 
-Hazelcast UI provided in development version is restricted to two nodes.This APP provides basic capabilites of Hazelcast UI with no restriction on number of nodes.
-This app is tested with Hazelcast 3.4.6 version.
-In following steps we have provided 
+Hazelcast UI provided in development version is restricted to two nodes only.This application provides basic capabilites of Hazelcast UI with no restriction on number of nodes.
+The app has been tested with Hazelcast 3.4.6 version.
+
+Table of Contents
+=================
 1. Pre-requisites for Hazelcast UI APP. 
 2. The technical Stack
-3. How to Start Hazelcast cluster version: 3.4.6
+3. Building and deploying Hazelcast Webservices
+4. How to Start Hazelcast cluster version: 3.4.6
 4. How to Load data in Hazelcast.
 5. Deployment steps of "Hazelcast UI Application" 
 6. Features
@@ -25,36 +23,88 @@ Prerequisites
 3. All Hazelcast instances should be JMX enabled(By default port used for jmx is 1010, it can be changed as per requirement)
 4. grunt-cli 1.2.0 or later
 5. Nodejs
+6. Maven
+7. Ubuntu 14.04
 
 Tech stack
 -------------
 ![ts](/images/Tech_stack.png)
 ***
 
-Spawn Hazelcast cluster
-------------------------
-1. Checkout "hazelcast-cluster" code.
+Building and deploying Hazelcast Webservices
+----------------------------------------
+Pre-requisite to starting Hazelcast Webservices component is that the Hazelcast cluster must be up and running. 
+In case you do not have an existing hazelcast cluster, you can download it from hazelcast.org or use the hazelcast cluster that comes bundled with this product.
+
+Hazelcast Webservices work by connecting to a hazelcast cluster and provide a wrapper layer to access hazelcast api's. Follow below steps to build and deploy Hazelcast Webservices.
+1. Checkout the code for Git Repository.
+2. Go to the webservices folder - cd $GIT_CLONE_DIR/HazelcastWebServices.
+3. Update the "etl.cluster.nodes" property in src/main/resources/app-config.properties with list of hazelcast instances (you can create comma separated list of instances if there are more than one instance).
+4. Multiple conf file can be added parallel to "app-config.properties" per env e.g "prod-app-config.properties" for production env "preprod-app-config.properties" for preprod and "local-app-config.properties" for local env etc.
+4. Build the code using command "mvn clean install".
+5. Go to target directory and copy HazelcastWebServices.war to webapps dir of Apache Tomcat.
+6. Once tomcat server is up and running, Hazelcast webservices are also up. Open browser and go to url - http:`IP Address`:`tomcat port`/HazelcastWebServices/
+7. You will see a message "Welcome to Hazelcast Web UI" indicating that webservices have got started successfully.
+
+Building and starting Hazelcast UI APP
+----------------------------------------
+1. Go to UI directory  - cd $GIT_CLONE_DIR/UI_Code
+2. Check for presence of "node_modules" directory. If present delete it otherwise go to next step.
+3. Go to app/scripts directory and edit app.js
+   - Change localhost to `IP of the node`.
+4. Go to Apache Tomcat installation directory. Navigate to bin directory and create a file setenv.sh (if not already present).
+5. setenv.sh is used to set the environment where the code is being deployed. Add below line at the end of file:
+   - JAVA_OPTS="$JAVA_OPTS -Dfile.encoding=UTF8 -Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false -DDEPLOY_ENV=`env`". Here `env` could be local/prod/preprod as per the prefix of filename "HazelcastWebServices/src/main/resources/local-app-config.properties". 
+6. Start tomcat server.
+7. Open terminal, log in as "root" user and navigate to "$GIT_CLONE_DIR/UI_Code" directory. Run below commands: 
+   - npm install
+   - npm install karma --save-dev
+   - npm install karma-jasmine karma-chrome-launcher jasmine-core --save-dev
+   - npm install -g grunt-cli
+   - nohup grunt --force serve &
+   - If you get an error "Cannot find module : sigmund" then run npm install sigmund followed by Step 5 again.
+8. Once above steps have been run successfully Hazelcast UI is up and running. It can be accessed at url - http:`IP Address`:9000/#/hazelcast
+
+Starting Hazelcast IMDG cluster
+--------------------------------
+1. Download Hazelcast IMDG 3.4.6 from hazelcast.org.
+2. Go to `Hazelcast Dir`/bin.
+3. To use the Custom UI one must start Hazelcast with JMX enabled. To do this open "server.sh" and replace "$RUN_JAVA -server $JAVA_OPTS com.hazelcast.core.server.StartServer" with "$RUN_JAVA -server $JAVA_OPTS -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=1010 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dhazelcast.jmx=true com.hazelcast.core.server.StartServer". 
+4. Open "hazelcast.xml" and disable "multicast enabled". i.e. replace `multicast enabled="true"` with `multicast enabled="false"`.
+5. In above file enable tcp-ip and add the IP/hostnames of hazelcast cluster members - 
+   - set `tcp-ip enabled="true"`
+   - add cluster members -  `<member>Node IP</member>`
+6. Open Terminal, navigate to `Hazelcast Dir`/bin and start cluster by running command `sudo bin/server.sh &`.
+
+Starting Inbuilt Hazelcast cluster 
+-----------------------------------
+1. Checkout "hazelcast-cluster" code from Git repository.
 2. Go to resources folder : cd hazelcast-cluster/src/main/resources
 3. Add IPs of the nodes on which hazelcast instance need to be run. This will be added against key cache.server in hazelcast-server.properties file. In case of multiple nodes the value will be "," separated. E.g: `Node-1 ip`:5701,`Node-2 IP`:5701. For testing purpose one can use localhost.
 4. Add IPs of the nodes on which hazelcast instance need to be run in file "hazelcast.xml" as well.In case of multiple nodes add a new `member` tag per IP. For testing purpose one can use localhost.
 5. By default the logs of hazelcast will be created al location : /mnt/hazelcast_logs/. One can update it in file hazelcast-server-log4j.properties.
 6. Got to base folder of hazelcast cluster : cd hazelcast-cluster
 7. Build the code using: mvn clean install -DskipTests
-8. In target folder zipped package will get created with name "hazelcast-cluster-startup-1.0.0-pkg.tar.gz". 
-9. Extract the tar using command `tar -xvzf hazelcast-cluster-startup-1.0.0-pkg.tar.gz` to the wished location.
-10. Once the tar is extracted it will create the dir `hazelcast-cluster-startup-1.0.0`. This dir will have `conf,bin,lib folders and hazelcast-cluster-startup-1.0.0.jar`.
-11. Add the <path to conf>/hazelcast-cluster-startup-1.0.0/conf/* into the CLASSPATH.
-12. Spawn hazelcast instance: sudo -bE <path to jar>/hazelcast-cluster-startup-1.0.0/bin/start-cache.sh <Java Xmx> <Java MaxHeapFreeRatio> <Java MinHeapFreeRatio>.
+8. Create directories needed by the cluster: sudo mkdir -p /mnt/hazelcast_logs/ /usr/local/impetus_lib/ /usr/local/impetus_lib/resources /usr/local/impetus_lib/scripts
+9. Copy the jar to relevent folder using commands :sudo cp target/hazelcast-1.0.0-jar-with-dependencies.jar /usr/local/impetus_lib
+10. Go to resources folder and copy resource files to relevant location: 
+   - cd hazelcast-cluster/src/main/resources
+   - sudo cp * /usr/local/impetus_lib/resources
+11. Go to bin folder and copy resource scripts to relevant location: 
+   - cd hazelcast-cluster/src/main/bin 
+   - sudo cp * /usr/local/impetus_lib/scripts
+12. Spawn hazelcast instance: sudo -bE /usr/local/impetus_lib/scripts/start-hazelcast.sh
 
-NOTE:Copy the extracted `hazelcast-cluster-startup-1.0.0` to all the nodes of Hazelcast cluster and execute #11-12 on each node of hazelcast cluster.
+NOTE:Step 7-12 need to be executed on each node of hazelcast cluster.
 
-Steps to Load data in Hazelcats cluster
-----------------------------------------
-
-1. Add the map's information in "hazelcast.xml".We have added one test map conf in it `map name="testMap"`.
-2. Write loader class to load data in Hazelcats map. We have provided one Test class to add dummy 1k records in Hazelcast. Check HazelcastMapLoader.java to create your own loader.
-3. Run HazelcastMapLoader.java class to ingest records in "testMap". To do this:
-   - Add hazelcast-cluster-startup-1.0.0.jar and lib present in target folder to classpath: CLASSPATH="`<path to jar>`/hazelcast-cluster-startup-1.0.0.jar:`<path to jar>`/lib/*"
+Steps to load sample data in Hazelcast cluster
+--------------------------------------------------
+Below steps can be followed to load sample data in Hazelcast IMDG cluster as well as Inbuilt Hazelcast cluster.
+Go to the directory where hazelcast cluster is installed and navigate to bin directory.
+1. Add the map's information in "hazelcast.xml".For a sample on how to add map information refer hazelcast.xml present under hazelcast-cluster/src/main/resources.
+2. Write loader class to load data in Hazelcast map. For sample refer HazelcastMapLoader.java present under hazelcast-cluster/src/main/java/com/impetus/hazelcast/example.
+3. Run HazelcastMapLoader.java class to ingest records in "testMap" using below commands:
+   - Add hazelcast-cluster-startup-1.0.0.jar present in target folder to classpath: CLASSPATH=`<path to jar>`/hazelcast-cluster-startup-1.0.0.jar
    - Add main class: CLASSNAME=com.impetus.hazelcast.example.HazelcastMapLoader
    - Call main class: java -classpath $CLASSPATH $CLASSNAME
    - This should load sample map in hazelcast cluster. 
@@ -71,44 +121,8 @@ Steps to Load data in Hazelcats cluster
 		Member [localhost]:5701
 		}`
 
-
-Deployment Steps(Hazelcast UI Application)
-----------------
-
-Build WebServices
-----------------------------------------
-
-1. Checkout the code
-2. cd $GIT_CLONE_DIR/HazelcastWebServices
-3. update the "etl.cluster.nodes" property in src/main/resources/app-config.properties with list of hazelcast instances (you can create comma separated list of instances if there are more than one instance)
-4. Multiple conf file can be added paralle to "app-config.properties" per the env e.g "prod-app-config.properties" for production env "preprod-app-config.properties" for preprod and "ocal-app-config.properties" for local env etc.
-4. Build the code using command "mvn clean install"
-5. Copy target/HazelcastWebServices.war in webapps dir of apache tomcat
-
-Build UI APP
-----------------------------------------
-
-1. cd $GIT_CLONE_DIR/UI_Code
-2. Remove the dir "node_modules" if it is present else ignore.
-3. Update following properties in app/scripts/app.js
-   i. Change localhost to <IP of the node> in app.js (UI_Code/app/script/)
-4. Create a file setenv.sh in "Tomcat Home"/bin folder (if not already present).
-5. Add below line to setenv.sh (it sets the environment where the code is being deployed)
-   - JAVA_OPTS="$JAVA_OPTS -Dfile.encoding=UTF8 -Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false -DDEPLOY_ENV=`env`". Here `env` could be local/prod/preprod as per the prefix of filename "HazelcastWebServices/src/main/resources/local-app-config.properties". 
-
-Start The Services
-----------------------------------------
-
-1. Start the Hazelcast cluster whose IPs were added in "HazelcastWebServices/src/main/resources/`env`-app-config.properties". Make sure that hazelcast cluster is up and running.
-2. Start tomcat.
-3. To start UI app, follow below steps steps by logging into "root" user and from dir "$GIT_CLONE_DIR/UI_Code"
-   - npm install
-   - npm install karma --save-dev
-   - npm install karma-jasmine karma-chrome-launcher jasmine-core --save-dev
-   - npm install -g grunt-cli
-   - nohup grunt --force serve &
-   - If you get an error "Cannot find module : sigmund" then run npm install sigmund followed by Step 5 again
-4. Hazelcast UI can be accessed by url - http:`IP Address`:9000/#/hazelcast
+Troubleshooting Steps
+---------------------
 
 
 Features
@@ -148,4 +162,4 @@ Map Browser View
 
 Improvements Needed
 ---------------------
-- [ ] Need to modify name of hazelcast webservices jar
+- [ ] 
