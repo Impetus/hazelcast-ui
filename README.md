@@ -40,7 +40,11 @@ Spawn Hazelcast cluster
 5. By default the logs of hazelcast will be created al location : /mnt/hazelcast_logs/. One can update it in file hazelcast-server-log4j.properties.
 6. Got to base folder of hazelcast cluster : cd hazelcast-cluster
 7. Build the code using: mvn clean install -DskipTests
-8. Create directories needed by the cluster: sudo mkdir -p /mnt/hazelcast_logs/ /usr/local/impetus_lib/ /usr/local/impetus_lib/resources /usr/local/impetus_lib/scripts
+8. In target folder zipped package will get created with name "hazelcast-cluster-startup-1.0.0-pkg.tar.gz". 
+9. Extract the tar using command `tar -xvzf hazelcast-cluster-startup-1.0.0-pkg.tar.gz` to the wished location.
+10. Once the tar is extracted it will create the dir `hazelcast-cluster-startup-1.0.0`. This dir will have `conf,bin,lib folders and hazelcast-cluster-startup-1.0.0.jar`.
+11. 
+8. Create directories needed by the cluster: sudo mkdir -p /mnt/hazelcast_logs/
 9. Copy the jar to relevent folder using commands :sudo cp target/hazelcast-1.0.0-jar-with-dependencies.jar /usr/local/impetus_lib
 10. Go to resources folder and copy resource files to relevant location: 
    - cd hazelcast-cluster/src/main/resources
