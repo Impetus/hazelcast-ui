@@ -8,12 +8,14 @@ Table of Contents
 =================
 1. Pre-requisites for Hazelcast UI APP. 
 2. The technical Stack
-3. Building and deploying Hazelcast Webservices
-4. How to Start Hazelcast cluster version: 3.4.6
-4. How to Load data in Hazelcast.
-5. Deployment steps of "Hazelcast UI Application" 
-6. Features
-7. Improvements
+3. Building and Deploying Hazelcast Webservices
+4. Building and starting Hazelcast UI APP
+5. Starting Hazelcast IMDG cluster
+6. Starting Inbuilt Hazelcast cluster
+7. Steps to load sample data in Hazelcast cluster
+8. Troubleshooting steps
+9. Features
+10. Further Improvements
 
 Prerequisites
 =================
@@ -160,6 +162,6 @@ Map Browser View
 ***
 
 
-Improvements Needed
+Further Improvements
 =================
 - [ ] 
