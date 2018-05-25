@@ -35,7 +35,7 @@ Tech stack
 Building and Deploying Hazelcast Webservices
 =================
 Pre-requisite to starting Hazelcast Webservices component is that the Hazelcast cluster must be up and running. 
-In case you do not have an existing hazelcast cluster, [you can download it from hazelcast.org](http://git-impetus/bigdata/HazelcastUIApp#building-and-deploying-hazelcast-webservices) or use the hazelcast cluster that comes bundled with this product.
+In case you do not have an existing hazelcast cluster, [you can download it from hazelcast.org](http://git-impetus/bigdata/HazelcastUIApp#building-and-deploying-hazelcast-webservices) or [use the hazelcast cluster that comes bundled with this product](http://git-impetus/bigdata/HazelcastUIApp#starting-inbuilt-hazelcast-cluster-).
 
 Hazelcast Webservices work by connecting to a hazelcast cluster and provide a wrapper layer to access hazelcast api's. Follow below steps to build and deploy Hazelcast Webservices.
 1. Checkout the code for Git Repository.
