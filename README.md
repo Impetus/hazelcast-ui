@@ -19,7 +19,6 @@ Table of Contents
 
 Prerequisites
 =================
-
 1. Java 7 or later
 2. Apache Tomcat 7.0.40 or later
 3. All Hazelcast instances should be JMX enabled(By default port used for jmx is 1010, it can be changed as per requirement)
@@ -36,7 +35,7 @@ Tech stack
 Building and Deploying Hazelcast Webservices
 =================
 Pre-requisite to starting Hazelcast Webservices component is that the Hazelcast cluster must be up and running. 
-In case you do not have an existing hazelcast cluster, you can download it from hazelcast.org or use the hazelcast cluster that comes bundled with this product.
+In case you do not have an existing hazelcast cluster, [you can download it from hazelcast.org](http://git-impetus/bigdata/HazelcastUIApp#building-and-deploying-hazelcast-webservices) or use the hazelcast cluster that comes bundled with this product.
 
 Hazelcast Webservices work by connecting to a hazelcast cluster and provide a wrapper layer to access hazelcast api's. Follow below steps to build and deploy Hazelcast Webservices.
 1. Checkout the code for Git Repository.
@@ -45,7 +44,7 @@ Hazelcast Webservices work by connecting to a hazelcast cluster and provide a wr
 4. Multiple conf file can be added parallel to "app-config.properties" per env e.g "prod-app-config.properties" for production env "preprod-app-config.properties" for preprod and "local-app-config.properties" for local env etc.
 4. Build the code using command "mvn clean install".
 5. Go to target directory and copy HazelcastWebServices.war to webapps dir of Apache Tomcat.
-6. Once tomcat server is up and running, Hazelcast webservices are also up. Open browser and go to url - http:`IP Address`:`tomcat port`/HazelcastWebServices/
+6. Once tomcat server is up and running, Hazelcast webservices are also up. Open browser and go to url - http:`<IP Address>`:`<tomcat port>`/HazelcastWebServices/
 7. You will see a message "Welcome to Hazelcast Web UI" indicating that webservices have got started successfully.
 
 Building and starting Hazelcast UI APP
@@ -65,16 +64,16 @@ Building and starting Hazelcast UI APP
    - npm install -g grunt-cli
    - nohup grunt --force serve &
    - If you get an error "Cannot find module : sigmund" then run npm install sigmund followed by Step 5 again.
-8. Once above steps have been run successfully Hazelcast UI is up and running. It can be accessed at url - http:`IP Address`:9000/#/hazelcast
+8. Once above steps have been run successfully Hazelcast UI is up and running. It can be accessed at url - http:`<IP Address>`:9000/#/hazelcast
 
 Starting Hazelcast IMDG cluster
 =================
 1. Download Hazelcast IMDG 3.4.6 from hazelcast.org.
 2. Go to `Hazelcast Dir`/bin.
 3. To use the Custom UI one must start Hazelcast with JMX enabled. To do this open "server.sh" and replace "$RUN_JAVA -server $JAVA_OPTS com.hazelcast.core.server.StartServer" with "$RUN_JAVA -server $JAVA_OPTS -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=1010 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dhazelcast.jmx=true com.hazelcast.core.server.StartServer". 
-4. Open "hazelcast.xml" and disable "multicast enabled". i.e. replace `multicast enabled="true"` with `multicast enabled="false"`.
+4. Open "hazelcast.xml" and disable "multicast enabled". i.e. replace `<multicast enabled="true">` with `<multicast enabled="false">`.
 5. In above file enable tcp-ip and add the IP/hostnames of hazelcast cluster members - 
-   - set `tcp-ip enabled="true"`
+   - set `<tcp-ip enabled="true">`
    - add cluster members -  `<member>Node IP</member>`
 6. Open Terminal, navigate to `Hazelcast Dir`/bin and start cluster by running command `sudo bin/server.sh &`.
 
