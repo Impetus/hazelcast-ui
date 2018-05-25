@@ -16,7 +16,7 @@ Table of Contents
 7. Improvements
 
 Prerequisites
--------------
+=================
 
 1. Java 7 or later
 2. Apache Tomcat 7.0.40 or later
@@ -27,12 +27,12 @@ Prerequisites
 7. Ubuntu 14.04
 
 Tech stack
--------------
+=================
 ![ts](/images/Tech_stack.png)
 ***
 
-Building and deploying Hazelcast Webservices
-----------------------------------------
+Building and Deploying Hazelcast Webservices
+=================
 Pre-requisite to starting Hazelcast Webservices component is that the Hazelcast cluster must be up and running. 
 In case you do not have an existing hazelcast cluster, you can download it from hazelcast.org or use the hazelcast cluster that comes bundled with this product.
 
@@ -47,7 +47,7 @@ Hazelcast Webservices work by connecting to a hazelcast cluster and provide a wr
 7. You will see a message "Welcome to Hazelcast Web UI" indicating that webservices have got started successfully.
 
 Building and starting Hazelcast UI APP
-----------------------------------------
+=================
 1. Go to UI directory  - cd $GIT_CLONE_DIR/UI_Code
 2. Check for presence of "node_modules" directory. If present delete it otherwise go to next step.
 3. Go to app/scripts directory and edit app.js
@@ -66,7 +66,7 @@ Building and starting Hazelcast UI APP
 8. Once above steps have been run successfully Hazelcast UI is up and running. It can be accessed at url - http:`IP Address`:9000/#/hazelcast
 
 Starting Hazelcast IMDG cluster
---------------------------------
+=================
 1. Download Hazelcast IMDG 3.4.6 from hazelcast.org.
 2. Go to `Hazelcast Dir`/bin.
 3. To use the Custom UI one must start Hazelcast with JMX enabled. To do this open "server.sh" and replace "$RUN_JAVA -server $JAVA_OPTS com.hazelcast.core.server.StartServer" with "$RUN_JAVA -server $JAVA_OPTS -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=1010 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dhazelcast.jmx=true com.hazelcast.core.server.StartServer". 
@@ -77,7 +77,7 @@ Starting Hazelcast IMDG cluster
 6. Open Terminal, navigate to `Hazelcast Dir`/bin and start cluster by running command `sudo bin/server.sh &`.
 
 Starting Inbuilt Hazelcast cluster 
------------------------------------
+=================
 1. Checkout "hazelcast-cluster" code from Git repository.
 2. Go to resources folder : cd hazelcast-cluster/src/main/resources
 3. Add IPs of the nodes on which hazelcast instance need to be run. This will be added against key cache.server in hazelcast-server.properties file. In case of multiple nodes the value will be "," separated. E.g: `Node-1 ip`:5701,`Node-2 IP`:5701. For testing purpose one can use localhost.
@@ -98,7 +98,7 @@ Starting Inbuilt Hazelcast cluster
 NOTE:Step 7-12 need to be executed on each node of hazelcast cluster.
 
 Steps to load sample data in Hazelcast cluster
---------------------------------------------------
+=================
 Below steps can be followed to load sample data in Hazelcast IMDG cluster as well as Inbuilt Hazelcast cluster.
 Go to the directory where hazelcast cluster is installed and navigate to bin directory.
 1. Add the map's information in "hazelcast.xml".For a sample on how to add map information refer hazelcast.xml present under hazelcast-cluster/src/main/resources.
@@ -122,11 +122,11 @@ Go to the directory where hazelcast cluster is installed and navigate to bin dir
 		}`
 
 Troubleshooting Steps
----------------------
+=================
 
 
 Features
---------
+=================
 
 Home Screen
 
@@ -161,5 +161,5 @@ Map Browser View
 
 
 Improvements Needed
----------------------
+=================
 - [ ] 
