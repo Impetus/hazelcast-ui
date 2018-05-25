@@ -43,18 +43,10 @@ Spawn Hazelcast cluster
 8. In target folder zipped package will get created with name "hazelcast-cluster-startup-1.0.0-pkg.tar.gz". 
 9. Extract the tar using command `tar -xvzf hazelcast-cluster-startup-1.0.0-pkg.tar.gz` to the wished location.
 10. Once the tar is extracted it will create the dir `hazelcast-cluster-startup-1.0.0`. This dir will have `conf,bin,lib folders and hazelcast-cluster-startup-1.0.0.jar`.
-11. 
-8. Create directories needed by the cluster: sudo mkdir -p /mnt/hazelcast_logs/
-9. Copy the jar to relevent folder using commands :sudo cp target/hazelcast-1.0.0-jar-with-dependencies.jar /usr/local/impetus_lib
-10. Go to resources folder and copy resource files to relevant location: 
-   - cd hazelcast-cluster/src/main/resources
-   - sudo cp * /usr/local/impetus_lib/resources
-11. Go to bin folder and copy resource scripts to relevant location: 
-   - cd hazelcast-cluster/src/main/bin 
-   - sudo cp * /usr/local/impetus_lib/scripts
-12. Spawn hazelcast instance: sudo -bE /usr/local/impetus_lib/scripts/start-hazelcast.sh
+11. Add the <path to conf>/hazelcast-cluster-startup-1.0.0/conf/* into the CLASSPATH.
+12. Spawn hazelcast instance: sudo -bE <path to jar>/hazelcast-cluster-startup-1.0.0/bin/start-cache.sh <Java Xmx> <Java MaxHeapFreeRatio> <Java MinHeapFreeRatio>.
 
-NOTE:Step 7-12 need to be executed on each node of hazelcast cluster.
+NOTE:Copy the extracted `hazelcast-cluster-startup-1.0.0` to all the nodes of Hazelcast cluster and execute #11-12 on each node of hazelcast cluster.
 
 Steps to Load data in Hazelcats cluster
 ----------------------------------------
