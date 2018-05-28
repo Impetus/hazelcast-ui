@@ -75,7 +75,7 @@ Starting Hazelcast IMDG cluster
 5. In above file enable tcp-ip and add the IP/hostnames of hazelcast cluster members - 
    - set `<tcp-ip enabled="true">`
    - add cluster members -  `<member>Node IP</member>`
-6. Open Terminal, navigate to `Hazelcast Dir`/bin and start cluster by running command `sudo bin/server.sh &`.
+6. Open Terminal, navigate to `Hazelcast Dir`/bin and start cluster by running command `sudo -bE bin/server.sh`.
 
 Starting Inbuilt Hazelcast cluster 
 =================
