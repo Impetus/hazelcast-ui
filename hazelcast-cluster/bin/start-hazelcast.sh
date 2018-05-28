@@ -15,7 +15,7 @@
 #THIS_DIR will have the directory where this script is residing, not from where it is called or not PWD/current working directory.
 THIS_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 JAR_DIR="${THIS_DIR}/../hazelcast-cluster-startup-1.0.0.jar"
-CONF_BASE_DIR="${THIS_DIR}/../"
+CONF_BASE_DIR="${THIS_DIR}/../conf/"
 
 
 
