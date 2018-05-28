@@ -254,9 +254,9 @@
 	</reporting>
 	<distributionManagement>
 	    <site>
-	      <id>mojo.website</id>
-	      <name>Mojo Website</name>
-	      <url>scp://beaver.codehaus.org/home/projects/mojo/public_html/</url>
+	      <id>hzui.impetus</id>
+	      <name>Impetus Git</name>
+	      <url>test</url>
 	    </site>
     </distributionManagement>
 </project>
