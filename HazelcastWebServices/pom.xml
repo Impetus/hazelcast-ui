@@ -220,12 +220,6 @@
 				<version>2.19.1</version>
 			</plugin>
 			<plugin>
-       			 <groupId>org.jacoco</groupId>
-       			 <artifactId>jacoco-maven-plugin</artifactId>
-       			 <version>0.6.5.201403032054</version>
-       		</plugin>
-       		
-       		<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-project-info-reports-plugin</artifactId>
 				<version>${report.info.plugin.version}</version>
@@ -233,37 +227,6 @@
 					<dependencyLocationsEnabled>false</dependencyLocationsEnabled>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-	                <instrumentation>
-	                  <excludes>
-	                    <exclude>com/aeris/analytics/configuration/*</exclude>
-	                  </excludes>
-	                 </instrumentation>
-	            </configuration>
-			</plugin>
-<!--        		
-     <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>cobertura-maven-plugin</artifactId>
-        <configuration>
-          <formats>
-            <format>html</format>
-          </formats>
-  		<reportSets>
-          <reportSet>
-            <reports>
-              <report>cobertura</report>
-            </reports>
-          </reportSet>
-        </reportSets>          
-        </configuration>
-      </plugin>       		
- -->
-
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jdepend-maven-plugin</artifactId>
@@ -289,7 +252,11 @@
 		      </plugin>			
 		</plugins>
 	</reporting>
-	
-
-
+	<distributionManagement>
+	    <site>
+	      <id>mojo.website</id>
+	      <name>Mojo Website</name>
+	      <url>scp://beaver.codehaus.org/home/projects/mojo/public_html/</url>
+	    </site>
+    </distributionManagement>
 </project>
