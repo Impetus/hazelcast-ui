@@ -41,7 +41,7 @@ Hazelcast Webservices work by connecting to a hazelcast cluster and provide a wr
 1. Checkout the code for Git Repository.
 2. Go to the webservices folder - cd $GIT_CLONE_DIR/HazelcastWebServices.
 3. Update the "etl.cluster.nodes" property in src/main/resources/app-config.properties with list of hazelcast instances (you can create comma separated list of instances if there are more than one instance).Make sure to prepend the env in "app-config.properties" e.g for local the filename should be "local-app-config.properties". Similarly for other envs.
-4. Multiple conf file can be added parallel to "app-config.properties" per env e.g "prod-app-config.properties" for production env "preprod-app-config.properties" for preprod and "local-app-config.properties" for local env etc.
+4. Multiple conf file can be added parallel to "<env>-app-config.properties" per env e.g "prod-app-config.properties" for production env "preprod-app-config.properties" for preprod and "local-app-config.properties" for local env etc.
 4. Build the code using command "mvn clean install".
 5. Go to target directory and copy HazelcastWebServices.war to webapps dir of Apache Tomcat.
 6. Once tomcat server is up and running, Hazelcast webservices are also up. Open browser and go to url - http:`<IP Address>`:`<tomcat port>`/HazelcastWebServices/
