@@ -120,6 +120,11 @@ Go to the directory where hazelcast cluster is installed and navigate to bin dir
 
 Troubleshooting Steps
 =================
+Follow below steps if in any case the Hazelcast Custom UI does not show cluster(memory utilization) or member information.
+
+1. Check if Hazelcast cluster is up and running. If yes then simply restart Tomcat service.
+2. If Hazelcast cluster is down then first start hazelcast cluster followed by restart of Tomcat service
+
 
 
 Features
