@@ -101,7 +101,7 @@ Go to the directory where hazelcast cluster is installed and navigate to bin dir
 1. Add the map's information in "hazelcast.xml".For a sample on how to add map information refer hazelcast.xml present under hazelcast-cluster/src/main/resources.
 2. Write loader class to load data in Hazelcast map. For sample refer HazelcastMapLoader.java present under hazelcast-cluster/src/main/java/com/impetus/hazelcast/example.
 3. Run HazelcastMapLoader.java class to ingest records in "testMap" using below commands:
-   - Add hazelcast-cluster-startup-1.0.0.jar present in target folder to classpath: CLASSPATH=`<path to jar>`/hazelcast-cluster-startup-1.0.0.jar
+   - Add hazelcast-cluster-startup-1.0.0.jar and lib present in target folder to classpath: CLASSPATH="`<path to jar>`/hazelcast-cluster-startup-1.0.0.jar:`<path to jar>`/lib/*"
    - Add main class: CLASSNAME=com.impetus.hazelcast.example.HazelcastMapLoader
    - Call main class: java -classpath $CLASSPATH $CLASSNAME
    - This should load sample map in hazelcast cluster. 
