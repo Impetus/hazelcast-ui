@@ -28,7 +28,7 @@
         
 		<fileSet>
 			<directory>${project.build.directory}/classes</directory>
-			<outputDirectory></outputDirectory>
+			<outputDirectory>conf</outputDirectory>
             <includes>
                 <include>*.properties</include>
 		<include>*.xml</include>
