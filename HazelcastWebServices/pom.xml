@@ -256,7 +256,7 @@
 	    <site>
 	      <id>hzui.impetus</id>
 	      <name>Impetus Git</name>
-	      <url>test</url>
+	      <url>test </url>
 	    </site>
     </distributionManagement>
 </project>
