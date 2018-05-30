@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hazelcast>
+	<group>
+		<name>dev</name>
+		<password>dev-pass</password>
+	</group>
+	<network>
+		<port auto-increment="true">5701</port>
+		<join>
+			<multicast enabled="false">
+				<multicast-group>224.2.2.3</multicast-group>
+				<multicast-port>54327</multicast-port>
+			</multicast>
+			<tcp-ip enabled="true">
+				<member>localhost</member>
+				<!-- <member>Node IP</member>
+				<member>Node IP</member>
+                                <member>Node IP</member>
+                                <member>Node IP</member>
+				<member>Node IP</member>-->
+			</tcp-ip>
+		</join>
+		<interfaces enabled="false">
+			<interface>10.3.1.*</interface>
+		</interfaces>
+	</network>
+	<executor-service>
+		<core-pool-size>16</core-pool-size>
+		<max-pool-size>64</max-pool-size>
+		<keep-alive-seconds>60</keep-alive-seconds>
+	</executor-service>
+
+	<properties>
+                <property name="hazelcast.executor.client.thread.count">200</property>
+                <property name="hazelcast.jmx">true</property>
+		<property name="hazelcast.partition.count">1013</property>
+        </properties>
+        <map name="testMap">
+                <near-cache>
+                        <time-to-live-seconds>0</time-to-live-seconds>
+                        <max-idle-seconds>60</max-idle-seconds>
+                        <eviction-policy>NONE</eviction-policy>
+                        <max-size>1000000</max-size>
+                        <invalidate-on-change>true</invalidate-on-change>
+                </near-cache>
+                <backup-count>0</backup-count>
+                <async-backup-count>2</async-backup-count>
+                <read-backup-data>true</read-backup-data>
+                <eviction-policy>NONE</eviction-policy>
+        </map>
+</hazelcast>
