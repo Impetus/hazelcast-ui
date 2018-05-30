@@ -2,12 +2,11 @@ package com.impetus.hazelcast.test;
 
 import static org.junit.Assert.assertEquals;
 
-import com.hazelcast.core.Hazelcast;
-import com.impetus.hazelcast.StartHazelCastInstance;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.impetus.hazelcast.StartHazelCastInstance;
 
 /**
  * Class to unit test the methods of StartHazelCastInstance.
@@ -15,7 +14,7 @@ import org.junit.Test;
  * @author sameena.parveen
  *
  */
-public class StartHazelCastInstanceTests {
+public class StartHazelCastInstanceTest {
   
   /**
    * Set up method.
@@ -39,6 +38,5 @@ public class StartHazelCastInstanceTests {
    */
   @After
   public void cleanup() throws Exception {
-    Hazelcast.shutdownAll();
   }
 }

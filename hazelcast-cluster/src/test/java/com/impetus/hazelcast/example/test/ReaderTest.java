@@ -79,7 +79,7 @@ public class ReaderTest {
    */
   @After
   public void cleanup() throws Exception {
-    Hazelcast.shutdownAll();
+	  instance.shutdown();
   }
   
 }

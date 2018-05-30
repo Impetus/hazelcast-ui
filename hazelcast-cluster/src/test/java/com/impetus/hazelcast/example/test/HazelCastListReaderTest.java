@@ -2,18 +2,16 @@ package com.impetus.hazelcast.example.test;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import com.hazelcast.config.Config;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import com.impetus.hazelcast.example.HazelCastListLoader;
 import com.impetus.hazelcast.example.HazelCastListReader;
 import com.impetus.hazelcast.example.HazelcastMapLoader;
-
-import java.util.Map;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 
 /**
  * Class to unit test the methods of HazelCastListReader.
@@ -22,9 +20,7 @@ import org.junit.Test;
  *
  */
 public class HazelCastListReaderTest {
-  Config cfg = new Config();
   static HazelcastInstance instance = null;
-  static Map<Integer, String> mapCustomers = null;
   static HazelCastListLoader hazelcastListLoader;
   static HazelCastListReader hazelcastListReader;
   
@@ -44,8 +40,7 @@ public class HazelCastListReaderTest {
 
   @Test
   public void testLoadHazelCastList() {
-    
-    hazelcastListLoader.loadHazelCastList();
+   hazelcastListLoader.loadHazelCastList();
     assertEquals(1000, hazelcastListReader.readList().size());
   }
   
@@ -55,6 +50,6 @@ public class HazelCastListReaderTest {
    */
   @After
   public void cleanup() throws Exception {
-    Hazelcast.shutdownAll();
+	  instance.shutdown();
   }
 }

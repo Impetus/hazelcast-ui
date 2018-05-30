@@ -2,16 +2,14 @@ package com.impetus.hazelcast.example.test;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import com.hazelcast.config.Config;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import com.impetus.hazelcast.example.HazelcastMapLoader;
-
-import java.util.Map;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 
 /**Class to unit test the methods of HazelcastMapLoader.
  * 
@@ -19,9 +17,7 @@ import org.junit.Test;
  *
  */
 public class HazelcastMapLoaderTest {
-  Config cfg = new Config();
   static HazelcastInstance instance = null;
-  static Map<Integer, String> mapCustomers = null;
   
   /**
    * Set up method.
@@ -49,6 +45,6 @@ public class HazelcastMapLoaderTest {
    */
   @After
   public void cleanup() throws Exception {
-    Hazelcast.shutdownAll();
+	  instance.shutdown();
   }
 }
