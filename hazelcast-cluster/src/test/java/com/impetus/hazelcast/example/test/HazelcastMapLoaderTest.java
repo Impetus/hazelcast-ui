@@ -40,6 +40,14 @@ public class HazelcastMapLoaderTest {
   }
   
   /**
+   * Test main method for HazelcastMapLoader instance check.
+   */
+  @Test
+  public void testMain() {
+      String[] args = null;
+      HazelcastMapLoader.main(args);
+  }
+  /**
    * Clean up method.
    * @throws Exception exception
    */

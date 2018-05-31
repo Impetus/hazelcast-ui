@@ -37,9 +37,17 @@ public class HazelCastListLoaderTest {
   @Test
   public void testLoadHazelCastList() {
     
-    assertEquals(2000, hazelcastListLoader.loadHazelCastList());
+    assertEquals(3000, hazelcastListLoader.loadHazelCastList());
   }
   
+  /**
+   * Test main method for HazelCastListLoader instance check.
+   */
+  @Test
+  public void testMain() {
+      String[] args = null;
+      HazelCastListLoader.main(args);
+  }
   /**
    * Cleanup method.
    */

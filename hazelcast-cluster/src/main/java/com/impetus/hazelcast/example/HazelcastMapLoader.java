@@ -49,12 +49,4 @@ public class HazelcastMapLoader {
     
   }
   
-  /**
-   * Method to return testmap.
-   * @return map
-   */
-  public static Map<String,String> getTestMap() {
-    return testMap;
-  }
-  
 }

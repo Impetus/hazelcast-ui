@@ -48,6 +48,15 @@ public class HazelCastMapReaderTest {
   }
   
   /**
+   * Test main method for HazelCastMapReader instance check.
+   */
+  @Test
+  public void testMain() {
+      String[] args = null;
+      HazelCastMapReader.main(args);
+  }
+  
+  /**
    * Clean up method.
    * @throws Exception exception
    */
