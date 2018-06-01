@@ -22,17 +22,4 @@ public class LogUtils {
   public static Logger getLogger(Class<?> clazz) {
     return LoggerFactory.getLogger(clazz);
   }
-
-  public static String getCounterLog(long counter) {
-    return "Events rcvd : " + counter;
-  }
-
-  public static String getIgnoredLog(String event, long counter) {
-    return "Ignored log line: " + event + ", Ignored events rcvd : " + counter;
-  }
-
-  public static String getInvalidLog(String event, long counter) {
-    return "Invalid event: " + event + ", Invalid events rcvd : " + counter;
-  }
-
 }

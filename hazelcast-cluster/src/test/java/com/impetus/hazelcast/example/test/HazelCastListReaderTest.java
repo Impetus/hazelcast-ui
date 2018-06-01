@@ -43,7 +43,14 @@ public class HazelCastListReaderTest {
    hazelcastListLoader.loadHazelCastList();
     assertEquals(1000, hazelcastListReader.readList().size());
   }
-  
+  /**
+   * Test main method for HazelCastListReader instance check.
+   */
+  @Test
+  public void testMain() {
+      String[] args = null;
+      HazelCastListReader.main(args);
+  }
   /**
    * Clean up method.
    * @throws Exception exception
