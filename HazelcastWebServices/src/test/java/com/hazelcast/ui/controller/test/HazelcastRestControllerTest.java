@@ -33,98 +33,113 @@ import com.hazelcast.ui.controller.HazelcastRestController;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring-servlet.xml")
 public class HazelcastRestControllerTest {
-	private static HazelcastInstance instance = null;
-	private static Map<String, String> mapCustomers = null;
+  private static HazelcastInstance instance = null;
+  private static Map<String, String> mapCustomers = null;
 
-	@Autowired
-	private HazelcastRestController hazecastRestController;
+  @Autowired
+  private HazelcastRestController hazecastRestController;
 
-	// @Mock
-	// private HazelcastRestService hazelcastRestService;
+  // @Mock
+  // private HazelcastRestService hazelcastRestService;
 
-	private static ObjectMapper objectMapper;
+  private static ObjectMapper objectMapper;
 
-	/**
-	 * Set up method.
-	 *
-	 * @throws java.lang.Exception
-	 *             exception
-	 */
-	@BeforeClass
-	public static void setUp() throws Exception {
-		System.setProperty("DEPLOY_ENV", "local");
-		final Config cfg = new Config();
-		cfg.getNetworkConfig().setPublicAddress("localhost:5701");
-		instance = Hazelcast.newHazelcastInstance(cfg);
-		mapCustomers = instance.getMap("customers");
-		mapCustomers.put("1", "Joe");
-		mapCustomers.put("2", "Ali");
-		mapCustomers.put("3", "Avi");
-		objectMapper = new ObjectMapper();
-	}
+  /**
+   * Set up method.
+   *
+   * @throws java.lang.Exception
+   *             exception
+   */
+  @BeforeClass
+  public static void setUp() throws Exception {
+    System.setProperty("DEPLOY_ENV", "local");
+    final Config cfg = new Config();
+    cfg.getNetworkConfig().setPublicAddress("localhost:5701");
+    instance = Hazelcast.newHazelcastInstance(cfg);
+    mapCustomers = instance.getMap("customers");
+    mapCustomers.put("1", "Joe");
+    mapCustomers.put("2", "Ali");
+    mapCustomers.put("3", "Avi");
+    objectMapper = new ObjectMapper();
+  }
 
-	// @Before
-	// public void init() {
-	// hazecastRestController.setHazelcastRestService(hazelcastRestService);
-	// }
+  // @Before
+  // public void init() {
+  // hazecastRestController.setHazelcastRestService(hazelcastRestService);
+  // }
 
-	@Test
-	public void testWelcome() {
-		assertEquals("Welcome to Hazelcast Web UI",
-				hazecastRestController.welcome());
-	}
+  /**
+   * This method tests welcome method of controller class.
+   */
+  @Test
+  public void testWelcome() {
+    assertEquals("Welcome to Hazelcast Web UI",
+        hazecastRestController.welcome());
+  }
 
-	@Test
-	public void testGetMembersInfo() throws JsonProcessingException {
-		assertEquals("[localhost:5701]",
-				hazecastRestController.getClusterInfo().replaceAll("\"",
-						""));
-	}
+  /**
+   * This test case is for method which fetches members information from hazelcast.
+   */
+  @Test
+  public void testGetMembersInfo() throws JsonProcessingException {
+    assertEquals("[localhost:5701]",
+        hazecastRestController.getClusterInfo().replaceAll("\"",
+            ""));
+  }
 
-	@Test
-	public void testGetMapsName() {
-		assertEquals("[customers]",
-				hazecastRestController.getMapsName().replaceAll("\"", ""));
-	}
+  /**
+   * This test case is for method which fetches maps information from hazelcast.
+   */
+  @Test
+  public void testGetMapsName() {
+    assertEquals("[customers]",
+        hazecastRestController.getMapsName().replaceAll("\"", ""));
+  }
 
-	@Test
-	public void testGetSize()
-			throws JsonParseException, JsonMappingException, IOException {
-		final Map<String, Integer> readValue = objectMapper.readValue(
-				hazecastRestController.getSize("customers"),
-				new TypeReference<Map<String, Integer>>() {
-				});
-		assertEquals(3, readValue.get("Size").intValue());
-	}
+  /**
+   * This test case is for method which fetches a given map's size information from hazelcast.
+   */
+  @Test
+  public void testGetSize()
+      throws JsonParseException, JsonMappingException, IOException {
+    final Map<String, Integer> readValue = objectMapper.readValue(
+        hazecastRestController.getSize("customers"),
+        new TypeReference<Map<String, Integer>>() {
+        });
+    assertEquals(3, readValue.get("Size").intValue());
+  }
 
-	/**
-	 * @throws JsonMappingException
-	 * @throws JsonParseException
-	 * @throws IOException
-	 */
-	@Test
-	public void testGetValue()
-			throws JsonParseException, JsonMappingException, IOException {
-		final String value1 =
-				hazecastRestController.getValue("customers", "1", "String");
+  /**
+   * This test case is for method which fetches value for a given key.
+   * 
+   * @throws JsonMappingException json mappin exception
+   * @throws JsonParseException json parsing exception
+   * @throws IOException IO exception
+   */
+  @Test
+  public void testGetValue()
+      throws JsonParseException, JsonMappingException, IOException {
+    final String value1 =
+        hazecastRestController.getValue("customers", "1", "String");
 
-		final Map<String, String> readValue = objectMapper.readValue(value1,
-				new TypeReference<Map<String, String>>() {
-				});
-		assertEquals("Joe", readValue.get("Value"));
+    final Map<String, String> readValue = objectMapper.readValue(value1,
+        new TypeReference<Map<String, String>>() {
+        }  
+    );
+    assertEquals("Joe", readValue.get("Value"));
 
-		final Set<String> expectedKeys = new HashSet<>();
-		expectedKeys.add("Value");
-		expectedKeys.add("Creation_Time");
-		expectedKeys.add("Last_Update_Time");
-		expectedKeys.add("Last_Access_Time");
-		expectedKeys.add("Expiration_Time");
+    final Set<String> expectedKeys = new HashSet<>();
+    expectedKeys.add("Value");
+    expectedKeys.add("Creation_Time");
+    expectedKeys.add("Last_Update_Time");
+    expectedKeys.add("Last_Access_Time");
+    expectedKeys.add("Expiration_Time");
 
-		assertEquals(expectedKeys, readValue.keySet());
-	}
+    assertEquals(expectedKeys, readValue.keySet());
+  }
 
-	@AfterClass
-	public static void cleanup() throws Exception {
-		Hazelcast.shutdownAll();
-	}
+  @AfterClass
+  public static void cleanup() throws Exception {
+    Hazelcast.shutdownAll();
+  }
 }
