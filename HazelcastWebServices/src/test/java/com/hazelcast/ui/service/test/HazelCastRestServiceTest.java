@@ -54,6 +54,7 @@ public class HazelCastRestServiceTest {
 	public void setUp() throws Exception {
 		
 		Config cfg = new Config();
+		//cfg.getNetworkConfig().setPublicAddress("localhost:5701");
    	   instance = Hazelcast.newHazelcastInstance(cfg);
    	mapCustomers = instance.getMap("customers");
     mapCustomers.put(1, "Joe");
@@ -71,14 +72,13 @@ public class HazelCastRestServiceTest {
 		
 	}
 	
+	
 	/*@Test
 	public void testGetMembersInfo() throws JsonProcessingException {
 		List<String> members = new ArrayList<>();
 		members.add("localhost" + ":" + "5701");
 		Mockito.when(cacheInstance.getClient()).thenReturn(instance);
-		//Mockito.when(objectMapper.writeValueAsString(members)).thenReturn("localhost:5701");
-		Mockito.when(objectMapper.writeValueAsString("localhost:5701")).thenReturn(members.toString());
-		//objectMapper.writeValueAsString(members)
+		Mockito.when(objectMapper.writeValueAsString(members)).thenReturn(members.get(0));
 		assertEquals("localhost:5701",hazelcatRestService.getMembersInfo());
 		
 	}*/
