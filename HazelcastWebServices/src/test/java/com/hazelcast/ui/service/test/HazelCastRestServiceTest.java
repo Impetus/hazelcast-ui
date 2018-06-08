@@ -52,15 +52,14 @@ public class HazelCastRestServiceTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		
 		Config cfg = new Config();
-		//cfg.getNetworkConfig().setPublicAddress("localhost:5701");
+		cfg.getNetworkConfig().setPublicAddress("localhost:5701");
    	   instance = Hazelcast.newHazelcastInstance(cfg);
-   	mapCustomers = instance.getMap("customers");
-    mapCustomers.put(1, "Joe");
-    mapCustomers.put(2, "Ali");
-    mapCustomers.put(3, "Avi");
-    MockitoAnnotations.initMocks(this);
+   	   mapCustomers = instance.getMap("customers");
+   	   mapCustomers.put(1, "Joe");
+   	   mapCustomers.put(2, "Ali");
+   	   mapCustomers.put(3, "Avi");
+   	   MockitoAnnotations.initMocks(this);
 	}
 	
 	@Test
@@ -73,7 +72,7 @@ public class HazelCastRestServiceTest {
 	}
 	
 	
-	/*@Test
+	@Test
 	public void testGetMembersInfo() throws JsonProcessingException {
 		List<String> members = new ArrayList<>();
 		members.add("localhost" + ":" + "5701");
@@ -81,7 +80,7 @@ public class HazelCastRestServiceTest {
 		Mockito.when(objectMapper.writeValueAsString(members)).thenReturn(members.get(0));
 		assertEquals("localhost:5701",hazelcatRestService.getMembersInfo());
 		
-	}*/
+	}
 	
 	/**
 	 * @throws com.fasterxml.jackson.core.JsonProcessingException
