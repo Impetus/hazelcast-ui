@@ -1,4 +1,5 @@
 package com.hazelcast.ui.service.test;
+
 import static org.junit.Assert.assertEquals;
 
 import java.text.SimpleDateFormat;
@@ -25,120 +26,132 @@ import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.ui.service.HazelcastRestService;
 import com.hazelcast.util.CacheInstance;
 
-/**Class to unit test the methods of HazelCastRestService
- * 
+/**
+ * Class to unit test the methods of HazelCastRestService
  * @author sameena.parveen
- *
  */
 
 @RunWith(MockitoJUnitRunner.class)
 public class HazelCastRestServiceTest {
-    private HazelcastInstance instance=null;
-    @InjectMocks
-    private HazelcastRestService hazelcatRestService = new HazelcastRestService();
-    @Mock
-    private CacheInstance cacheInstance;
-    @Mock
-    private ObjectMapper objectMapper;
-    @Mock
-    private SimpleDateFormat sdf;
-    
-    //@Mock
-   // private SimpleDateFormat sdf;
-    static Map<Integer, String> mapCustomers=null;
-    
-    /**
-	 * @throws java.lang.Exception
+	private HazelcastInstance instance = null;
+	@InjectMocks
+	private HazelcastRestService hazelcatRestService =
+			new HazelcastRestService();
+	@Mock
+	private CacheInstance cacheInstance;
+	@Mock
+	private ObjectMapper objectMapper;
+	@Mock
+	private SimpleDateFormat sdf;
+
+	// @Mock
+	// private SimpleDateFormat sdf;
+	private static Map<Integer , String> mapCustomers = null;
+
+	/**
+	 * Method to setup the hazelcats instance
+	 * @throws java.lang.Exception .
 	 */
 	@Before
 	public void setUp() throws Exception {
-		Config cfg = new Config();
+		final int three = 3;
+		final Config cfg = new Config();
 		cfg.getNetworkConfig().setPublicAddress("localhost:5701");
-   	   instance = Hazelcast.newHazelcastInstance(cfg);
-   	   mapCustomers = instance.getMap("customers");
-   	   mapCustomers.put(1, "Joe");
-   	   mapCustomers.put(2, "Ali");
-   	   mapCustomers.put(3, "Avi");
-   	   MockitoAnnotations.initMocks(this);
+		instance = Hazelcast.newHazelcastInstance(cfg);
+		mapCustomers = instance.getMap("customers");
+		mapCustomers.put(1, "Joe");
+		mapCustomers.put(2, "Ali");
+		mapCustomers.put(three, "Avi");
+		MockitoAnnotations.initMocks(this);
 	}
-	
+	/**
+	 * Method to test the getKey method
+	 */
 	@Test
 	public void testGetKey() {
-		
+		final int lack = 100000;
+		final long tenLack = 10000000L;
 		assertEquals("1", hazelcatRestService.getKey("String", "1"));
-		assertEquals(100000, hazelcatRestService.getKey("Integer", "100000"));
-		assertEquals(10000000L, hazelcatRestService.getKey("Long", "10000000"));
-		
+		assertEquals(lack, hazelcatRestService.getKey("Integer", "100000"));
+		assertEquals(tenLack, hazelcatRestService.getKey("Long", "10000000"));
+
 	}
-	
-	
+	/**
+	 * Method to test the getMembersInfo method
+	 * @throws JsonProcessingException .
+	 */
 	@Test
 	public void testGetMembersInfo() throws JsonProcessingException {
-		List<String> members = new ArrayList<>();
+		final List<String> members = new ArrayList<>();
 		members.add("localhost" + ":" + "5701");
 		Mockito.when(cacheInstance.getClient()).thenReturn(instance);
-		Mockito.when(objectMapper.writeValueAsString(members)).thenReturn(members.get(0));
-		assertEquals("localhost:5701",hazelcatRestService.getMembersInfo());
-		
+		Mockito.when(objectMapper.writeValueAsString(members))
+				.thenReturn(members.get(0));
+		assertEquals("localhost:5701", hazelcatRestService.getMembersInfo());
+
 	}
-	
+
 	/**
-	 * @throws com.fasterxml.jackson.core.JsonProcessingException
+	 * Method to test the getMapsName method
+	 * @throws com.fasterxml.jackson.core.JsonProcessingException .
 	 */
 	@Test
 	public void testGetMapsName() throws JsonProcessingException {
-		List<String> maps = new ArrayList<>();
+		final List<String> maps = new ArrayList<>();
 		maps.add("customers");
 		Mockito.when(cacheInstance.getClient()).thenReturn(instance);
-		Mockito.when(objectMapper.writeValueAsString(maps)).thenReturn(maps.get(0));
-		assertEquals("customers",hazelcatRestService.getMapsName());
+		Mockito.when(objectMapper.writeValueAsString(maps))
+				.thenReturn(maps.get(0));
+		assertEquals("customers", hazelcatRestService.getMapsName());
 	}
-	
+
 	/**
-	 * @throws com.fasterxml.jackson.core.JsonProcessingException
+	 * Method to test the getSize method
+	 * @throws com.fasterxml.jackson.core.JsonProcessingException .
 	 */
 	@Test
 	public void testGetSize() throws JsonProcessingException {
-		Map<String, Integer> sizeMap = new HashMap<>();
-		sizeMap.put("Size",3);
+		final int three = 3;
+		final Map<String, Integer> sizeMap = new HashMap<>();
+		sizeMap.put("Size", three);
 		Mockito.when(cacheInstance.getClient()).thenReturn(instance);
 		Mockito.when(objectMapper.writeValueAsString(sizeMap)).thenReturn("3");
-		assertEquals("3",hazelcatRestService.getSize("customers"));
+		assertEquals("3",
+				hazelcatRestService.getSize("customers"));
 	}
-	/*@Test
-	public void testGetValueFromMap() {
-		//Calendar cal = Calendar.getInstance();
-		//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-		Mockito.when(cacheInstance.getClient()).thenReturn(instance);
-		SimpleDateFormat mock = org.mockito.Mockito.mock(SimpleDateFormat.class);
-		Calendar cal = org.mockito.Mockito.mock(Calendar.class);
-		Mockito.when(cal.getTime()).thenReturn(cal.getTime());
-		Mockito.when(mock.format(cal)).thenReturn("2018-05-15 16:22:56.889");
-		//when(mock.read("1")).thenReturn(pcUser);
-		//Mockito.when(sdf.format(cal.getTime())).thenReturn("2018-05-15 16:22:56.889");
-		hazelcatRestService.getValueFromMap("customers","1","Integer");
-	}
-	*/
-	
-	/*@Test
-	public void testGetValueFromMap() {
-		Mockito.when(cacheInstance.getClient()).thenReturn(instance);
-		//SimpleDateFormat mock = org.mockito.Mockito.mock(SimpleDateFormat.class);
-		Calendar cal = org.mockito.Mockito.mock(Calendar.class);
-		//Calendar cal = Calendar.getInstance();
-		//Mockito.when(cal.getTime()).thenReturn();
-		Mockito.when(sdf.format(any(cal))).thenReturn("2018-05-15 16:22:56.889");
-		hazelcatRestService.getValueFromMap("customers","1","Integer");
-	}*/
-	
+	/*
+	 * @Test public void testGetValueFromMap() { //Calendar cal =
+	 * Calendar.getInstance(); //SimpleDateFormat sdf = new
+	 * SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+	 * Mockito.when(cacheInstance.getClient()).thenReturn(instance);
+	 * SimpleDateFormat mock = org.mockito.Mockito.mock(SimpleDateFormat.class);
+	 * Calendar cal = org.mockito.Mockito.mock(Calendar.class);
+	 * Mockito.when(cal.getTime()).thenReturn(cal.getTime());
+	 * Mockito.when(mock.format(cal)).thenReturn("2018-05-15 16:22:56.889");
+	 * //when(mock.read("1")).thenReturn(pcUser);
+	 * //Mockito.when(sdf.format(cal.getTime())).
+	 * thenReturn("2018-05-15 16:22:56.889");
+	 * hazelcatRestService.getValueFromMap("customers","1","Integer"); }
+	 */
+
+	/*
+	 * @Test public void testGetValueFromMap() {
+	 * Mockito.when(cacheInstance.getClient()).thenReturn(instance);
+	 * //SimpleDateFormat mock =
+	 * org.mockito.Mockito.mock(SimpleDateFormat.class); Calendar cal =
+	 * org.mockito.Mockito.mock(Calendar.class); //Calendar cal =
+	 * Calendar.getInstance(); //Mockito.when(cal.getTime()).thenReturn();
+	 * Mockito.when(sdf.format(any(cal))).thenReturn("2018-05-15 16:22:56.889");
+	 * hazelcatRestService.getValueFromMap("customers","1","Integer"); }
+	 */
+
 	/**
-	 * @throws java.lang.Exception
+	 * Method to test the shutdown hazelcast
+	 * @throws java.lang.Exception .
 	 */
 	@After
 	public void cleanup() throws Exception {
-	  Hazelcast.shutdownAll();
+		Hazelcast.shutdownAll();
 	}
-	
-	
-}
 
+}

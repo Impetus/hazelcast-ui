@@ -18,25 +18,35 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class JmxController {
 
-	/**
-	 * This method fetches information of members of the hazelcast cluster.
-	 */
 	@Autowired
 	private JMXService jmxService;
-	
-	@RequestMapping(value="/nodememory/{host}/{port}",method=RequestMethod.GET)
-	public String getMemoryInfo(@PathVariable("host") String host, 
-	    @PathVariable("port") String port) {
+	/**
+	 * This method fetches information of node memory
+	 * members of the hazelcast cluster.
+	 * @param host .
+	 * @param port .
+	 * @return the node memory
+	 */
+	@RequestMapping(value = "/nodememory/{host}/{port}",
+	method = RequestMethod.GET)
+	public String getMemoryInfo(@PathVariable("host") final String host,
+			@PathVariable("port") final String port) {
 		return jmxService.getNodeMemoryInfo(host, port);
 	}
-	
+
 	/**
 	 * This method fetches information of maps loaded in hazelcast cluster.
+	 * @return memory stats
+	 * @param host .
+	 * @param port .
+	 * @param mapName .
 	 */
-	@RequestMapping(value="/mapmemory/{host}/{port}/{mapName}",method=RequestMethod.GET)
-	public String getMapMemoryStats(@PathVariable("host") String host, 
-	    @PathVariable("port") String port,@PathVariable("mapName")String mapName) {
-		return jmxService.getMapMemoryStats(host, port,mapName);
+	@RequestMapping(value = "/mapmemory/{host}/{port}/{mapName}",
+	method = RequestMethod.GET)
+	public String getMapMemoryStats(@PathVariable("host") final String host,
+			@PathVariable("port") final String port,
+			@PathVariable("mapName") final String mapName) {
+		return jmxService.getMapMemoryStats(host, port, mapName);
 	}
-	
+
 }

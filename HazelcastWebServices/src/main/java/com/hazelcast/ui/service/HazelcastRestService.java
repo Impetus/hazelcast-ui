@@ -1,12 +1,12 @@
 /**
  * Name           : HazelcastRestService.java
  * Type           : JAVA
- * Purpose        : This class is the service layer containing 
+ * Purpose        : This class is the service layer containing
  *                  implementation of methods exposed by the webservice
- * Description    : 
+ * Description    :
  * Mod Log
  * Date        By               Jira      Description
- * -----------   -----------------   ----------     ---------------  
+ * -----------   -----------------   ----------     ---------------
 **/
 
 package com.hazelcast.ui.service;
@@ -39,140 +39,159 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class HazelcastRestService {
-  
-  @Autowired
-  private CacheInstance cacheInstance;
 
-  private ObjectMapper objectMapper;
-  private SimpleDateFormat sdf;
+	@Autowired
+	private CacheInstance cacheInstance;
 
-  @PostConstruct
-  private void intialize() {
-    objectMapper = new ObjectMapper();
-    sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+	private ObjectMapper objectMapper;
+	private SimpleDateFormat sdf;
 
-  }
+	/**
+	 * Method initializes ObjectMapper and SimpleDateFormat.
+	 *              cluster.
+	 */
+	@PostConstruct
+	private void intialize() {
+		objectMapper = new ObjectMapper();
+		sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
-  /**
-   * Method to return members info.
-   * @Description This method is used to retrieve list of members of hazelcast cluster.
-   * @return json list of hazelcast members
-   */
-  public String getMembersInfo() {
-    List<String> members = new ArrayList<>();
-    for (Member m : cacheInstance.getClient().getCluster().getMembers()) {
-      members.add(m.getSocketAddress().getHostString() + ":" + m.getSocketAddress().getPort());
-    }
+	}
 
-    try {
-      return objectMapper.writeValueAsString(members);
-    } catch (JsonProcessingException e) {
-      return (e.getMessage());
-    }
-  }
+	/**
+	 * Method to return members info.
+	 * @Description This method is used to retrieve list of members of hazelcast
+	 *              cluster.
+	 * @return json list of hazelcast members
+	 */
+	public String getMembersInfo() {
+		final List<String> members = new ArrayList<>();
+		for (Member m : cacheInstance.getClient().getCluster().getMembers()) {
+			members.add(m.getSocketAddress().getHostString() + ":"
+					+ m.getSocketAddress().getPort());
+		}
 
-  /**
-   * Method to return maps info.
-   * @Description This method is used to retrieve list of maps of hazelcast cluster.
-   * @return json list of hazelcast maps
-   */
-  public String getMapsName() {
-    List<String> maps = new ArrayList<>();
-    Collection<DistributedObject> distributedObjects = 
-        cacheInstance.getClient().getDistributedObjects();
-    for (DistributedObject distributedObject : distributedObjects) {
-      if (distributedObject.getServiceName().equals("hz:impl:mapService")) {
-        maps.add(distributedObject.getName());
-      }
-    }
-    try {
-      return objectMapper.writeValueAsString(maps);
-    } catch (JsonProcessingException e) {
-      return (e.getMessage());
-    }
-  }
+		try {
+			return objectMapper.writeValueAsString(members);
+		} catch (final JsonProcessingException e) {
+			return (e.getMessage());
+		}
+	}
 
-  /**
-   * Returns size of map.
-   * @param mapName input map
-   * @return
-   */
-  public String getSize(String mapName) {
-    int size = cacheInstance.getClient().getMap(mapName).size();
-    Map<String, Integer> sizeMap = new HashMap<>();
-    sizeMap.put("Size",size);
-    try {
-      return (objectMapper.writeValueAsString(sizeMap));
-    } catch (JsonProcessingException e) {
-      return ("Exception occurred while fecthing entry" + e);
-    }
-    
-  }
+	/**
+	 * Method to return maps info.
+	 * @Description This method is used to retrieve list of maps of hazelcast
+	 *              cluster.
+	 * @return json list of hazelcast maps
+	 */
+	public String getMapsName() {
+		final List<String> maps = new ArrayList<>();
+		final Collection<DistributedObject> distributedObjects =
+				cacheInstance.getClient().getDistributedObjects();
+		for (DistributedObject distributedObject : distributedObjects) {
+			if (distributedObject.getServiceName()
+					.equals("hz:impl:mapService")) {
+				maps.add(distributedObject.getName());
+			}
+		}
+		try {
+			return objectMapper.writeValueAsString(maps);
+		} catch (final JsonProcessingException e) {
+			return (e.getMessage());
+		}
+	}
 
-  /**
-   * Method to return value from map.
-   * @Description This method is used to retrieve value corresponding to given in hazelcast map.
-   * @param mapName input map
-   * @param key input key
-   * @param type of key input type
-   * @return json string of value retrieved from map
-   */
-  public String getValueFromMap(String mapName, String key, String type) {
-    Object mapKey = null;
-    Map<String, Object> entryMap = new HashMap<>();
-    try {
-      mapKey = getKey(type, key);
-    } catch (ParseException e) {
-      return "{\"Value\":\"No Value Found\"}";
-    }
-    if (mapKey == null || cacheInstance.getClient().getMap(mapName).get(mapKey) == null) {
-      return "{\"Value\":\"No Value Found\"}";
-    }
+	/**
+	 * Returns size of map.
+	 * @param mapName
+	 *            input map
+	 * @return Size of the map .
+	 */
+	public String getSize(final String mapName) {
+		final int size = cacheInstance.getClient().getMap(mapName).size();
+		final Map<String, Integer> sizeMap = new HashMap<>();
+		sizeMap.put("Size", size);
+		try {
+			return (objectMapper.writeValueAsString(sizeMap));
+		} catch (final JsonProcessingException e) {
+			return ("Exception occurred while fecthing entry" + e);
+		}
 
-    EntryView<Object, Object> entry = 
-        cacheInstance.getClient().getMap(mapName).getEntryView(mapKey);
-    
-    Calendar cal = Calendar.getInstance();
-    entryMap.put("Value", entry.getValue());
-    cal.setTimeInMillis(entry.getCreationTime());
-    entryMap.put("Creation_Time", sdf.format(cal.getTime()));
-    cal.setTimeInMillis(entry.getLastUpdateTime());
-    entryMap.put("Last_Update_Time", sdf.format(cal.getTime()));
-    cal.setTimeInMillis(entry.getLastAccessTime());
-    entryMap.put("Last_Access_Time", sdf.format(cal.getTime()));
-    cal.setTimeInMillis(entry.getExpirationTime());
-    entryMap.put("Expiration_Time", sdf.format(cal.getTime()));
+	}
 
-    try {
-      return (objectMapper.writeValueAsString(entryMap));
-    } catch (JsonProcessingException e) {
-      return ("Exception occurred while fecthing entry" + e);
-    }
-  }
-  
-  /**
-   * Method to get key details.
-   * @Description This method is used to retrieve object 
-   *     initialized corresponding to data type of key.
-   * @param type input key type
-   * @param key input key
-   * @return Object initialized corresponding to data type of key
-   * @throws ParseException exception
-   */
-  public Object getKey(String type, String key) throws ParseException {
-    Object outKey = null;
-    switch (type) {
-      case "String":
-        outKey = key;
-        break;
-      case "Integer":
-        outKey = Integer.parseInt(key);
-        break;
-      case "Long":
-        outKey = Long.parseLong(key);
-        break;
-      default:
-    }
-    return outKey;
-  }
+	/**
+	 * Method to return value from map.
+	 * @Description This method is used to retrieve value corresponding to given
+	 *              in hazelcast map.
+	 * @param mapName
+	 *            input map
+	 * @param key
+	 *            input key
+	 * @param type
+	 *            of key input type
+	 * @return json string of value retrieved from map
+	 */
+	public String getValueFromMap(final String mapName,
+			final String key, final String type) {
+		Object mapKey = null;
+		final Map<String, Object> entryMap = new HashMap<>();
+		try {
+			mapKey = getKey(type, key);
+		} catch (final ParseException e) {
+			return "{\"Value\":\"No Value Found\"}";
+		}
+		if (mapKey == null || cacheInstance.getClient().getMap(mapName)
+				.get(mapKey) == null) {
+			return "{\"Value\":\"No Value Found\"}";
+		}
+
+		final EntryView<Object, Object> entry =
+				cacheInstance.getClient().getMap(mapName).getEntryView(mapKey);
+
+		final Calendar cal = Calendar.getInstance();
+		entryMap.put("Value", entry.getValue());
+		cal.setTimeInMillis(entry.getCreationTime());
+		entryMap.put("Creation_Time", sdf.format(cal.getTime()));
+		cal.setTimeInMillis(entry.getLastUpdateTime());
+		entryMap.put("Last_Update_Time", sdf.format(cal.getTime()));
+		cal.setTimeInMillis(entry.getLastAccessTime());
+		entryMap.put("Last_Access_Time", sdf.format(cal.getTime()));
+		cal.setTimeInMillis(entry.getExpirationTime());
+		entryMap.put("Expiration_Time", sdf.format(cal.getTime()));
+
+		try {
+			return (objectMapper.writeValueAsString(entryMap));
+		} catch (final JsonProcessingException e) {
+			return ("Exception occurred while fecthing entry" + e);
+		}
+	}
+
+	/**
+	 * Method to get key details.
+	 * @Description This method is used to retrieve object initialized
+	 *              corresponding to data type of key.
+	 * @param type
+	 *            input key type
+	 * @param key
+	 *            input key
+	 * @return Object initialized corresponding to data type of key
+	 * @throws ParseException
+	 *             exception
+	 */
+	public Object getKey(final String type,
+			final String key) throws ParseException {
+		Object outKey = null;
+		switch (type) {
+		case "String":
+			outKey = key;
+			break;
+		case "Integer":
+			outKey = Integer.parseInt(key);
+			break;
+		case "Long":
+			outKey = Long.parseLong(key);
+			break;
+		default:
+		}
+		return outKey;
+	}
 }

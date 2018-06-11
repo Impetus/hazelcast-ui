@@ -1,7 +1,5 @@
 package com.hazelcast.ui.controller.test;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.Map;
 
 import org.junit.AfterClass;
@@ -11,12 +9,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hazelcast.config.Config;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.ui.controller.JmxController;
+
 /**
  * Class to unit test the methods of mxController.
  *
@@ -31,8 +28,8 @@ public class JmxControllerTest {
 	@Autowired
 	private JmxController jmxController;
 
-	private static ObjectMapper objectMapper;
-	
+	//private static ObjectMapper objectMapper;
+
 	/**
 	 * Set up method.
 	 *
@@ -45,29 +42,37 @@ public class JmxControllerTest {
 		final Config cfg = new Config();
 		cfg.getNetworkConfig().setPublicAddress("localhost:5701");
 		cfg.setProperty("hazelcast.jmx", "true");
-		cfg.setProperty("hazelcast.jmxremote.port","1010");
-		cfg.setProperty("hazelcast.jmxremote.authenticate","false");
-		cfg.setProperty("hazelcast.jmxremote.ssl","false");
-		cfg.setProperty("hazelcast.jmxremote.ssl","false");
+		cfg.setProperty("hazelcast.jmxremote.port", "1010");
+		cfg.setProperty("hazelcast.jmxremote.authenticate", "false");
+		cfg.setProperty("hazelcast.jmxremote.ssl", "false");
+		cfg.setProperty("hazelcast.jmxremote.ssl", "false");
 		instance = Hazelcast.newHazelcastInstance(cfg);
 		mapCustomers = instance.getMap("customers");
 		mapCustomers.put("1", "Joe");
 		mapCustomers.put("2", "Ali");
 		mapCustomers.put("3", "Avi");
-		objectMapper = new ObjectMapper();
+		//objectMapper = new ObjectMapper();
 	}
+	/**
+	   * This test case is to test method getMemoryInfo
+	   */
 	@Test
 	public void getMemoryInfo() {
 		jmxController.getMemoryInfo("localhost", "1010");
-		
+
 	}
+	/**
+	   * This test case is to test method getMapMemoryStats
+	   */
 	@Test
 	public void getMapMemoryStats() {
-		jmxController.getMapMemoryStats("localhost", "1010","customers");
-		
+		jmxController.getMapMemoryStats("localhost", "1010", "customers");
+
 	}
-	
-	
+	/**
+	   * This test case is to shutdown hazelcast
+	   * @throws Exception .
+	   */
 	@AfterClass
 	public static void cleanup() throws Exception {
 		Hazelcast.shutdownAll();

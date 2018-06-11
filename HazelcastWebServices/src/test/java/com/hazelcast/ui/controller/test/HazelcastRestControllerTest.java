@@ -78,9 +78,11 @@ public class HazelcastRestControllerTest {
   }
 
   /**
-   * This test case is for method which fetches members information from hazelcast.
+   * This test case is for method which fetches members
+   * information from hazelcast.
+   * @throws JsonProcessingException .
    */
-  @Test
+  @Test()
   public void testGetMembersInfo() throws JsonProcessingException {
     assertEquals("[localhost:5701]",
         hazecastRestController.getClusterInfo().replaceAll("\"",
@@ -97,21 +99,25 @@ public class HazelcastRestControllerTest {
   }
 
   /**
-   * This test case is for method which fetches a given map's size information from hazelcast.
+   * This test case is for method which fetches a given map's
+   * size information from hazelcast.
+   * @throws JsonParseException .
+   * @throws JsonMappingException .
+   * @throws IOException .
    */
   @Test
   public void testGetSize()
       throws JsonParseException, JsonMappingException, IOException {
+	  final int value = 3;
     final Map<String, Integer> readValue = objectMapper.readValue(
         hazecastRestController.getSize("customers"),
         new TypeReference<Map<String, Integer>>() {
         });
-    assertEquals(3, readValue.get("Size").intValue());
+    assertEquals(value, readValue.get("Size").intValue());
   }
 
   /**
    * This test case is for method which fetches value for a given key.
-   * 
    * @throws JsonMappingException json mappin exception
    * @throws JsonParseException json parsing exception
    * @throws IOException IO exception
@@ -124,7 +130,7 @@ public class HazelcastRestControllerTest {
 
     final Map<String, String> readValue = objectMapper.readValue(value1,
         new TypeReference<Map<String, String>>() {
-        }  
+        }
     );
     assertEquals("Joe", readValue.get("Value"));
 
@@ -137,7 +143,10 @@ public class HazelcastRestControllerTest {
 
     assertEquals(expectedKeys, readValue.keySet());
   }
-
+  /**
+   * This method is to shut down hazelcast.
+   * @throws Exception .
+   */
   @AfterClass
   public static void cleanup() throws Exception {
     Hazelcast.shutdownAll();

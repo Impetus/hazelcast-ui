@@ -30,7 +30,7 @@ import com.hazelcast.ui.service.HazelcastRestService;
 @RestController
 public class HazelcastRestController {
 
-	private static final Logger logger =
+	private static final Logger LOGGER =
 			Logger.getLogger(HazelcastRestController.class);
 
 	@Autowired
@@ -44,18 +44,18 @@ public class HazelcastRestController {
 	/**
 	 * welcome method which gets involed whenver base url is looked up.
 	 *
-	 * @return
+	 * @return welcome String
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String welcome() {
-		logger.info("Hazelcast Web UI base method called");
+		LOGGER.info("Hazelcast Web UI base method called");
 		return "Welcome to Hazelcast Web UI";
 	}
 
 	/**
 	 * Returns members in the cluster.
 	 *
-	 * @return
+	 * @return Hazelcast's member info
 	 */
 	@RequestMapping(value = "/clusterinfo", method = RequestMethod.GET)
 	public String getClusterInfo() {
@@ -65,7 +65,7 @@ public class HazelcastRestController {
 	/**
 	 * Returns list of maps present in the cluster.
 	 *
-	 * @return
+	 * @return maps available in Hazelcast cluster
 	 */
 	@RequestMapping(value = "/mapsName", method = RequestMethod.GET)
 	public String getMapsName() {
@@ -77,7 +77,7 @@ public class HazelcastRestController {
 	 *
 	 * @param mapName
 	 *            input map
-	 * @return
+	 * @return the size of a map present in hazelcats cluster
 	 */
 	@RequestMapping(value = "/getSize/{mapName}", method = RequestMethod.GET)
 	public String getSize(@PathVariable("mapName") final String mapName) {
@@ -93,9 +93,10 @@ public class HazelcastRestController {
 	 *            input key
 	 * @param type
 	 *            input type
-	 * @return
+	 * @return the value of a map from hazelcast cluster
 	 */
-	@RequestMapping(value = "/getValue/{mapName}/{key}/{type}", method = RequestMethod.GET)
+	@RequestMapping(value = "/getValue/{mapName}/{key}/{type}",
+			method = RequestMethod.GET)
 	public String getValue(@PathVariable("mapName") final String mapName,
 			@PathVariable("key") final String key,
 			@PathVariable("type") final String type) {
