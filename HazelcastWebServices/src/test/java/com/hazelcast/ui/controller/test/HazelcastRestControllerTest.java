@@ -82,7 +82,7 @@ public class HazelcastRestControllerTest {
    * information from hazelcast.
    * @throws JsonProcessingException .
    */
-  @Test()
+  @Test
   public void testGetMembersInfo() throws JsonProcessingException {
     assertEquals("[localhost:5701]",
         hazecastRestController.getClusterInfo().replaceAll("\"",
