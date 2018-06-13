@@ -13,6 +13,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.hazelcast.config.Config;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.instance.HazelcastInstanceFactory;
 import com.hazelcast.ui.service.JMXService;
 import com.hazelcast.util.CacheInstance;
 
@@ -24,18 +25,23 @@ public class JMXServiceTest {
 	private CacheInstance cacheInstance;
 	private static Map<Integer, String> mapCustomers = null;
 	private HazelcastInstance instance = null;
+	private int HZ_WAIT_TIME = 10000;
 
 	/**
 	 * Method to setup the hazelcats instance
+	 * @throws InterruptedException exception
 	 * @throws java.lang.Exception
 	 *             .
 	 */
 	@Before
-	public void setUp() {
+	public void setUp() throws InterruptedException {
 		final int three = 3;
 		// jMXService=new JMXService();
 		final Config cfg = new Config();
-		instance = Hazelcast.newHazelcastInstance(cfg);
+		instance = HazelcastInstanceFactory.newHazelcastInstance(cfg);
+		while (!instance.getLifecycleService().isRunning()) {
+			Thread.sleep(HZ_WAIT_TIME);
+		}
 		mapCustomers = instance.getMap("customers");
 		mapCustomers.put(1, "Joe");
 		mapCustomers.put(2, "Ali");
@@ -60,6 +66,8 @@ public class JMXServiceTest {
 	 */
 	@After
 	public void cleanup() throws Exception {
-		Hazelcast.shutdownAll();
+		if (instance != null) {
+	  		instance.shutdown();
+	  	}
 	}
 }

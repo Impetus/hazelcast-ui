@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hazelcast.config.Config;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.instance.HazelcastInstanceFactory;
 import com.hazelcast.ui.service.HazelcastRestService;
 import com.hazelcast.util.CacheInstance;
 
@@ -47,6 +48,7 @@ public class HazelCastRestServiceTest {
 	// @Mock
 	// private SimpleDateFormat sdf;
 	private static Map<Integer , String> mapCustomers = null;
+	private int HZ_WAIT_TIME = 10000;
 
 	/**
 	 * Method to setup the hazelcats instance
@@ -57,7 +59,10 @@ public class HazelCastRestServiceTest {
 		final int three = 3;
 		final Config cfg = new Config();
 		cfg.getNetworkConfig().setPublicAddress("localhost:5701");
-		instance = Hazelcast.newHazelcastInstance(cfg);
+		instance = HazelcastInstanceFactory.newHazelcastInstance(cfg);
+		while (!instance.getLifecycleService().isRunning()) {
+			Thread.sleep(HZ_WAIT_TIME);
+		}
 		mapCustomers = instance.getMap("customers");
 		mapCustomers.put(1, "Joe");
 		mapCustomers.put(2, "Ali");
@@ -151,7 +156,9 @@ public class HazelCastRestServiceTest {
 	 */
 	@After
 	public void cleanup() throws Exception {
-		Hazelcast.shutdownAll();
+		if (instance != null) {
+	  		instance.shutdown();
+	  	}
 	}
 
 }

@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -21,8 +22,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hazelcast.config.Config;
-import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.instance.HazelcastInstanceFactory;
 import com.hazelcast.ui.controller.HazelcastRestController;
 
 /**
@@ -33,8 +34,11 @@ import com.hazelcast.ui.controller.HazelcastRestController;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring-servlet.xml")
 public class HazelcastRestControllerTest {
-  private static HazelcastInstance instance = null;
-  private static Map<String, String> mapCustomers = null;
+  private HazelcastInstance instance = null;
+  private Map<String, String> mapCustomers = null;
+  private static final Logger LOGGER =
+			Logger.getLogger(HazelcastRestController.class);
+  private int HZ_WAIT_TIME = 10000;
 
   @Autowired
   private HazelcastRestController hazecastRestController;
@@ -55,13 +59,28 @@ public class HazelcastRestControllerTest {
     System.setProperty("DEPLOY_ENV", "local");
     final Config cfg = new Config();
     cfg.getNetworkConfig().setPublicAddress("localhost:5701");
-    instance = Hazelcast.newHazelcastInstance(cfg);
-    mapCustomers = instance.getMap("customers");
-    mapCustomers.put("1", "Joe");
-    mapCustomers.put("2", "Ali");
-    mapCustomers.put("3", "Avi");
-    objectMapper = new ObjectMapper();
+    final HazelcastRestControllerTest hzTest =
+    		new HazelcastRestControllerTest();
+    hzTest.initialize(cfg);
   }
+
+  /**
+	 * This method checks if HZ instance is up and running before populating map.
+	 * @param cfg config
+	 * @throws InterruptedException exception
+	 */
+  public void initialize(final Config cfg) throws InterruptedException {
+		instance = HazelcastInstanceFactory.newHazelcastInstance(cfg);
+	    while (!instance.getLifecycleService().isRunning()) {
+			Thread.sleep(HZ_WAIT_TIME);
+		}
+
+	    mapCustomers = instance.getMap("customers");
+		mapCustomers.put("1", "Joe");
+		mapCustomers.put("2", "Ali");
+		mapCustomers.put("3", "Avi");
+		objectMapper = new ObjectMapper();
+	}
 
   // @Before
   // public void init() {
@@ -121,17 +140,21 @@ public class HazelcastRestControllerTest {
    * @throws JsonMappingException json mappin exception
    * @throws JsonParseException json parsing exception
    * @throws IOException IO exception
+   * @throws InterruptedException exception
    */
   @Test
   public void testGetValue()
-      throws JsonParseException, JsonMappingException, IOException {
-    final String value1 =
+      throws JsonParseException, JsonMappingException,
+      IOException, InterruptedException {
+
+	  final String value1 =
         hazecastRestController.getValue("customers", "1", "String");
 
     final Map<String, String> readValue = objectMapper.readValue(value1,
         new TypeReference<Map<String, String>>() {
         }
     );
+
     assertEquals("Joe", readValue.get("Value"));
 
     final Set<String> expectedKeys = new HashSet<>();
@@ -149,6 +172,16 @@ public class HazelcastRestControllerTest {
    */
   @AfterClass
   public static void cleanup() throws Exception {
-    Hazelcast.shutdownAll();
+	  final HazelcastRestControllerTest hzTest = new HazelcastRestControllerTest();
+	  hzTest.shutdownCurrentInstance();
   }
+
+  /**
+	* This method shuts down HZ instance spawned by current test case.
+	*/
+  public void shutdownCurrentInstance() {
+	  	if (instance != null) {
+	  		instance.shutdown();
+	  	}
+	}
 }

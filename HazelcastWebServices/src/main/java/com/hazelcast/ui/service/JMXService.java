@@ -81,7 +81,7 @@ public class JMXService {
 			} catch (final IOException ex) {
 				// this means that the underlying connection was not correct, do
 				// a reconnect
-				LOGGER.error("Exception occured. Cause is {} ", ex);
+				LOGGER.error("Exception occured");
 				jmxConnector = connect(host, port);
 				cacheInstance.setConnectionForHost(host, jmxConnector);
 				mBeanServerConnection = jmxConnector.getMBeanServerConnection();
@@ -105,7 +105,7 @@ public class JMXService {
 		} catch (AttributeNotFoundException | InstanceNotFoundException
 				| MalformedObjectNameException | MBeanException
 				| ReflectionException | IOException e) {
-			LOGGER.error("Issue while retriving memory info. Cause is {} ", e);
+			LOGGER.error("Issue while retriving memory info.");
 		}
 		try {
 
@@ -151,8 +151,7 @@ public class JMXService {
 			} catch (final IOException ex) {
 				// this means that the underlying connection was not correct, do
 				// a reconnect
-				LOGGER.error("Issue while retriving memory info. Cause is {} ",
-						ex);
+				LOGGER.error("Issue while retriving memory info.");
 				jmxConnector = connect(host, port);
 				cacheInstance.setConnectionForHost(host, jmxConnector);
 				mBeanServerConnection = jmxConnector.getMBeanServerConnection();
@@ -175,7 +174,7 @@ public class JMXService {
 		} catch (AttributeNotFoundException | InstanceNotFoundException
 				| MalformedObjectNameException | MBeanException
 				| ReflectionException | IOException e) {
-			LOGGER.error("Issue while retriving memory info. Cause is {}", e);
+			LOGGER.error("Issue while retriving memory info.");
 		}
 
 		try {
