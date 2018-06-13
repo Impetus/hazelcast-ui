@@ -11,48 +11,51 @@ import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import com.impetus.hazelcast.example.HazelcastMapLoader;
 
-/**Class to unit test the methods of HazelcastMapLoader.
- * 
+/**
+ * Class to unit test the methods of HazelcastMapLoader.
  * @author sameena.parveen
- *
  */
 public class HazelcastMapLoaderTest {
-  static HazelcastInstance instance = null;
-  
-  /**
-   * Set up method.
-   * @throws java.lang.Exception exception
-   */
-  @Before
-  public void setUp() throws Exception {
-    
-    Config cfg = new Config();
-    instance = Hazelcast.newHazelcastInstance(cfg);
-    HazelcastMapLoader.loadHazelCastMap();
-  }
+	private static HazelcastInstance instance = null;
 
-  /**
-   * test method to verify hazelcast map loading.
-   */
-  @Test
-  public void testLoadHazelCastList() {
-    assertEquals(1000, HazelcastMapLoader.loadHazelCastMap());
-  }
-  
-  /**
-   * Test main method for HazelcastMapLoader instance check.
-   */
-  @Test
-  public void testMain() {
-      String[] args = null;
-      HazelcastMapLoader.main(args);
-  }
-  /**
-   * Clean up method.
-   * @throws Exception exception
-   */
-  @After
-  public void cleanup() throws Exception {
-	  instance.shutdown();
-  }
+	/**
+	 * Set up method.
+	 * @throws java.lang.Exception
+	 *             exception
+	 */
+	@Before
+	public void setUp() throws Exception {
+
+		final Config cfg = new Config();
+		instance = Hazelcast.newHazelcastInstance(cfg);
+		HazelcastMapLoader.loadHazelCastMap();
+	}
+
+	/**
+	 * test method to verify hazelcast map loading.
+	 */
+	@Test
+	public void testLoadHazelCastList() {
+		final int thousand = 1000;
+		assertEquals(thousand, HazelcastMapLoader.loadHazelCastMap());
+	}
+
+	/**
+	 * Test main method for HazelcastMapLoader instance check.
+	 */
+	@Test
+	public void testMain() {
+		final String[] args = null;
+		HazelcastMapLoader.main(args);
+	}
+
+	/**
+	 * Clean up method.
+	 * @throws Exception
+	 *             exception
+	 */
+	@After
+	public void cleanup() throws Exception {
+		instance.shutdown();
+	}
 }

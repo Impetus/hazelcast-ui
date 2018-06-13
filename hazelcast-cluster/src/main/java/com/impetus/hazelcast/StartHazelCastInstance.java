@@ -8,66 +8,72 @@ import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.MemberAttributeEvent;
 import com.hazelcast.core.MembershipEvent;
 import com.hazelcast.core.MembershipListener;
-import com.impetus.hazelcast.LogUtils;
 
 /**
  * Component to start HazelCast server Instance of 3.4.6 version
  * @author sameena.parveen
  */
-public class StartHazelCastInstance {
+public final class StartHazelCastInstance {
 
-  private static final Logger logger = LogUtils
-      .getLogger(StartHazelCastInstance.class);
-  private static boolean isHazelcastStarted = false;
+	private static final Logger LOGGER = LogUtils
+			.getLogger(StartHazelCastInstance.class);
+	private static boolean isHazelcastStarted = false;
 
-  /**
-   * Main method.
-   * @param args input args
-   */
-  public static void main(String[] args) {
-    new StartHazelCastInstance().startHazelCastInstance();
-    if (isHazelcastStarted) {
-      logger.info("Hazelcast instance started successfully");
-    }
-    
-  }
-  
-  /**
-   * Method to start Hazelcast instance and return true if it is started successfully 
-   * else false.
-   */
-  public static boolean startHazelCastInstance() {
+	/**
+	 * Default constructor
+	 */
+	private StartHazelCastInstance() {
+	}
 
-    
-    try {
-      HazelcastInstance instance = Hazelcast.newHazelcastInstance();
-      Cluster cluster = instance.getCluster();
+	/**
+	 * Main method.
+	 * @param args
+	 *            input args
+	 */
+	public static void main(final String[] args) {
+		StartHazelCastInstance.startHazelCastInstance();
+		if (isHazelcastStarted) {
+			LOGGER.info("Hazelcast instance started successfully");
+		}
+	}
 
-      cluster.addMembershipListener(new MembershipListener() {
-        public void memberAdded(MembershipEvent membersipEvent) {
-          logger.info("MemberAdded " + membersipEvent);
-        }
+	/**
+	 * Method to start Hazelcast instance and return true if it is started
+	 * successfully else false.
+	 * @return isHazelcastStarted
+	 */
+	public static boolean startHazelCastInstance() {
 
-        public void memberRemoved(MembershipEvent membersipEvent) {
-          logger.info("MemberRemoved " + membersipEvent);
-        }
+		try {
+			final HazelcastInstance instance = Hazelcast.newHazelcastInstance();
+			final Cluster cluster = instance.getCluster();
 
-        @Override
-        public void memberAttributeChanged(
-            MemberAttributeEvent memberAttributeEvent) {
+			cluster.addMembershipListener(new MembershipListener() {
+				public void memberAdded(final MembershipEvent membersipEvent) {
+					LOGGER.info("MemberAdded " + membersipEvent);
+				}
 
-        }
-      });
-      isHazelcastStarted = true;
+				public void memberRemoved(
+						final MembershipEvent membersipEvent) {
+					LOGGER.info("MemberRemoved " + membersipEvent);
+				}
 
-    } catch (Exception e) {
-      logger.error(
-          "Error encountered while initiating hazelcast instance ", e);
-      isHazelcastStarted = false;
-    }
+				@Override
+				public void memberAttributeChanged(
+						final MemberAttributeEvent memberAttributeEvent) {
 
-    return isHazelcastStarted;
-    
-  }
+				}
+			});
+			isHazelcastStarted = true;
+
+		} catch (final Exception e) {
+			LOGGER.error(
+					"Error encountered while initiating hazelcast instance ",
+					e);
+			isHazelcastStarted = false;
+		}
+
+		return isHazelcastStarted;
+	}
 
 }

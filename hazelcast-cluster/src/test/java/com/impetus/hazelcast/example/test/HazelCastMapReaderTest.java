@@ -14,54 +14,52 @@ import com.impetus.hazelcast.example.HazelcastMapLoader;
 
 /**
  * Class to unit test the methods of HazelCastMapReader.
- * 
  * @author sameena.parveen
- *
  */
 public class HazelCastMapReaderTest {
-  static HazelcastInstance instance = null;
-  static HazelcastMapLoader hazelcastMapLoader;
-  static HazelCastMapReader hazelcastMapReader;
-  
-  /**
-   * Set up method.
-   * @throws java.lang.Exception exception
-   */
-  @Before
-  public void setUp() throws Exception {
-    
-    Config cfg = new Config();
-    instance = Hazelcast.newHazelcastInstance(cfg);
-    HazelcastMapLoader.loadHazelCastMap();
-    hazelcastMapLoader = new HazelcastMapLoader();
-    hazelcastMapReader = new HazelCastMapReader();
-  }
-  
-  /**
-   * Test method to check hazelcast map loading.
-   */
-  @Test
-  public void testLoadHazelCastList() {
-    
-    HazelcastMapLoader.loadHazelCastMap();
-    assertEquals(1000, hazelcastMapReader.readMap().size());
-  }
-  
-  /**
-   * Test main method for HazelCastMapReader instance check.
-   */
-  @Test
-  public void testMain() {
-      String[] args = null;
-      HazelCastMapReader.main(args);
-  }
-  
-  /**
-   * Clean up method.
-   * @throws Exception exception
-   */
-  @After
-  public void cleanup() throws Exception {
-    instance.shutdown();
-  }
+	private static HazelcastInstance instance = null;
+	private static HazelCastMapReader hazelcastMapReader;
+
+	/**
+	 * Set up method.
+	 * @throws java.lang.Exception
+	 *             exception
+	 */
+	@Before
+	public void setUp() throws Exception {
+
+		final Config cfg = new Config();
+		instance = Hazelcast.newHazelcastInstance(cfg);
+		HazelcastMapLoader.loadHazelCastMap();
+		hazelcastMapReader = new HazelCastMapReader();
+	}
+
+	/**
+	 * Test method to check hazelcast map loading.
+	 */
+	@Test
+	public void testLoadHazelCastList() {
+		final int thousand = 1000;
+		HazelcastMapLoader.loadHazelCastMap();
+		assertEquals(thousand, hazelcastMapReader.readMap().size());
+	}
+
+	/**
+	 * Test main method for HazelCastMapReader instance check.
+	 */
+	@Test
+	public void testMain() {
+		final String[] args = null;
+		HazelCastMapReader.main(args);
+	}
+
+	/**
+	 * Clean up method.
+	 * @throws Exception
+	 *             exception
+	 */
+	@After
+	public void cleanup() throws Exception {
+		instance.shutdown();
+	}
 }

@@ -15,48 +15,56 @@ import com.impetus.hazelcast.example.HazelcastMapLoader;
 
 /**
  * Class to unit test the methods of HazelCastListReader.
- * 
  * @author sameena.parveen
- *
  */
 public class HazelCastListReaderTest {
-  static HazelcastInstance instance = null;
-  static HazelCastListLoader hazelcastListLoader;
-  static HazelCastListReader hazelcastListReader;
-  
-  /**
-   * Set up method.
-   * @throws java.lang.Exception exception
-   */
-  @Before
-  public void setUp() throws Exception {
-    
-    Config cfg = new Config();
-    instance = Hazelcast.newHazelcastInstance(cfg);
-    HazelcastMapLoader.loadHazelCastMap();
-    hazelcastListLoader = new HazelCastListLoader();
-    hazelcastListReader = new HazelCastListReader();
-  }
+	private static HazelcastInstance instance = null;
+	private static HazelCastListLoader hazelcastListLoader;
+	private static HazelCastListReader hazelcastListReader;
 
-  @Test
-  public void testLoadHazelCastList() {
-   hazelcastListLoader.loadHazelCastList();
-    assertEquals(1000, hazelcastListReader.readList().size());
-  }
-  /**
-   * Test main method for HazelCastListReader instance check.
-   */
-  @Test
-  public void testMain() {
-      String[] args = null;
-      HazelCastListReader.main(args);
-  }
-  /**
-   * Clean up method.
-   * @throws Exception exception
-   */
-  @After
-  public void cleanup() throws Exception {
-	  instance.shutdown();
-  }
+	/**
+	 * Set up method.
+	 * @throws java.lang.Exception
+	 *             exception
+	 */
+	@Before
+	public void setUp() throws Exception {
+
+		final Config cfg = new Config();
+		instance = Hazelcast.newHazelcastInstance(cfg);
+		HazelcastMapLoader.loadHazelCastMap();
+		hazelcastListLoader = new HazelCastListLoader();
+		hazelcastListReader = new HazelCastListReader();
+	}
+
+	/**
+	 * Method to test loadHazelCastList method.
+	 * @throws java.lang.Exception
+	 *             exception
+	 */
+	@Test
+	public void testLoadHazelCastList() {
+		final int thousand = 1000;
+		hazelcastListLoader.loadHazelCastList();
+		assertEquals(thousand, hazelcastListReader.readList().size());
+	}
+
+	/**
+	 * Test main method for HazelCastListReader instance check.
+	 */
+	@Test
+	public void testMain() {
+		final String[] args = null;
+		HazelCastListReader.main(args);
+	}
+
+	/**
+	 * Clean up method.
+	 * @throws Exception
+	 *             exception
+	 */
+	@After
+	public void cleanup() throws Exception {
+		instance.shutdown();
+	}
 }

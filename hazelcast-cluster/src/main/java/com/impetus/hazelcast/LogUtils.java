@@ -6,20 +6,19 @@ import org.slf4j.LoggerFactory;
 /**
  * Util class for getting the Logger instance.
  */
-public class LogUtils {
+public final class LogUtils {
 
-  /**
-   * Returns the instance of the logger.
-   * 
-   * @param clazz name of class
-   * @return
-   */
-  
-  private LogUtils() {
-    
-  }
-  
-  public static Logger getLogger(Class<?> clazz) {
-    return LoggerFactory.getLogger(clazz);
-  }
+	/**
+	 * Default Constructor of LogUtils
+	 */
+	private LogUtils() {
+	}
+	/**
+	 * Method to return Logger Object
+	 * @return Logger .
+	 * @param clazz .
+	 */
+	public static Logger getLogger(final Class<?> clazz) {
+		return LoggerFactory.getLogger(clazz);
+	}
 }
