@@ -7,6 +7,7 @@ import com.hazelcast.util.CacheInstance;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -40,13 +41,26 @@ public class JMXService {
 
 	@Autowired
 	private CacheInstance cacheInstance;
+	private JMXConnector jmxConnector;
+	private MBeanServerConnection mBeanServerConnection;
+	private CompositeData cd;
+
+	/**
+	 * Constructor
+	 * Moved insantiation of objectMapper from @PostContruct
+	 * annotation to constructor
+	 * as the postConstuct was not getting called when invoking class using Mockito
+	 */
+	public JMXService() {
+		objectMapper = new ObjectMapper();
+	}
+
 
 	/**
 	 * Method initializes ObjectMapper .
 	 */
 	@PostConstruct
 	private void intialize() {
-		objectMapper = new ObjectMapper();
 
 	}
 
@@ -64,11 +78,10 @@ public class JMXService {
 		final int number = 1024;
 		LOGGER.debug("Going to fetch node memory info");
 
-		final Map<String, String> memoryMap = new HashMap<>();
-		MBeanServerConnection mBeanServerConnection = null;
+		final Map<String, String> memoryMap = new LinkedHashMap<String, String>();
 
 		try {
-			JMXConnector jmxConnector =
+			jmxConnector =
 					cacheInstance.getConnectionForHost(host);
 
 			if (jmxConnector == null) {
@@ -77,7 +90,9 @@ public class JMXService {
 			}
 
 			try {
-				mBeanServerConnection = jmxConnector.getMBeanServerConnection();
+				if (mBeanServerConnection == null) {
+					mBeanServerConnection = jmxConnector.getMBeanServerConnection();
+				}
 			} catch (final IOException ex) {
 				// this means that the underlying connection was not correct, do
 				// a reconnect
@@ -87,7 +102,7 @@ public class JMXService {
 				mBeanServerConnection = jmxConnector.getMBeanServerConnection();
 			}
 
-			final CompositeData cd = (CompositeData) mBeanServerConnection
+			cd = (CompositeData) mBeanServerConnection
 					.getAttribute(new ObjectName("java.lang:type=Memory"),
 							"HeapMemoryUsage");
 			memoryMap.put("HOST_NAME", host);
@@ -106,6 +121,7 @@ public class JMXService {
 				| MalformedObjectNameException | MBeanException
 				| ReflectionException | IOException e) {
 			LOGGER.error("Issue while retriving memory info.");
+			return "Exception occurred when retriving memory info";
 		}
 		try {
 
@@ -134,10 +150,10 @@ public class JMXService {
 
 		LOGGER.debug("Going to fetch Map memory info");
 
-		final Map<String, String> mapMemoryMap = new HashMap<>();
+		final Map<String, String> mapMemoryMap = new LinkedHashMap<String, String>();
 
 		try {
-			JMXConnector jmxConnector =
+			jmxConnector =
 					cacheInstance.getConnectionForHost(host);
 
 			if (jmxConnector == null) {
@@ -145,7 +161,6 @@ public class JMXService {
 				cacheInstance.setConnectionForHost(host, jmxConnector);
 			}
 
-			MBeanServerConnection mBeanServerConnection = null;
 			try {
 				mBeanServerConnection = jmxConnector.getMBeanServerConnection();
 			} catch (final IOException ex) {
@@ -234,7 +249,8 @@ public class JMXService {
 	 * @throws MalformedURLException .
 	 */
 	private static JMXConnector connect(final String host,
-			final String port) throws IOException, MalformedURLException {
+			final String port)
+					throws IOException {
 		return JMXConnectorFactory.connect(createConnectionURL(host, port));
 	}
 
