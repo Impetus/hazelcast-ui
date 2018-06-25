@@ -12,7 +12,6 @@ import javax.management.ObjectName;
 import javax.management.ReflectionException;
 import javax.management.openmbean.CompositeData;
 import javax.management.remote.JMXConnector;
-import javax.management.remote.JMXConnectorProvider;
 
 import org.junit.After;
 import org.junit.Before;
@@ -23,14 +22,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hazelcast.config.Config;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.instance.HazelcastInstanceFactory;
 import com.hazelcast.ui.service.JMXService;
 import com.hazelcast.util.CacheInstance;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyString;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -63,11 +61,6 @@ public class JMXServiceTest {
 		while (!instance.getLifecycleService().isRunning()) {
 			Thread.sleep(HZ_WAIT_TIME);
 		}
-		mapCustomers = instance.getMap("customers");
-		mapCustomers.put(1, "Joe");
-		mapCustomers.put(2, "Ali");
-		mapCustomers.put(three, "Avi");
-		// MockitoAnnotations.initMocks(this);
 	}
 
 	/**
@@ -103,22 +96,6 @@ public class JMXServiceTest {
 		assertEquals(memoryMapExpected, memoryMapAsString);
 	}
 
-
-	/**
-	 * Method to test getNodeMemoryInfo for failure
-	 * In this method we are not stubbing JMX call as a result
-	 * method should fail with an exception string being returned
-	 */
-	@Test
-    public void testGetNodeMemoryInfoFailure() {
-
-		final String expectedErrorString =
-				"Exception occurred when retriving memory info";
-		final String actualErrorString = jMXService
-				.getNodeMemoryInfo("localhost", "5701");
-		assertEquals(expectedErrorString, actualErrorString);
-	}
-
 	/**
 	 * Test case for getMapMemoryStats method of JMXService.
 	 * Testing if the entries set in map are same as expected
@@ -146,6 +123,79 @@ public class JMXServiceTest {
 				jMXService.getMapMemoryStats("localhost", "5701", "testMap");
 		assertEquals(expectedMapMemoryStats, actualMapMemoryStats);
 	}
+
+
+	/**
+	 * Method to test getNodeMemoryInfo for failure
+	 * In this method we are not stubbing JMX call as a result
+	 * method should fail with an exception string being returned
+	 */
+	@Test
+    public void testGetNodeMemoryInfoFailure() {
+
+		final String expectedErrorString =
+				"Exception occurred when retriving memory info";
+		final String actualErrorString = jMXService
+				.getNodeMemoryInfo("localhost", "5701");
+		assertEquals(expectedErrorString, actualErrorString);
+	}
+
+	/**
+	 * Method to test getNodeMemoryInfo for failure when fetching MBean connection
+	 * from JMX connector
+	 * In this method we are not stubbing JMX call as a result
+	 * method should fail with an exception string being returned
+	 * @throws IOException IO exception
+	 * @throws ReflectionException Reflection Exception
+	 * @throws MBeanException MBeanException
+	 * @throws MalformedObjectNameException Malformed Object
+	 * @throws InstanceNotFoundException Instance NotFound
+	 * @throws AttributeNotFoundException Attribute NotFound
+	 */
+	@SuppressWarnings("unchecked")
+	@Test
+    public void testGetMapMemoryStatsMBeanFailure()
+    		throws IOException, AttributeNotFoundException,
+    		InstanceNotFoundException, MalformedObjectNameException,
+    		MBeanException, ReflectionException {
+		Mockito.when(cacheInstance.getConnectionForHost(anyString()))
+			.thenReturn(jmxConnector);
+		Mockito.when(jmxConnector
+				.getMBeanServerConnection())
+				.thenThrow(IOException.class);
+		final String expectedErrorString =
+				"Exception occurred when retriving memory info";
+		final String actualErrorString = jMXService
+				.getMapMemoryStats("localhost", "5701", "testMap");
+		assertEquals(expectedErrorString, actualErrorString);
+	}
+
+	/**
+	 * Method to test getNodeMemoryInfo for failure when fetching JMXConnector
+	 * In this method we are not stubbing JMX call as a result
+	 * method should fail with an exception string being returned
+	 * @throws IOException IO exception
+	 * @throws ReflectionException Reflection Exception
+	 * @throws MBeanException MBeanException
+	 * @throws MalformedObjectNameException Malformed Object
+	 * @throws InstanceNotFoundException Instance NotFound
+	 * @throws AttributeNotFoundException Attribute NotFound
+	 */
+	@SuppressWarnings("unchecked")
+	@Test
+    public void testGetMapMemoryStatsCacheInstanceFailure()
+    		throws IOException, AttributeNotFoundException,
+    		InstanceNotFoundException, MalformedObjectNameException,
+    		MBeanException, ReflectionException {
+		Mockito.when(cacheInstance.getConnectionForHost(anyString()))
+			.thenReturn(null);
+		final String expectedErrorString =
+				"Exception occurred when retriving memory info";
+		final String actualErrorString = jMXService
+				.getMapMemoryStats("localhost", "5701", "testMap");
+		assertEquals(expectedErrorString, actualErrorString);
+	}
+
 
 	/**
 	 * Method to shutdown the hazelcats instance

@@ -78,6 +78,8 @@ public class JMXService {
 		final int number = 1024;
 		LOGGER.debug("Going to fetch node memory info");
 
+		// Changed from Hashmap to use LinkedHashMap to maintain order of insertion
+		// This is needed as its checked in Junit
 		final Map<String, String> memoryMap = new LinkedHashMap<String, String>();
 
 		try {
@@ -190,13 +192,14 @@ public class JMXService {
 				| MalformedObjectNameException | MBeanException
 				| ReflectionException | IOException e) {
 			LOGGER.error("Issue while retriving memory info.");
+			return "Exception while retriving memory info";
 		}
 
 		try {
 			LOGGER.debug("Fetched map memory info successfully");
 			return objectMapper.writeValueAsString(mapMemoryMap);
 		} catch (final JsonProcessingException e) {
-			return "Exception while retriving memory info" + e;
+			return "Exception while retriving memory info";
 		}
 
 	}
