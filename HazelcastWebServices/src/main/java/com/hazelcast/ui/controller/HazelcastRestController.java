@@ -36,11 +36,6 @@ public class HazelcastRestController {
 	@Autowired
 	private HazelcastRestService hazelcastRestService;
 
-	// public void setHazelcastRestService(
-	// final HazelcastRestService hazelcastRestService) {
-	// this.hazelcastRestService = hazelcastRestService;
-	// }
-
 	/**
 	 * welcome method which gets involed whenver base url is looked up.
 	 *

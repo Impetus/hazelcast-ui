@@ -17,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -124,31 +125,68 @@ public class HazelCastRestServiceTest {
 		assertEquals("3",
 				hazelcatRestService.getSize("customers"));
 	}
-	/*
-	 * @Test public void testGetValueFromMap() { //Calendar cal =
-	 * Calendar.getInstance(); //SimpleDateFormat sdf = new
-	 * SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-	 * Mockito.when(cacheInstance.getClient()).thenReturn(instance);
-	 * SimpleDateFormat mock = org.mockito.Mockito.mock(SimpleDateFormat.class);
-	 * Calendar cal = org.mockito.Mockito.mock(Calendar.class);
-	 * Mockito.when(cal.getTime()).thenReturn(cal.getTime());
-	 * Mockito.when(mock.format(cal)).thenReturn("2018-05-15 16:22:56.889");
-	 * //when(mock.read("1")).thenReturn(pcUser);
-	 * //Mockito.when(sdf.format(cal.getTime())).
-	 * thenReturn("2018-05-15 16:22:56.889");
-	 * hazelcatRestService.getValueFromMap("customers","1","Integer"); }
-	 */
 
-	/*
-	 * @Test public void testGetValueFromMap() {
-	 * Mockito.when(cacheInstance.getClient()).thenReturn(instance);
-	 * //SimpleDateFormat mock =
-	 * org.mockito.Mockito.mock(SimpleDateFormat.class); Calendar cal =
-	 * org.mockito.Mockito.mock(Calendar.class); //Calendar cal =
-	 * Calendar.getInstance(); //Mockito.when(cal.getTime()).thenReturn();
-	 * Mockito.when(sdf.format(any(cal))).thenReturn("2018-05-15 16:22:56.889");
-	 * hazelcatRestService.getValueFromMap("customers","1","Integer"); }
+	/**
+	 * Method to check for failure of get size method.
+	 * @throws JsonProcessingException
 	 */
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testGetSizeFailureJSONException() throws JsonProcessingException {
+		final int three = 3;
+		final Map<String, Integer> sizeMap = new HashMap<>();
+		sizeMap.put("Size", three);
+		Mockito.when(cacheInstance.getClient()).thenReturn(instance);
+		Mockito.when(objectMapper.writeValueAsString(sizeMap)).
+			thenThrow(JsonProcessingException.class);
+		assertEquals("Exception occurred while "
+				+ "fecthing entrycom.fasterxml.jackson.core.JsonProcessingException: "
+				+ "N/A", hazelcatRestService.getSize("customers"));
+	}
+
+	/**
+	 * Method to check for failure of get size method.
+	 * @throws JsonProcessingException
+	 */
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testGetValueFromMapFailureParseException() {
+		final int three = 3;
+		final Map<String, Integer> sizeMap = new HashMap<>();
+		sizeMap.put("Size", three);
+		final String result = hazelcatRestService.
+				getValueFromMap("testMap", "14", "Double");
+		assertEquals("{\"Value\":\"No Value Found\"}", result);
+
+	}
+
+
+	/**
+	 * Method to test getKey method for String input
+	 */
+	@Test
+	public void testGetKeyString() {
+		final Object result = hazelcatRestService.getKey("String", "testKey");
+		assertEquals("testKey", result);
+	}
+
+	/**
+	 * Method to test getKey method for integer input
+	 */
+	@Test
+	public void testGetKeyInteger() {
+		final Object result = hazelcatRestService.getKey("Integer", "2");
+		assertEquals(2, result);
+	}
+
+	/**
+	 * Method to test getKey method for long input
+	 */
+	@Test
+	public void testGetKeyLong() {
+		final Object result = hazelcatRestService.getKey("Long", "2");
+		assertEquals(2L, result);
+	}
 
 	/**
 	 * Method to test the shutdown hazelcast

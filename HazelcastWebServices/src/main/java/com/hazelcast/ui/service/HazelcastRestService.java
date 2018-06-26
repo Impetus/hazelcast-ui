@@ -178,7 +178,7 @@ public class HazelcastRestService {
 	 *             exception
 	 */
 	public Object getKey(final String type,
-			final String key) throws ParseException {
+			final String key) {
 		Object outKey = null;
 		switch (type) {
 		case "String":

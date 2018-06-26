@@ -6,7 +6,6 @@ import com.hazelcast.util.CacheInstance;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -38,11 +37,14 @@ public class JMXService {
 
 	private static final Logger LOGGER = Logger.getLogger(JMXService.class);
 	private ObjectMapper objectMapper;
+	private String ERROR_MSG = "Exception occurred when retriving memory info";
 
 	@Autowired
 	private CacheInstance cacheInstance;
 	private JMXConnector jmxConnector;
 	private MBeanServerConnection mBeanServerConnection;
+	// Variable declated at class level as it needs to
+	// be set using Mockito in JUNIT
 	private CompositeData cd;
 
 	/**
@@ -61,7 +63,8 @@ public class JMXService {
 	 */
 	@PostConstruct
 	private void intialize() {
-
+		// The initialization of object mapper has been moved to
+		// constructor as per Mocking needs in JUNIT
 	}
 
 	/**
@@ -80,7 +83,7 @@ public class JMXService {
 
 		// Changed from Hashmap to use LinkedHashMap to maintain order of insertion
 		// This is needed as its checked in Junit
-		final Map<String, String> memoryMap = new LinkedHashMap<String, String>();
+		final Map<String, String> memoryMap = new LinkedHashMap<>();
 
 		try {
 			jmxConnector =
@@ -122,7 +125,7 @@ public class JMXService {
 		} catch (AttributeNotFoundException | InstanceNotFoundException
 				| MalformedObjectNameException | MBeanException
 				| ReflectionException | IOException e) {
-			LOGGER.error("Issue while retriving memory info.");
+			LOGGER.error(ERROR_MSG);
 			return "Exception occurred when retriving memory info";
 		}
 		try {
@@ -131,7 +134,7 @@ public class JMXService {
 
 			return objectMapper.writeValueAsString(memoryMap);
 		} catch (final JsonProcessingException e) {
-			return "Exception while retriving memory info" + e;
+			return ERROR_MSG + e;
 		}
 	}
 
