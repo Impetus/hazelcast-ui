@@ -19,7 +19,7 @@ Table of Contents
 
 Prerequisites
 =================
-1. Java 7 or later
+1. Java 7
 2. Apache Tomcat 7.0.40 or later
 3. All Hazelcast instances should be JMX enabled(By default port used for jmx is 1010, it can be changed as per requirement)
 4. grunt-cli 1.2.0 or later
