@@ -90,7 +90,7 @@ Starting Inbuilt Hazelcast cluster
 9. Extract the tar using command `tar -xvzf hazelcast-cluster-startup-1.0.0-pkg.tar.gz` to the wished location.
 10. Once the tar is extracted it will create the dir `hazelcast-cluster-startup-1.0.0`. This dir will have `conf,bin,lib folders and hazelcast-cluster-startup-1.0.0.jar`.
 11. Add the <path to conf>/hazelcast-cluster-startup-1.0.0/conf/* into the CLASSPATH.
-12. Spawn hazelcast instance using command: sudo -bE <path to jar>/hazelcast-cluster-startup-1.0.0/bin/start-cache.sh <Java Xmx> <Java MaxHeapFreeRatio> <Java MinHeapFreeRatio>.
+12. Spawn hazelcast instance using command: sudo -bE <path to jar>/hazelcast-cluster-startup-1.0.0/bin/start-hazelcast.sh <Java Xmx> <Java MaxHeapFreeRatio> <Java MinHeapFreeRatio>.
 
 NOTE:Copy the extracted `hazelcast-cluster-startup-1.0.0` to all the nodes of Hazelcast cluster and execute #11-12 on each node of hazelcast cluster.
 
