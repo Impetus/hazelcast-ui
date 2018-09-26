@@ -1,26 +1,104 @@
 {
-  "name": "angular-animate",
-  "version": "1.5.5",
-  "description": "AngularJS module for animations",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/angular/angular.js.git"
-  },
-  "keywords": [
-    "angular",
-    "framework",
-    "browser",
-    "animation",
-    "client-side"
+  "_args": [
+    [
+      "angular-animate",
+      "/home/impadmin/demo"
+    ]
   ],
-  "author": "Angular Core Team <angular-core+npm@google.com>",
-  "license": "MIT",
+  "_from": "angular-animate@latest",
+  "_id": "angular-animate@1.7.3",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/angular-animate",
+  "_nodeVersion": "8.11.3",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/angular-animate_1.7.3_1533756192220_0.5001717266258381"
+  },
+  "_npmUser": {
+    "email": "pete@bacondarwin.com",
+    "name": "petebd"
+  },
+  "_npmVersion": "5.6.0",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "angular-animate",
+    "raw": "angular-animate",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-animate/-/angular-animate-1.7.3.tgz",
+  "_shasum": "99aa794d3417aa6a794f603c9c27ec0ee4c4b3b4",
+  "_shrinkwrap": null,
+  "_spec": "angular-animate",
+  "_where": "/home/impadmin/demo",
+  "author": {
+    "email": "angular-core+npm@google.com",
+    "name": "Angular Core Team"
+  },
   "bugs": {
     "url": "https://github.com/angular/angular.js/issues"
   },
-  "homepage": "http://angularjs.org"
+  "dependencies": {},
+  "description": "AngularJS module for animations",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "fileCount": 8,
+    "integrity": "sha512-RIYQhql+jUU13jwTrXemSMYTfbGuLBr7jh67R3UbR2yCQ8IOxcXHn2tx+hm8PwXX8agsFAQjWSPP5wam5ecuSg==",
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJba0MgCRA9TVsSAnZWagAAqvgP/ixirdnvpSW5e/Jc0axC\nLcTffO9/pcn+MZwH4CMGEODLelq+MQpVs2ceDoUQ3rk0nZqRAo9hAs1Q0yfz\noVTIzUS8td2mbQPwXhjSRKFmy/mvyHQpw+KiwNa7F3IXTgizBlgXcJQK8Bse\n4lV6gOR/2O+HGUhU7Av1OBN7nwFd35fnfF+1Lp1DxgOO+ZPulnKy1sRd4lON\nJaLMSP4zzdnz3L9KvktqPHerhuxUnlVUEryWX4ipmR9kWnPbCBWfe/gHJJXl\nmLu2F630GXm2cJfRUjukMdOGnoSzoGTPdpdZOvWD9/Slh88VsV4/wv1rmGvd\nI14d/USH0lJF60797gIqTyFhHMHqFSA2hLAqb+6ZK7rM9BxTgV/Lu6NlHgNX\nUGm+WvzKTdrtTQp8FnjihbxuDx73sdnS/RY5aPjov5SPvvZMQ5L0M+hY+oA4\nGqCcCQrH184cBurve6wpPliu6MqgDu7qHttmiQhkMhIEPCrfHeHezkh/uD9D\nKwL7SbDqWDZ995luSDsuM/LuE8RDcsVKV06Cm14GJSXxLodmfOP+2n48UbSI\nt+rmZL+yv4UUePEU/S6N4G+WZbsJwf1BMEq9D3MieR9V/VRR89QV5TMDj12J\nCxtVMa34SNh0I9XF7nrQXWHMvdnyUDfmanbT1CaNH8hxPw0Nj16IZPPMsShI\n3gCW\r\n=7Jr7\r\n-----END PGP SIGNATURE-----\r\n",
+    "shasum": "99aa794d3417aa6a794f603c9c27ec0ee4c4b3b4",
+    "tarball": "https://registry.npmjs.org/angular-animate/-/angular-animate-1.7.3.tgz",
+    "unpackedSize": 260204
+  },
+  "gitHead": "730f99a93d959771d40f4893d5f7279f4c79b7cc",
+  "homepage": "http://angularjs.org",
+  "jspm": {
+    "shim": {
+      "angular-animate": {
+        "deps": [
+          "angular"
+        ]
+      }
+    }
+  },
+  "keywords": [
+    "angular",
+    "animation",
+    "browser",
+    "client-side",
+    "framework"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "akalinovski",
+      "email": "a.kalinovski@gmail.com"
+    },
+    {
+      "name": "angularcore",
+      "email": "angular-core+npm@google.com"
+    },
+    {
+      "name": "petebd",
+      "email": "pete@bacondarwin.com"
+    }
+  ],
+  "name": "angular-animate",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angular/angular.js.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.7.3"
 }

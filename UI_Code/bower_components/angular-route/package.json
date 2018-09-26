@@ -1,26 +1,100 @@
 {
-  "name": "angular-route",
-  "version": "1.5.5",
-  "description": "AngularJS router module",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/angular/angular.js.git"
-  },
-  "keywords": [
-    "angular",
-    "framework",
-    "browser",
-    "router",
-    "client-side"
+  "_args": [
+    [
+      "angular-route",
+      "/home/impadmin/demo"
+    ]
   ],
-  "author": "Angular Core Team <angular-core+npm@google.com>",
-  "license": "MIT",
+  "_from": "angular-route@latest",
+  "_id": "angular-route@1.7.3",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/angular-route",
+  "_nodeVersion": "8.11.3",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/angular-route_1.7.3_1533756447373_0.555007230598741"
+  },
+  "_npmUser": {
+    "email": "pete@bacondarwin.com",
+    "name": "petebd"
+  },
+  "_npmVersion": "5.6.0",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "angular-route",
+    "raw": "angular-route",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-route/-/angular-route-1.7.3.tgz",
+  "_shasum": "245c7ea7d18514c1d08201588092db7df210e7c6",
+  "_shrinkwrap": null,
+  "_spec": "angular-route",
+  "_where": "/home/impadmin/demo",
+  "author": {
+    "email": "angular-core+npm@google.com",
+    "name": "Angular Core Team"
+  },
   "bugs": {
     "url": "https://github.com/angular/angular.js/issues"
   },
-  "homepage": "http://angularjs.org"
+  "dependencies": {},
+  "description": "AngularJS router module",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "fileCount": 8,
+    "integrity": "sha512-/x6kLCeiG9BCi4DZeuuPfK1G05w69uwu7x69hL4eqSq5VOUkmkbFK1oM2pIKPwkATSYT2QKK0rwPydZNBUvCsw==",
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJba0QfCRA9TVsSAnZWagAATYcQAJhzYUdCXEBtN2tIfDHU\nef+zX6UF1Csf3vnpKo8hTarsyTfiE2gco3H5OlJq+rAhQlQIE+aUCpWzOrYF\nG60ok7WgNjAnmHpyv+GrgQP9iuoagfk8k/oUCiGXtYjX31Xlcet5frnMrjnS\nO1HP004VAJn0kHUsV9eaB1/nMf4mLm+SCqNbv12JOSXRO6rs5llbtbVNUzSY\nu1MHgx5p5TT1qi1fkoQ0yvDFpQagnNGLECe+PQ8w0BvL6LTLCmpcq/IFTGhp\nYRnvlYtnb396yHd3XSsbjz9PqVAyWETvJ/k9+Amz9ptKfiPFtqFnQ8yRZkx2\nOPyyJJknwOYCF1tRrg2Y+outVeHVyTLYCHHZ1Q6f3HDzr5MEk+JwOxlor2v8\nijVynjQvwAt0TKm0zoDIQG7jnr7Ca3fGlbTqNYvuozBLj3/NRCgn9Ru1dcQ1\nQURaV1zjuvVYwklXEhqbRIhtOk3hibSC3G9H8q9+jqApM+U25sDkyuXrtAeA\nCf3pkpAUG93dObLyMGWP6YUhhqyL/FAwUYB3samqFMP7n4R3hjcdDrUSEz6O\nUImRzTBgcP9c92VCBUEd0d0PM6W8I0PNjsVD9vjijtp3zaCvEH4NVGx/JDVC\n7C1TgQ1DXaD708GY/I9IU1u41z6eUrMS1LL9dQ0dOjU0+7D3anSpGDiORRHT\ns/GJ\r\n=EekG\r\n-----END PGP SIGNATURE-----\r\n",
+    "shasum": "245c7ea7d18514c1d08201588092db7df210e7c6",
+    "tarball": "https://registry.npmjs.org/angular-route/-/angular-route-1.7.3.tgz",
+    "unpackedSize": 70887
+  },
+  "gitHead": "ebfa686d3572eeede8396b5a36060b6b5ea10c47",
+  "homepage": "http://angularjs.org",
+  "jspm": {
+    "shim": {
+      "angular-route": {
+        "deps": [
+          "angular"
+        ]
+      }
+    }
+  },
+  "keywords": [
+    "angular",
+    "browser",
+    "client-side",
+    "framework",
+    "router"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "angularcore",
+      "email": "angular-core+npm@google.com"
+    },
+    {
+      "name": "petebd",
+      "email": "pete@bacondarwin.com"
+    }
+  ],
+  "name": "angular-route",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angular/angular.js.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.7.3"
 }

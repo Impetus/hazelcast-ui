@@ -1,26 +1,100 @@
 {
-  "name": "angular-cookies",
-  "version": "1.5.5",
-  "description": "AngularJS module for cookies",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/angular/angular.js.git"
-  },
-  "keywords": [
-    "angular",
-    "framework",
-    "browser",
-    "cookies",
-    "client-side"
+  "_args": [
+    [
+      "angular-cookies",
+      "/home/impadmin/demo"
+    ]
   ],
-  "author": "Angular Core Team <angular-core+npm@google.com>",
-  "license": "MIT",
+  "_from": "angular-cookies@latest",
+  "_id": "angular-cookies@1.7.3",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/angular-cookies",
+  "_nodeVersion": "8.11.3",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/angular-cookies_1.7.3_1533756230337_0.8073664160079512"
+  },
+  "_npmUser": {
+    "email": "pete@bacondarwin.com",
+    "name": "petebd"
+  },
+  "_npmVersion": "5.6.0",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "angular-cookies",
+    "raw": "angular-cookies",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-cookies/-/angular-cookies-1.7.3.tgz",
+  "_shasum": "9abf1968e8327a81e16a466184c7dd80f013eaa4",
+  "_shrinkwrap": null,
+  "_spec": "angular-cookies",
+  "_where": "/home/impadmin/demo",
+  "author": {
+    "email": "angular-core+npm@google.com",
+    "name": "Angular Core Team"
+  },
   "bugs": {
     "url": "https://github.com/angular/angular.js/issues"
   },
-  "homepage": "http://angularjs.org"
+  "dependencies": {},
+  "description": "AngularJS module for cookies",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "fileCount": 8,
+    "integrity": "sha512-r44v9cFZv/mkQ1zAu/YJuWB2KJwdEP1XO3WfPzxrgR05y/WacykNdCNouSJ4sW3w8WU4rQtGO5o3/QIepwci6Q==",
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJba0NGCRA9TVsSAnZWagAA4f4P/0pECfK1W8fy7mnyFpcb\nCX8Rc1F7VTncyO9wLQWESmCEI5+OZmQe64XeauaMjk7TxfwuqtYeRpp9lkHh\nrgSoE3JTHBevUTeSjyn04o/UGmpNt8mtOj80w3CN3RtuVkJJHfDCB/WcpHyP\n9hMWaXxc6xtl7u/uf/0FeyB1XBU9Lc4Pf6m3sK8vHyN8Jy6yFYJKQHREHx7d\n7VJxHGQ1Ydpuaukb06F2Zq2for0T4X0PJeeFXLU5p9P9smovNB1gvywAPRst\n/TFcAeneqgieMZ7Fx2AjCKFOafY4BMyKsWX2PRAbYy22lo1zEuJJen+nTFOU\nfWfu4G+WTn1GCyAA0xgq0Eo5OOcx8z5NOTvbFrd6tZ5yvs4ko+xa9iGhOnPb\npR/LvLwdPev0qYzLaGzQRxMHrv2rEy1YwB6OklcAGnW0Zsh9Nkafaq8wzS1n\nhK49CKtJtupDAEmbVl8gyCimK6nhORphtVre+WARc6wMxy1iwrhk8b0K02e8\nrQI/670okULHykuxa3NGZZIpJO/QrAP/ZLYFqjw5QalvvzINKbFPJQKri/Mz\nxxAj01aZktjyH13XGptWm1Iu7m90bNPSMRCtJqY7QzDPjGvTOH61jQCbIbb+\ncKRqK55DFDq2m54DUOGy6KTKaYJyPoBC444f2VrHAzdMX3i+4Yn3j15wjw+2\nROah\r\n=8xCL\r\n-----END PGP SIGNATURE-----\r\n",
+    "shasum": "9abf1968e8327a81e16a466184c7dd80f013eaa4",
+    "tarball": "https://registry.npmjs.org/angular-cookies/-/angular-cookies-1.7.3.tgz",
+    "unpackedSize": 16955
+  },
+  "gitHead": "eebf2a7384c9ed93a2692b9f33089f392e9b26f2",
+  "homepage": "http://angularjs.org",
+  "jspm": {
+    "shim": {
+      "angular-cookies": {
+        "deps": [
+          "angular"
+        ]
+      }
+    }
+  },
+  "keywords": [
+    "angular",
+    "browser",
+    "client-side",
+    "cookies",
+    "framework"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "angularcore",
+      "email": "angular-core+npm@google.com"
+    },
+    {
+      "name": "petebd",
+      "email": "pete@bacondarwin.com"
+    }
+  ],
+  "name": "angular-cookies",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angular/angular.js.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.7.3"
 }

@@ -1,26 +1,100 @@
 {
-  "name": "angular-resource",
-  "version": "1.5.5",
-  "description": "AngularJS module for interacting with RESTful server-side data sources",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/angular/angular.js.git"
-  },
-  "keywords": [
-    "angular",
-    "framework",
-    "browser",
-    "rest",
-    "client-side"
+  "_args": [
+    [
+      "angular-resource",
+      "/home/impadmin/demo"
+    ]
   ],
-  "author": "Angular Core Team <angular-core+npm@google.com>",
-  "license": "MIT",
+  "_from": "angular-resource@latest",
+  "_id": "angular-resource@1.7.3",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/angular-resource",
+  "_nodeVersion": "8.11.3",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/angular-resource_1.7.3_1533756424827_0.954073707026801"
+  },
+  "_npmUser": {
+    "email": "pete@bacondarwin.com",
+    "name": "petebd"
+  },
+  "_npmVersion": "5.6.0",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "angular-resource",
+    "raw": "angular-resource",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-resource/-/angular-resource-1.7.3.tgz",
+  "_shasum": "0b378d203cc15a8f2807ab1b2279a262d6bfff80",
+  "_shrinkwrap": null,
+  "_spec": "angular-resource",
+  "_where": "/home/impadmin/demo",
+  "author": {
+    "email": "angular-core+npm@google.com",
+    "name": "Angular Core Team"
+  },
   "bugs": {
     "url": "https://github.com/angular/angular.js/issues"
   },
-  "homepage": "http://angularjs.org"
+  "dependencies": {},
+  "description": "AngularJS module for interacting with RESTful server-side data sources",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "fileCount": 8,
+    "integrity": "sha512-kfdpoP/aQv3EtRiBrOUBsjvp7zxKEg/FEZZSHaOD56AwRb+FjDhRstgaiB5+6YJLr45WVJU6QyVUriwwpD+0VQ==",
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJba0QICRA9TVsSAnZWagAAar8P/3oYIKTitR9w0d5APK7b\nIO9fYPkQ6wGfBNPAVDWe/qJhUpDtacZLAJtT0uxGmKW860UudHXhLjNDDYVR\nfB4vk1FBej/TtrcxUrHO5FcUmeP2Yz+KyFn3bp3MgRfPUe2Jt+LLLkcymIzW\nS80HRP/oY9SLvAgjg6lH1A77fpA8K4O7M6UvnhL+KzQlAET98oKJzBd6fy1b\nHC+iGtbQuOu1T84LNNMTSmMCVEUQQ9r+CYDNRYdxymeRfW2M08UXVXtVsEPo\nXa0cd+8ex6k/dAD6lW7ptGuFkZpo0CdwsqzCahjUOefOZSTYtyDtCnR5HK9a\nayR6B4BFdXBz0c5y733qnOdIyThCkV0U1R8RSENjr+JWCnyUJT/RbbbqwN+n\nG2rSeZBddNWy1bjSQoX5s95iZ3qxDzQKC5cjhpi/A4xTERNI7Y/6jIwif7ej\nboZFXKOmtsHwkMhCWOmAToKFNHXpP7XwPgTgDkr4qfqKW5pH0AyIfPjoRU5m\nVrYj1B7vOaijeZEmzxM3avEU4t/TwCP2vUW04WcHvcxu1NQil6rssBhJZC/O\nRWxZHZch6GdK/p3zzJG2zwI0UYrfv5d9b1O/CsquhWcs7Kg/ybGdgSgFH6UO\ny54tgmAgGaeIC77eY70jPP/15z9HSze2zS2uyVCb4OCj2i24y/ZlI6qPjtcM\nhRfc\r\n=ADOB\r\n-----END PGP SIGNATURE-----\r\n",
+    "shasum": "0b378d203cc15a8f2807ab1b2279a262d6bfff80",
+    "tarball": "https://registry.npmjs.org/angular-resource/-/angular-resource-1.7.3.tgz",
+    "unpackedSize": 58136
+  },
+  "gitHead": "f2ee668f473a6df29e7214a2fdfe472b12a908f1",
+  "homepage": "http://angularjs.org",
+  "jspm": {
+    "shim": {
+      "angular-resource": {
+        "deps": [
+          "angular"
+        ]
+      }
+    }
+  },
+  "keywords": [
+    "angular",
+    "browser",
+    "client-side",
+    "framework",
+    "rest"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "angularcore",
+      "email": "angular-core+npm@google.com"
+    },
+    {
+      "name": "petebd",
+      "email": "pete@bacondarwin.com"
+    }
+  ],
+  "name": "angular-resource",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angular/angular.js.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.7.3"
 }

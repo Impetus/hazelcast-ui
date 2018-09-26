@@ -57,7 +57,6 @@ hzApp.controller('mapsBrowserCtrl', function ($scope, $routeParams, $http, webSe
 
         }).then(function mySucces(response) {
             $scope.webout = response.data;
-            console.log($scope.webout);
             $scope.getMapOutput = true;
         }, function myError(response) {
             $scope.webout = response.statusText;
