@@ -1,5 +1,8 @@
 package com.hazelcast.ui.service.test;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.anyString;
+
 import java.io.IOException;
 import java.util.Map;
 
@@ -28,9 +31,6 @@ import com.hazelcast.instance.HazelcastInstanceFactory;
 import com.hazelcast.ui.service.JMXService;
 import com.hazelcast.util.CacheInstance;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.anyString;
-
 @RunWith(MockitoJUnitRunner.class)
 public class JMXServiceTest {
 	@InjectMocks
@@ -49,7 +49,9 @@ public class JMXServiceTest {
 
 	/**
 	 * Method to setup the hazelcats instance
-	 * @throws InterruptedException exception
+	 *
+	 * @throws InterruptedException
+	 *             exception
 	 * @throws java.lang.Exception
 	 *             .
 	 */
@@ -64,24 +66,31 @@ public class JMXServiceTest {
 	}
 
 	/**
-	 * Method to test etNodeMemoryInfo.
-	 * Testing if the entries set in map are same as expected
-	 * @throws IOException IO exception
-	 * @throws ReflectionException Reflection Exception
-	 * @throws MBeanException MBeanException
-	 * @throws MalformedObjectNameException Malformed Object
-	 * @throws InstanceNotFoundException Instance NotFound
-	 * @throws AttributeNotFoundException Attribute NotFound
+	 * Method to test etNodeMemoryInfo. Testing if the entries set in map are
+	 * same as expected
+	 *
+	 * @throws IOException
+	 *             IO exception
+	 * @throws ReflectionException
+	 *             Reflection Exception
+	 * @throws MBeanException
+	 *             MBeanException
+	 * @throws MalformedObjectNameException
+	 *             Malformed Object
+	 * @throws InstanceNotFoundException
+	 *             Instance NotFound
+	 * @throws AttributeNotFoundException
+	 *             Attribute NotFound
 	 */
 	@Test
-    public void testGetNodeMemoryInfo() throws
-       IOException, AttributeNotFoundException, InstanceNotFoundException,
-       MalformedObjectNameException, MBeanException, ReflectionException {
+	public void testGetNodeMemoryInfo() throws IOException,
+			AttributeNotFoundException, InstanceNotFoundException,
+			MalformedObjectNameException, MBeanException, ReflectionException {
 
 		Mockito.when(cacheInstance.getConnectionForHost(anyString()))
-			.thenReturn(jmxConnector);
+				.thenReturn(jmxConnector);
 		Mockito.when(jmxConnector.getMBeanServerConnection())
-		    .thenReturn(mBeanServerConnection);
+				.thenReturn(mBeanServerConnection);
 		Mockito.when(mBeanServerConnection.getAttribute(
 				new ObjectName(anyString()), anyString())).thenReturn(cd);
 		Mockito.when(cd.get("used")).thenReturn(2000000L);
@@ -97,25 +106,32 @@ public class JMXServiceTest {
 	}
 
 	/**
-	 * Test case for getMapMemoryStats method of JMXService.
-	 * Testing if the entries set in map are same as expected
-	 * @throws IOException IO exception
-	 * @throws ReflectionException Reflection Exception
-	 * @throws MBeanException MBeanException
-	 * @throws MalformedObjectNameException Malformed Object
-	 * @throws InstanceNotFoundException Instance NotFound
-	 * @throws AttributeNotFoundException Attribute NotFound
+	 * Test case for getMapMemoryStats method of JMXService. Testing if the
+	 * entries set in map are same as expected
+	 *
+	 * @throws IOException
+	 *             IO exception
+	 * @throws ReflectionException
+	 *             Reflection Exception
+	 * @throws MBeanException
+	 *             MBeanException
+	 * @throws MalformedObjectNameException
+	 *             Malformed Object
+	 * @throws InstanceNotFoundException
+	 *             Instance NotFound
+	 * @throws AttributeNotFoundException
+	 *             Attribute NotFound
 	 */
 	@Test
 	public void testGetMapMemoryStats() throws IOException,
-		AttributeNotFoundException, InstanceNotFoundException,
-		MalformedObjectNameException, MBeanException, ReflectionException {
+			AttributeNotFoundException, InstanceNotFoundException,
+			MalformedObjectNameException, MBeanException, ReflectionException {
 		Mockito.when(cacheInstance.getConnectionForHost(anyString()))
-			.thenReturn(jmxConnector);
+				.thenReturn(jmxConnector);
 		Mockito.when(jmxConnector.getMBeanServerConnection())
-	    	.thenReturn(mBeanServerConnection);
+				.thenReturn(mBeanServerConnection);
 		Mockito.when(mBeanServerConnection.getAttribute(
-			new ObjectName(anyString()), anyString())).thenReturn(1L);
+				new ObjectName(anyString()), anyString())).thenReturn(1L);
 		final String expectedMapMemoryStats = "{\"HOST\":\"localhost\","
 				+ "\"ENTRIES\":\"1\",\"BACKUPS\":\"1\","
 				+ "\"ENTRY_MEMORY\":\"1\",\"BACKUP_MEMORY\":\"1\"}";
@@ -124,14 +140,13 @@ public class JMXServiceTest {
 		assertEquals(expectedMapMemoryStats, actualMapMemoryStats);
 	}
 
-
 	/**
-	 * Method to test getNodeMemoryInfo for failure
-	 * In this method we are not stubbing JMX call as a result
-	 * method should fail with an exception string being returned
+	 * Method to test getNodeMemoryInfo for failure In this method we are not
+	 * stubbing JMX call as a result method should fail with an exception string
+	 * being returned
 	 */
 	@Test
-    public void testGetNodeMemoryInfoFailure() {
+	public void testGetNodeMemoryInfoFailure() {
 
 		final String expectedErrorString =
 				"Exception occurred when retriving memory info";
@@ -141,30 +156,36 @@ public class JMXServiceTest {
 	}
 
 	/**
-	 * Method to test getNodeMemoryInfo for failure when fetching MBean connection
-	 * from JMX connector
-	 * In this method we are not stubbing JMX call as a result
-	 * method should fail with an exception string being returned
-	 * @throws IOException IO exception
-	 * @throws ReflectionException Reflection Exception
-	 * @throws MBeanException MBeanException
-	 * @throws MalformedObjectNameException Malformed Object
-	 * @throws InstanceNotFoundException Instance NotFound
-	 * @throws AttributeNotFoundException Attribute NotFound
+	 * Method to test getNodeMemoryInfo for failure when fetching MBean
+	 * connection from JMX connector In this method we are not stubbing JMX call
+	 * as a result method should fail with an exception string being returned
+	 *
+	 * @throws IOException
+	 *             IO exception
+	 * @throws ReflectionException
+	 *             Reflection Exception
+	 * @throws MBeanException
+	 *             MBeanException
+	 * @throws MalformedObjectNameException
+	 *             Malformed Object
+	 * @throws InstanceNotFoundException
+	 *             Instance NotFound
+	 * @throws AttributeNotFoundException
+	 *             Attribute NotFound
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
-    public void testGetMapMemoryStatsMBeanFailure()
-    		throws IOException, AttributeNotFoundException,
-    		InstanceNotFoundException, MalformedObjectNameException,
-    		MBeanException, ReflectionException {
+	public void testGetMapMemoryStatsMBeanFailure()
+			throws IOException, AttributeNotFoundException,
+			InstanceNotFoundException, MalformedObjectNameException,
+			MBeanException, ReflectionException {
 		Mockito.when(cacheInstance.getConnectionForHost(anyString()))
-			.thenReturn(jmxConnector);
+				.thenReturn(jmxConnector);
 		Mockito.when(jmxConnector
 				.getMBeanServerConnection())
 				.thenThrow(IOException.class);
 		final String expectedErrorString =
-				"Exception occurred when retriving memory info";
+				"Exception while retriving memory info";
 		final String actualErrorString = jMXService
 				.getMapMemoryStats("localhost", "5701", "testMap");
 		assertEquals(expectedErrorString, actualErrorString);
@@ -172,39 +193,46 @@ public class JMXServiceTest {
 
 	/**
 	 * Method to test getNodeMemoryInfo for failure when fetching JMXConnector
-	 * In this method we are not stubbing JMX call as a result
-	 * method should fail with an exception string being returned
-	 * @throws IOException IO exception
-	 * @throws ReflectionException Reflection Exception
-	 * @throws MBeanException MBeanException
-	 * @throws MalformedObjectNameException Malformed Object
-	 * @throws InstanceNotFoundException Instance NotFound
-	 * @throws AttributeNotFoundException Attribute NotFound
+	 * In this method we are not stubbing JMX call as a result method should
+	 * fail with an exception string being returned
+	 *
+	 * @throws IOException
+	 *             IO exception
+	 * @throws ReflectionException
+	 *             Reflection Exception
+	 * @throws MBeanException
+	 *             MBeanException
+	 * @throws MalformedObjectNameException
+	 *             Malformed Object
+	 * @throws InstanceNotFoundException
+	 *             Instance NotFound
+	 * @throws AttributeNotFoundException
+	 *             Attribute NotFound
 	 */
-	@SuppressWarnings("unchecked")
 	@Test
-    public void testGetMapMemoryStatsCacheInstanceFailure()
-    		throws IOException, AttributeNotFoundException,
-    		InstanceNotFoundException, MalformedObjectNameException,
-    		MBeanException, ReflectionException {
+	public void testGetMapMemoryStatsCacheInstanceFailure()
+			throws IOException, AttributeNotFoundException,
+			InstanceNotFoundException, MalformedObjectNameException,
+			MBeanException, ReflectionException {
 		Mockito.when(cacheInstance.getConnectionForHost(anyString()))
-			.thenReturn(null);
+				.thenReturn(null);
 		final String expectedErrorString =
-				"Exception occurred when retriving memory info";
+				"Exception while retriving memory info";
 		final String actualErrorString = jMXService
 				.getMapMemoryStats("localhost", "5701", "testMap");
 		assertEquals(expectedErrorString, actualErrorString);
 	}
 
-
 	/**
 	 * Method to shutdown the hazelcats instance
-	 * @throws java.lang.Exception .
+	 *
+	 * @throws java.lang.Exception
+	 *             .
 	 */
 	@After
 	public void cleanup() throws Exception {
 		if (instance != null) {
-	  		instance.shutdown();
-	  	}
+			instance.shutdown();
+		}
 	}
 }
