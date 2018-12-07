@@ -21,10 +21,6 @@ It shows the distribution of map value on nodes in cluster.
 ***
 
 ## Map Browser View
+It shows map values based on key.
 ![mapbrowser](/images/Map_Browser.png)
 ***
-### How to check value in map
-- To see the data in map, Go to "Maps" and then to "testMap".
-- Click on "Browse".
-- Add the key in it and click on "Browse" button. In "testMap" the keys are : Key1,Key2...Key999.
-- To clear the Map record from UI, click on "Clear" tab. It will not remove the data from Hazelcast, but will only clear the screen.
