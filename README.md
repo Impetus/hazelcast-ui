@@ -23,3 +23,10 @@ The app has been tested with Hazelcast 3.4.6 version.
 * ![Building and Deploying](building_deploying.md)
 * ![Example](example.md)
 * ![Troubleshooting](troubleshooting.md)
+
+## Future Enhancements
+
+* Distributed cache implementation for List (https://github.com/Impetus/hazelcast-ui/issues/6).
+* Distributed cache implementation for Set.
+* Distributed cache implementation for Queues.
+* Upgrade Hazelcast to 3.11 (https://github.com/Impetus/hazelcast-ui/issues/5).
