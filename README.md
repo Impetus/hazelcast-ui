@@ -1,4 +1,5 @@
 [![Sputnik](https://sputnik.ci/conf/badge)](https://sputnik.ci/app#/builds/Impetus/hazelcast-ui)
+[![](https://travis-ci.org/impetus/hazelcast-ui.svg?branch=master)](https://travis-ci.org/impetus/hazelcast-ui) 
 
 # Hazelcast-ui
 
