@@ -3,8 +3,6 @@
 
 # Hazelcast-ui
 
-## Introduction
-
 Hazelcast is an in memroy database which has its native user interface with multiple functionalities. This native (development) version of Hazelcast is restricted to two nodes only. Our application provides all basic capabilites of Hazelcast user intarface with no restriction on number of nodes.
 
 The app has been tested with Hazelcast 3.4.6 version.
