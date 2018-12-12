@@ -10,7 +10,7 @@ Hazelcast is an in memroy database which has its native user interface with mult
 The app has been tested with Hazelcast 3.4.6 version.
 
 ## Prerequisites
-- Java 7
+- JDK 7
 - Apache Tomcat 7.0.40 or later
 - All Hazelcast instances should be JMX enabled(By default port used for jmx is 1010, it can be changed as per requirement)
 - grunt-cli 1.2.0 or later
