@@ -1,6 +1,8 @@
 {
   "language": "java",
   "jdk": "oraclejdk8",
+  before_install:
+  - cd java
   "install": "mvn -f ./HazelcastWebServices/pom.xml install -DskipTests=true -Dmaven.javadoc.skip=true",
   "after_success": [
     "python <(curl -s https://raw.githubusercontent.com/TouK/sputnik-ci/master/sputnik-ci.py)"
