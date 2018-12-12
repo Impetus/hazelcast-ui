@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Hazelcast is inmemroy database which is paid and having full fedged UI with multiple functionalities. The development version of Hazelcast is restricted to UI with two nodes only. This application provides basic capabilites of Hazelcast UI with no restriction on number of nodes.
+Hazelcast is an in memroy database which have its native user interface with multiple functionalities. This native (development) version of Hazelcast is restricted to two nodes only. Our application provides all basic capabilites of Hazelcast user intarface with no restriction on number of nodes.
 
 The app has been tested with Hazelcast 3.4.6 version.
 
