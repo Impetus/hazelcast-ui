@@ -1,3 +1,5 @@
+[![Sputnik](https://sputnik.ci/conf/badge)](https://sputnik.ci/app#/builds/Impetus/hazelcast-ui)
+
 # Hazelcast-ui
 
 ## Introduction
